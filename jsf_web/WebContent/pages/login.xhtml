@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <title>Logowanie</title>
+   <h:outputStylesheet library="styles" name="helpers.css"/>
+   <h:outputStylesheet library="styles" name="login-page.css"/>
+</h:head>
+
+<h:body>
+   <div class="login-container login-bg">
+      <div class="ui-g">
+         <div class="ui-xl-5 ui-lg-3 ui-md-3 "></div>
+         <div class="ui-xl-2 ui-lg-6 ui-md-6 ui-sm-12">
+            <div class="login-component">
+               <h:form id="login-form">
+               <p:growl id="growl" showDetail="true" sticky="true" />  
+                  <div class="ui-g ui-fluid">
+                     <img src="/jsf_05_filter/resources/images/logo.png" align="middle" id="logoImg" />
+
+                     <div class="ui-g-12 ui-md-12">
+                        <div class="ui-inputgroup">
+                           <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                           <p:inputText id="login" placeholder="Login" value="#{loginBB.login}"/>
+                        </div>
+                     </div>
+
+                     <div class="ui-g-12 ui-md-12">
+                        <div class="ui-inputgroup">
+                           <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                           <p:password id="pass" placeholder="Hasło" value="#{loginBB.pass}"/>
+                        </div>
+                     </div>
+
+                     <div class="ui-g-12 ui-md-12">
+                        <p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}" update="@form"/>
+                     </div>
+
+                  </div>
+               </h:form>
+            </div>
+         </div>
+         <div class="ui-xl-5 ui-lg-3 ui-md-3"></div>
+      </div>
+   </div>
+</h:body>
+</html>

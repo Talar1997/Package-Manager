@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
+    <ui:define name="title">
+        Kreator nowego użytkownika - Package Manager
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g-12 content">
+            <div class="ui-g-3 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Tworzenie nowego użytkownika
+                    </div>
+                    <div class="module-content">
+                        <h:form>
+                        <p:growl id="userMessage" showDetail="true" sticky="true" />  
+	                        <h:panelGrid columns="2" cellpadding="5" styleClass="userCreateTable">
+	                        	<h:outputText value="Login: " />
+	                        	<p:inputText placeholder="login" value="#{userCreateBB.user.username}" 
+	                        	required="true" requiredMessage="Login jest wymagany!"/>
+	                        	
+	                        	<h:outputText value="Imie:" />
+	                        	<p:inputText placeholder="imie" value="#{userCreateBB.user.name}"
+	                        	/>
+	                        	
+	                        	<h:outputText value="Nazwisko: " />
+	                        	<p:inputText placeholder="nazwisko" value="#{userCreateBB.user.surname}"/>
+	                        	
+	                        	<h:outputText value="Email: " />
+	                        	<p:inputText placeholder="email" value="#{userCreateBB.user.email}"
+	                        	required="true" validatorMessage="Błędny adres email" requiredMessage="Email jest wymagany!">
+	                        		<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
+	                        	</p:inputText>
+	                        	
+						        <h:outputText value="Hasło: " />
+						        <p:password id="inlineFeedback" value="#{userCreateBB.user.password}" 
+						        feedback="true" placeholder="hasło" required="true" requiredMessage="Hasło jest wymagane!"/>
+						        
+						        <h:outputText value="Rola:" />
+						        <p:selectOneMenu value="#{userCreateBB.roleOption}" dynamic="true" filter="true" filterMatchMode="startsWith">
+						            <f:selectItem itemLabel="Wybierz role" itemValue="user" />
+						            <f:selectItems value="#{rolesBB.roleList}" />
+						        </p:selectOneMenu>
+						    </h:panelGrid>
+						    <p:commandButton action="#{userCreateBB.createUser()}" value="Utwórz nowe konto" icon="pi pi-check" update="userMessage lastRegisteredUsers userCounter users"/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="ui-g-6 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Ostatnio dodani użytkownicy
+                    </div>
+                    <div class="module-content">
+                        <p:dataTable id="lastRegisteredUsers" var="user" value="#{usersBB.lastRegisteredUsers}">
+					    <p:column headerText="Id" style="width:50px;">
+					        <h:outputText value="#{user.idUser}" />
+					    </p:column>
+					 
+					    <p:column headerText="Imie">
+					        <h:outputText value="#{user.name}" />
+					    </p:column>
+					 
+					    <p:column headerText="Nazwisko">
+					        <h:outputText value="#{user.surname}" />
+					    </p:column>
+					    
+					    <p:column headerText="Email">
+					        <h:outputText value="#{user.email}" />
+					    </p:column>
+					 
+					    <p:column headerText="Utworzony">
+					        <h:outputText value="#{user.timestampCreated}" />
+					    </p:column>
+					</p:dataTable>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-3 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Ilość użytkowników w systemie
+                    </div>
+                    <div class="module-content">
+                        <div class="amountDiv">
+                        	<h:outputText id="userCounter" value ="#{usersBB.amountOfUsers()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Wszyscy użytkownicy
+                    </div>
+                    <div class="module-content">
+                        <p:dataTable id="users" var="user" value="#{usersBB.allUsers}" paginator="true" rows="10">
+                        <f:facet name="header">
+
+					        <p:commandButton id="toggler" type="button" value="Kolumny" style="float: right;width: 100px !important" icon="pi pi-align-justify" />
+					        <p:columnToggler datasource="users" trigger="toggler" />
+					        <div style="clear: both"></div>
+					    </f:facet>
+					    <p:column headerText="Id" sortBy="#{user.idUser}" style="width:50px;">
+					        <h:outputText value="#{user.idUser}" />
+					    </p:column>
+					    
+					    <p:column headerText="Username" sortBy="#{user.username}" >
+					        <h:outputText value="#{user.username}" />
+					    </p:column>
+					 
+					    <p:column headerText="Imie" sortBy="#{user.name}" >
+					        <h:outputText value="#{user.name}" />
+					    </p:column>
+					 
+					    <p:column headerText="Nazwisko" sortBy="#{user.surname}" >
+					        <h:outputText value="#{user.surname}" />
+					    </p:column>
+					    
+					    <p:column headerText="Email" visible="false" sortBy="#{user.email}" >
+					        <h:outputText value="#{user.email}" />
+					    </p:column>
+					    
+					   	<p:column headerText="Akcje" styleClass="actionSection">
+						   	<h:form styleClass="tableButton">
+							   	<p:splitButton id="basic" value="Szczegóły" action="#{buttonView.save}" >
+						            <p:menuitem value="Edytuj" action="#{UsersBB.update(user)}" icon="pi pi-refresh" />
+						            <p:menuitem value="Usuń" action="#{UserDeleteBB.delete(user)}" icon="pi pi-times" />
+						        </p:splitButton>
+						   	</h:form>
+					   	</p:column>
+					</p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

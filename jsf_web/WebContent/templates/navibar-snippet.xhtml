@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <!-- NAVIGATION BAR SNIPPET -->
+    <div class="ui-g">
+        <div class="ui-g-12 sidebar-padding">
+            <h:form styleClass="formClear">
+                <p:menubar styleClass="navbar sticky">
+                    <f:facet name="options">
+                        <p:inputText style="width: 350px; margin:1px 0px 1px 1px;" placeholder="Wyszukaj"/>
+                        <p:commandButton type="button" icon="pi pi-search" />
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+    </div>
+    <!-- END OF NAVIGATION BAR SNIPPET -->
+</ui:composition>

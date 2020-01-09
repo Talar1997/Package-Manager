@@ -1,0 +1,33 @@
+.content{
+    margin-top: 65px !important;
+    margin-left: 250px !important;
+    margin-bottom: -75px !important;
+    height: 100%;
+    width: 100%;
+    /*background-color: bisque;*/
+}
+
+
+
+.content-item-box{
+
+}
+
+.content-item{
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin: 10px;
+}
+
+.titlebar{
+    background-color: #319795;
+    padding: 5px;
+    color: white;
+    border-bottom: 1px solid rgb(240,240,240);
+}
+
+.module-content{
+    padding: 10px;
+    background-color: rgb(255,255,255);
+}

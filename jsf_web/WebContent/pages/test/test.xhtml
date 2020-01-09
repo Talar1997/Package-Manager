@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+    <ui:define name="title">
+        Kreator nowego użytkownika - Package Manager
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g-12 content">
+            <div class="ui-g-6 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Test
+                    </div>
+                    <div class="module-content">
+                    <h:outputText value = "#{testBB.show()}" />
+                        kurwa!!!
+                        
+                        <h:outputText value ="#{testBB.show2()}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-3 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Ilość użytkowników w systemie
+                    </div>
+                    <div class="module-content">
+                        Liczba wszystkich plików w bazie danych
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-3 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Ostatnio dodani użytkownicy
+                    </div>
+                    <div class="module-content">
+                        1. nickname - data utworzenia - user logo<br />
+                        2. nickname - data utworzenia - user logo<br />
+                        3. nickname - data utworzenia - user logo<br />
+                        4. nickname - data utworzenia - user logo<br />
+                        5. nickname - data utworzenia - user logo<br />
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

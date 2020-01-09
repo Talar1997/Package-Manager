@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">...</ui:insert></title>
+        <h:outputStylesheet name="helpers.css" library="styles" />
+        <h:outputStylesheet name="navbar.css" library="styles" />
+        <h:outputStylesheet name="sidebar.css" library="styles" />
+        <h:outputStylesheet name="content.css" library="styles" />
+        <h:outputStylesheet name="footer.css" library="styles" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <ui:insert name="additionalStyles"></ui:insert>
+    </h:head>
+
+    <h:body>
+        <ui:insert name="navibar">
+            <ui:include src="/templates/navibar-snippet.xhtml" />
+        </ui:insert>
+        <ui:insert name="sidebar">
+            <ui:include src="/templates/sidebar-snippet.xhtml" />
+        </ui:insert>
+        <h:outputScript library="scripts" name="sidebarControl.js"/>
+    </h:body>
+</html>

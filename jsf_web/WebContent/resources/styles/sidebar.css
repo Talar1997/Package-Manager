@@ -1,0 +1,58 @@
+#logoArea{
+    background-color: #319795;
+    height: 65px;
+    width: 100%;
+    padding: 10px;
+}
+
+#logoArea > a > img{
+    height: 45px;
+    width: auto;
+}
+
+
+.sidebar{
+    /*margin-top: 65px !important;*/
+    -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100% !important;
+    background-color: white;
+    width: 250px !important;
+    z-index: 2 !important;
+}
+
+.sidebar-padding{
+    padding: 0px !important;
+    margin: 0px !important;
+    z-index: 1 !important;
+}
+
+.stickySideBar{
+
+    height: 100% !important;
+    position: fixed !important;
+    top: 0 !important;
+}
+
+.menuStyle{
+    border-radius: 0px !important;
+    border: 0px !important;
+
+}
+
+.separator{
+    border-bottom: 1px solid #cbcbcb !important;
+}
+
+.submenu{
+    /*background: red !important;*/
+}
+
+.responsive{
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    z-index: 100;
+}
+

@@ -1,0 +1,17 @@
+.amountDiv{
+	font-size: 10em;
+	height: 220px;
+	text-align: center;
+}
+
+.userCreateTable{
+	width: 100%;
+}
+
+.actionSection{
+	width: 125px;
+}
+
+.tableButton{
+	font-size: 10px;
+}

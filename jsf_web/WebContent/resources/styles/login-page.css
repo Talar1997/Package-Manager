@@ -1,0 +1,49 @@
+.login-bg{
+    /*
+    background-image: url("../images/login-bg.jpg");
+
+    background-color: antiquewhite;
+    background-position: center;
+    background-size: cover;
+    background: rgb(221,172,193);
+    */
+
+    background: #43C6AC;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(45deg, #191654, #43C6AC);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(45deg, #191654, #43C6AC);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.login-container{
+    height: 100%;
+
+}
+
+.login-component{
+    margin-top: 10vh;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid rgb(220,220,220);
+    border-radius: 5px;
+}
+
+img#logoImg{
+    margin: 0 auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#login-form > div > div{
+    padding-bottom: 15px;
+}
+
+input{
+    padding: 10px !important;
+}
+
+button{
+    padding: 6px !important;
+}

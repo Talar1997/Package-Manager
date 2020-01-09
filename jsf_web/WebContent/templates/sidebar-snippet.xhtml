@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <!-- SIDE BAR SNIPPET -->
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-2 sidebar-padding">
+            <div class="sidebar stickySideBar">
+                <div id="logoArea">
+                    <a href="/jsf_05_filter/"><img src="../../resources/images/logo_transparent.png"/></a>
+                </div>
+                <h:form styleClass="menuForm">
+                    <p:menu toggleable="false" styleClass="menuStyle">
+                        <p:submenu label="Cześć, [Nazwa użytkownika]!" styleClass="submenu">
+                            <p:menuitem value="Dashboard" icon="pi pi-home" url="/jsf_05_filter/"/>
+                            <p:menuitem value="Zmień język" icon="pi pi-globe"/>
+                            <p:menuitem value="Wyloguj" icon="pi pi-power-off" action="#{loginBB.doLogout()}"/>
+                        </p:submenu>
+                        <p:submenu label="Pliki">
+                            <p:menuitem value="Pliki" icon="pi pi-search" url="/jsf_05_filter/pages/files/list.xhtml"/>
+                            <p:menuitem value="Prześlij pliki" icon="pi pi-cloud-download" url="/jsf_05_filter/pages/files/upload.xhtml"/>
+                            <p:menuitem value="Twoje pliki" icon="pi pi-file" url="/jsf_05_filter/pages/files/user_list.xhtml"/>
+                            <p:menuitem value="Licencje" icon="pi pi-money-bill" url="/jsf_05_filter/pages/files/licences.xhtml"/>
+                        </p:submenu>
+                        <p:submenu label="Paczki">
+                            <p:menuitem value="Paczki" icon="pi pi-search" url="/jsf_05_filter/pages/packages/list.xhtml"/>
+                            <p:menuitem value="Utwórz paczke" icon="pi pi-folder" url="/jsf_05_filter/pages/packages/list.xhtml"/>
+                            <p:menuitem value="Twoje paczki" icon="pi pi-folder-open" url="/jsf_05_filter/pages/packages/user_list.xhtml"/>
+                        </p:submenu>
+                        <p:submenu label="Panel administracyjny">
+                            <p:menuitem value="Użytkownicy" icon="pi pi-user-plus" url="/jsf_05_filter/pages/admin/users.xhtml"/>
+                            <p:menuitem value="Uprawnienia" icon="pi pi-sitemap" url="/jsf_05_filter/pages/admin/permissions.xhtml"/>
+                            <p:menuitem value="Logi systemowe" icon="pi pi-tag" url="/jsf_05_filter/pages/admin/logs.xhtml"/>
+                        </p:submenu>
+                        <p:submenu label="Test systemu">
+                            <p:menuitem value="Testowa podstrona" icon="pi pi-cog" url="/jsf_05_filter/pages/test/test.xhtml"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </div>
+
+        </div>
+        <!-- END OF SIDE BAR SNIPPET -->
+
+        <!-- CONTENT -->
+        <ui:insert name="content"/>
+        <!-- END OF CONTENT -->
+        <!-- FOOTER -->
+        <ui:insert name="footer">
+            <ui:include src="/templates/footer-snippet.xhtml" />
+        </ui:insert>
+        <!-- END OF FOOTER -->
+    </div>
+
+</ui:composition>
