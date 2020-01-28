@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
+    <ui:define name="title">
+        Przegląd logów administracyjnych - Package Manager
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g-12 content">
+            <div class="ui-g-8 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Wszystkie logi
+                    </div>
+                    <div class="module-content">
+                        <h:form id="form">
+						    <p:dataTable var="log" value="#{logsBB.model}" paginator="true" rows="10"
+						                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+						                 rowsPerPageTemplate="10,25,50,100" lazy="true">
+						                 
+						        <p:column headerText="Id">
+						            <h:outputText value="#{log.idLog}" />
+						        </p:column>
+						        <p:column headerText="Timestamp" >
+						            <h:outputText value="#{log.timestamp}" />
+						        </p:column>
+						        <p:column headerText="Typ" >
+						            <h:outputText value="#{log.type}" />
+						        </p:column>
+						        <p:column headerText="Treść" >
+						            <h:outputText value="#{log.value}" />
+						        </p:column>
+						    </p:dataTable>
+						</h:form>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="ui-g-4 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Zagrozenia bezpieczeństwa
+                    </div>
+                    <div class="module-content">
+						<h:form id="form-2">
+						    <p:dataTable var="log" value="#{logsBB.securityBreachLogs}" rows="10">
+						        <p:column headerText="Id" sortBy="#{log.idLog}">
+						            <h:outputText value="#{log.idLog}" />
+						        </p:column>
+						        <p:column headerText="Timestamp" sortBy="#{log.timestamp}">
+						            <h:outputText value="#{log.timestamp}" />
+						        </p:column>
+						        <p:column headerText="Typ" sortBy="#{log.type}" >
+						            <h:outputText value="#{log.type}" />
+						        </p:column>
+						        <p:column headerText="Treść" sortBy="#{log.value}">
+						            <h:outputText value="#{log.value}" />
+						        </p:column>
+						    </p:dataTable>
+						</h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

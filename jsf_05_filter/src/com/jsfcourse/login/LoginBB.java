@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.faces.simplesecurity.PasswordHash;
+
 
 import dao.UserDAO;
 import entities.User;
@@ -50,6 +52,9 @@ public class LoginBB {
 
 	public String doLogin() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
+		
+		//0. hash prompted password
+		pass = new PasswordHash().hashPassword(pass);
 
 		// 1. verify login and password - get User from "database"
 		User user = userDAO.getUserFromDB(login, pass);
@@ -58,14 +63,14 @@ public class LoginBB {
 		if (user == null) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Niepoprawny login lub hasło", null));
-			Log log = new Log("Login error", "Nieudana próba logowania do systemu");
+			Log log = new Log("Login error", "Nieudana próba logowania do systemu: " + this.getLogin());
 			logDAO.create(log);
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
 
 		// 3. if logged in: get User roles, save in RemoteClient and store it in session
-		Log log = new Log("Login successfull", "Logowanie do systemu: " + user.getUsername() + " id: " + user.getIdUser());
+		Log log = new Log("Login successfull", "Logowanie do systemu: " + user.getUsername() + " (id: " + user.getIdUser() + ")");
 		logDAO.create(log);
 		
 		RemoteClient<User> client = new RemoteClient<User>(); //create new RemoteClient

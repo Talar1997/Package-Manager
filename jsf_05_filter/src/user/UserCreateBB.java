@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.faces.simplesecurity.PasswordHash;
 
 import dao.UserDAO;
 import dao.RoleDAO;
@@ -53,18 +54,33 @@ public class UserCreateBB {
 		else return false;
 	}
 	
+	public void setUserRole() {
+		//Set Role ID
+		int roleId = roleDAO.getRoleByName(this.roleOption).getIdPermission();
+		this.user.setIdPermission(roleId);
+	}
+	
+	public void setHashedPassword() {
+		//Hash Password
+		String hashPassword = null;
+		PasswordHash hash = new PasswordHash();
+		hashPassword = hash.hashPassword(this.user.getPassword());
+		this.user.setPassword(hashPassword);
+	}
+	
 	public void createUser() throws IOException {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		
-		int roleId = roleDAO.getRoleByName(this.roleOption).getIdPermission();
-		this.user.setIdPermission(roleId);
-		
 		if(validateUser(user)) {
+			setUserRole();
+			setHashedPassword();
 			userDAO.create(user);
+			
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Pomyślnie utworzono konto nowego uzytkownika", null));
 			Log log = new Log("User created", "Utworzono nowego uzytkownika: " + user.getUsername());
 			logDAO.create(log);
+			
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		    ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 		}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
+    <ui:define name="title">
+        Przegląd logów administracyjnych - Package Manager
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g-12 content">
+            <div class="ui-g-4 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Role
+                    </div>
+                    <div class="module-content">
+                        Treść
+                    </div>
+                </div>
+            </div>
+           
+            <div class="ui-g-4 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        Dodaj nową rolę
+                    </div>
+                    <div class="module-content">
+						Treść
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ui-g-4 ui-sm-12 content-item-box">
+                <div class="content-item">
+                    <div class="titlebar">
+                        ???
+                    </div>
+                    <div class="module-content">
+						Treść
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

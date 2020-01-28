@@ -13,5 +13,17 @@
 }
 
 .tableButton{
+	width: 125px !important;
 	font-size: 10px;
+	float: left;
+}
+
+.dangerButton{
+	background-color: #dc3545 !important;
+	border: 1px solid #dc3545 !important;
+}
+
+.dangerButton:hover{
+	background-color: #a32430 !important;
+	border: 1px solid #a32430 !important;
 }
