@@ -1,7 +1,7 @@
 # Package Manager
 App developed to support companies in order to managing applications and licencies.
 
-## Technology
+## Technologies
 * JavaEE + JSF and EJB as backend technologies
 * Wildfly 18.0.1 on Mojarra as server
 * PrimeFaces to generate view
