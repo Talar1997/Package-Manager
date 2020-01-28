@@ -15,8 +15,12 @@ Users cannot create accounts by themeselves. Only person with priviliges can cre
 ### Roles and permissions
 System admin can manage roles and permissions. Each role have name and description, also have own permission set. Permission set is list of permissions: `upload_file` `download_file` `delete_file` `create_package` `delete_package` `set_permission` `create_user` `view_logs` `get_licence` `add_licence` where permission value is defined by true or false. The default role on system first run is sysadmin who have all priviliges. System allows to create roles with different permissions.
 
+### User management
+
+### Logs
+
 ### Internationalization
  
-### License managment
+### License management
 
-### Apps and packages managment
+### Apps and packages management
