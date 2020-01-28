@@ -109,6 +109,7 @@
                     </div>
                     <div class="module-content">
                     <h:form id="users">
+                    	<p:growl id="userList" showDetail="true" sticky="false" skipDetailIfEqualsSummary="true"/>
                         <p:dataTable id="users" var="user" value="#{usersBB.allUsers}" paginator="true" rows="10"
                         selectionMode="single" selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">
 	                        <f:facet name="header">
@@ -135,27 +136,14 @@
 						    <p:column headerText="Email" visible="false" sortBy="#{user.email}" >
 						        <h:outputText value="#{user.email}" />
 						    </p:column>
-						    
-						   	<!-- <p:column headerText="Akcje" styleClass="actionSection" sortBy="#{user.idUser}">
-						   		<h:outputText value="#{user.idUser}" />
-							   	<p:commandButton update="users:userDetail users:userDetailEdit" oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
-									<f:setPropertyActionListener value="#{user}" target="#{usersBB.selectedUser}" />
-								</p:commandButton>
-								<p:commandButton update="users:userDetailEdit" oncomplete="PF('userDetailEditDialog').show()" icon="pi pi-pencil" >
-									<f:setPropertyActionListener value="#{user}" target="#{usersBB.selectedUser}" />
-								</p:commandButton>
-								<p:commandButton  icon="pi pi-trash" styleClass="dangerButton" action="userDeleteBB.delete(user))">
-									<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych uzytkownika #{user.username} (id: #{user.idUser})? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
-									<f:setPropertyActionListener value="#{user}" target="#{usersBB.selectedUser}" />
-								</p:commandButton>
-						   	</p:column> -->
 						   	<f:facet name="footer">
 					        	<p:commandButton process="users" update="users:userDetail users:userDetailEdit" oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
 								</p:commandButton>
-								<p:commandButton update="users:userDetailEdit" oncomplete="PF('userDetailEditDialog').show()" icon="pi pi-pencil" >
+								<p:commandButton process="users" update="users:userDetailEdit" oncomplete="PF('userDetailEditDialog').show()" icon="pi pi-pencil" >
 								</p:commandButton>
-								<p:commandButton  icon="pi pi-trash" styleClass="dangerButton" action="userDeleteBB.delete(user))">
-									<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych uzytkownika #{user.username} (id: #{user.idUser})? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
+								<p:commandButton process="users" icon="pi pi-trash" styleClass="dangerButton" action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+									update="users:userList lastRegisteredUsers userCounter users">
+									<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
 								</p:commandButton>
 					        </f:facet>
 						</p:dataTable>
@@ -163,7 +151,7 @@
 							<p:outputPanel id="userDetail" style="text-align:center;">
 								<p:panelGrid  columns="2" rendered="#{not empty usersBB.selectedUser}" columnClasses="label,value">
 							    	<f:facet name="header">
-								        <p:graphicImage name="demo/images/misc/kobe.png" />
+								        <h:graphicImage library="images" name="user-av.png" styleClass="avatarImg"/>
 								    </f:facet>
 								    <h:outputText value="ID" />
 								    <h:outputText value="#{usersBB.selectedUser.idUser}" />
@@ -191,9 +179,9 @@
 											<p:commandButton value="Edytuj" update="users:userDetailEdit" oncomplete=" PF('userDetailEditDialog').show()" icon="pi pi-pencil" styleClass="tableButton">
 												<f:setPropertyActionListener value="#{usersBB.selectedUser}" target="#{usersBB.selectedUser}" />
 											</p:commandButton>
-											<p:commandButton value="Usuń" update="users:userDetail" oncomplete="PF('userDetailDialog').show()" icon="pi pi-trash" styleClass="dangerButton tableButton">
-												<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych uzytkownika? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
-												<f:setPropertyActionListener value="#{user}" target="#{usersBB.selectedUser}" />
+											<p:commandButton value="Usuń" process="users" icon="pi pi-trash" styleClass="tableButton dangerButton" action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+												update="users:userList lastRegisteredUsers userCounter users">
+												<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
 											</p:commandButton>
 									   	</p:column>
 								    </f:facet>
@@ -205,7 +193,7 @@
 							<p:outputPanel id="userDetailEdit" style="text-align:center;">
 								<p:panelGrid  columns="2" rendered="#{not empty usersBB.selectedUser}" columnClasses="label,value">
 							    	<f:facet name="header">
-								        <p:graphicImage name="demo/images/misc/kobe.png" />
+								        <h:graphicImage library="images" name="user-av.png" styleClass="avatarImg"/>
 								    </f:facet>
 								    
 								    <h:outputText value="ID" />
@@ -239,7 +227,8 @@
 							        </p:selectOneMenu>
 								    <f:facet name="footer">
 								        <p:column headerText="Zapisz" styleClass="actionSection">
-											<p:commandButton value="Zapisz zmiany" icon="pi pi-pencil" styleClass="tableButton" >
+											<p:commandButton value="Edytuj" icon="pi pi-pencil" styleClass="tableButton" action="#{userEditBB.editUser()}">
+												<f:setPropertyActionListener target="#{userEditBB.selectedUser}" value="#{usersBB.selectedUser}"  />
 												<p:confirm header="Potwierdzenie" message="Na pewno chcesz edytować tego uzytkownika?" icon="pi pi-exclamation-triangle" />
 											</p:commandButton>
 									   	</p:column>
