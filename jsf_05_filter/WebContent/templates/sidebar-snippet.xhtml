@@ -12,7 +12,7 @@
                 </div>
                 <h:form styleClass="menuForm">
                     <p:menu toggleable="false" styleClass="menuStyle">
-                        <p:submenu label="Cześć, [Nazwa użytkownika]!" styleClass="submenu">
+                        <p:submenu label="Cześć, #{clientData.client.name}!" styleClass="submenu">
                             <p:menuitem value="Dashboard" icon="pi pi-home" url="/jsf_05_filter/"/>
                             <p:menuitem value="Zmień język" icon="pi pi-globe"/>
                             <p:menuitem value="Wyloguj" icon="pi pi-power-off" action="#{loginBB.doLogout()}"/>

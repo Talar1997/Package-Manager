@@ -1,55 +1,137 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="additionalStyles">
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
-    <ui:define name="title">
+	<ui:define name="title">
         Przegląd logów administracyjnych - Package Manager
     </ui:define>
 
-    <ui:define name="content">
-        <div class="ui-g-12 content">
-            <div class="ui-g-4 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Role
-                    </div>
-                    <div class="module-content">
-                        Treść
-                    </div>
-                </div>
-            </div>
-           
-            <div class="ui-g-4 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Dodaj nową rolę
-                    </div>
-                    <div class="module-content">
-						Treść
-                    </div>
-                </div>
-            </div>
-            
-            <div class="ui-g-4 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        ???
-                    </div>
-                    <div class="module-content">
-						Treść
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </ui:define>
+	<ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Role</div>
+					<div class="module-content">
+						<h:form id="allRoles">
+						<p:growl id="roleListMsg" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
+								paginator="true" rows="10" selectionMode="single"
+								selection="#{rolesBB.selectedRole}" rowKey="#{role.idRole}">
+								<p:column headerText="ID">
+									<h:outputText value="#{role.idRole}" />
+								</p:column>
+								<p:column headerText="Nazwa">
+									<h:outputText value="#{role.name}" />
+								</p:column>
+								<p:column headerText="Opis">
+									<h:outputText value="#{role.description}" />
+								</p:column>
+								<f:facet name="footer">
+									<p:commandButton process="allRoles" update="roleDetails"
+										oncomplete="PF('roleDetailsDialog').show()" icon="pi pi-search">
+									</p:commandButton>
+									<p:commandButton process="allRoles" icon="pi pi-trash"
+										styleClass="dangerButton"
+										action="#{roleDeleteBB.delete(rolesBB.selectedRole)}"
+										update="allRoles:roles allRoles:roleListMsg">
+										<p:confirm header="Potwierdzenie"
+											message="Na pewno chcesz usunąć z bazy danych zaznaczoną rolę? Ten proces jest nieodwracalny!"
+											icon="pi pi-exclamation-triangle" />
+									</p:commandButton>
+								</f:facet>
+							</p:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Dodaj nową rolę</div>
+					<div class="module-content">Treść</div>
+				</div>
+			</div>
+
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">???</div>
+					<div class="module-content">Treść</div>
+				</div>
+			</div>
+
+		</div>
+
+		<h:form id="roleDetails">
+			<p:dialog header="Szczegóły roli" minimizable="true"
+				maximizable="true" widgetVar="roleDetailsDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false"
+				appendToBody="true">
+
+				<p:panelGrid id="roleDetails" columns="2"
+					rendered="#{not empty rolesBB.selectedRole}"
+					columnClasses="label,value">
+					<f:facet name="header">
+						<h:graphicImage library="images" name="role-av.png"
+							styleClass="avatarImg" />
+					</f:facet>
+
+					<h:outputText value="ID" />
+					<h:outputText value="#{rolesBB.selectedRole.idRole}" />
+					<h:outputText value="Nazwa" />
+					<h:outputText value="#{rolesBB.selectedRole.name}" />
+					
+					<h:outputText value="Upload plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('upload_file')}" />
+					
+					<h:outputText value="Pobieranie plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('download_file')}" />
+					
+					<h:outputText value="Usuwanie plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('delete_file')}" />
+					
+					<h:outputText value="Tworzenie paczek" />
+					<h:outputText value="#{rolesBB.permissionSet.get('create_package')}" />
+					
+					<h:outputText value="Usuwanie paczek" />
+					<h:outputText value="#{rolesBB.permissionSet.get('delete_package')}" />
+					
+					<h:outputText value="Zmiana uprawnień" />
+					<h:outputText value="#{rolesBB.permissionSet.get('set_permission')}" />
+					
+					<h:outputText value="Zarządzanie uzytkownikami" />
+					<h:outputText value="#{rolesBB.permissionSet.get('create_user')}" />
+					
+					<h:outputText value="Podgląd logów" />
+					<h:outputText value="#{rolesBB.permissionSet.get('view_logs')}" />
+					
+					<h:outputText value="Pobieranie licencji" />
+					<h:outputText value="#{rolesBB.permissionSet.get('get_licence')}" />
+					
+					<h:outputText value="Dodawanie nowych licencji" />
+					<h:outputText value="#{rolesBB.permissionSet.get('add_licence')}" />
+					
+
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+		
+		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Tak" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Nie" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
 </ui:composition>
 </html>

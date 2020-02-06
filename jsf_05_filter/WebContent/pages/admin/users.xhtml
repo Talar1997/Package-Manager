@@ -1,253 +1,313 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="additionalStyles">
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
-    <ui:define name="title">
+	<ui:define name="title">
         Kreator nowego użytkownika - Package Manager
     </ui:define>
 
-    <ui:define name="content">
-        <div class="ui-g-12 content">
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Tworzenie nowego użytkownika
-                    </div>
-                    <div class="module-content">
-                        <h:form>
-                        <p:growl id="userMessage" showDetail="true" sticky="false" skipDetailIfEqualsSummary="true"/>  
-	                        <h:panelGrid columns="2" cellpadding="5" styleClass="userCreateTable">
-	                        	<h:outputText value="Login: " />
-	                        	<p:inputText placeholder="Login" value="#{userCreateBB.user.username}" 
-	                        	required="true" requiredMessage="Login jest wymagany!"/>
-	                        	
-	                        	<h:outputText value="Imie:" />
-	                        	<p:inputText placeholder="Imie" value="#{userCreateBB.user.name}"
-	                        	/>
-	                        	
-	                        	<h:outputText value="Nazwisko: " />
-	                        	<p:inputText placeholder="Nazwisko" value="#{userCreateBB.user.surname}"/>
-	                        	
-	                        	<h:outputText value="Email: " />
-	                        	<p:inputText placeholder="Email" value="#{userCreateBB.user.email}"
-	                        	required="true" validatorMessage="Błędny adres email" requiredMessage="Email jest wymagany!">
-	                        		<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
-	                        	</p:inputText>
-	                        	
-						        <h:outputText value="Hasło: " />
-						        <p:password id="inlineFeedback" value="#{userCreateBB.user.password}" 
-						        feedback="true" placeholder="Hasło" required="true" requiredMessage="Hasło jest wymagane!"/>
-						        
-						        <h:outputText value="Rola:" />
-						        <p:selectOneMenu value="#{userCreateBB.roleOption}" dynamic="true" filter="true" filterMatchMode="startsWith">
-						            <f:selectItem itemLabel="Wybierz role" itemValue="user" />
-						            <f:selectItems value="#{rolesBB.roleList}" />
-						        </p:selectOneMenu>
-						    </h:panelGrid>
-						    <p:commandButton action="#{userCreateBB.createUser()}" value="Utwórz nowe konto" icon="pi pi-check" update="userMessage lastRegisteredUsers userCounter users">
-						    	 <p:confirm header="Potwierdzenie" message="Na pewno chcesz utworzyć nowego uzytkownika?" icon="pi pi-exclamation-triangle" />
-						    </p:commandButton>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-           
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodani użytkownicy
-                    </div>
-                    <div class="module-content">
-                        <p:dataTable id="lastRegisteredUsers" var="user" value="#{usersBB.lastRegisteredUsers}">
-					    <p:column headerText="Id" style="width:50px;">
-					        <h:outputText value="#{user.idUser}" />
-					    </p:column>
-					 
-					    <p:column headerText="Imie">
-					        <h:outputText value="#{user.name}" />
-					    </p:column>
-					 
-					    <p:column headerText="Nazwisko">
-					        <h:outputText value="#{user.surname}" />
-					    </p:column>
-					    
-					    <p:column headerText="Email">
-					        <h:outputText value="#{user.email}" />
-					    </p:column>
-					 
-					    <p:column headerText="Utworzony">
-					        <h:outputText value="#{user.timestampCreated}" />
-					    </p:column>
-					</p:dataTable>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ilość użytkowników w systemie
-                    </div>
-                    <div class="module-content">
-                        <div class="amountDiv">
-                        	<h:outputText id="userCounter" value ="#{usersBB.amountOfUsers()}"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Wszyscy użytkownicy
-                    </div>
-                    <div class="module-content">
-                    <h:form id="users">
-                    	<p:growl id="userList" showDetail="true" sticky="false" skipDetailIfEqualsSummary="true"/>
-                        <p:dataTable id="users" var="user" value="#{usersBB.allUsers}" paginator="true" rows="10"
-                        selectionMode="single" selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">
-	                        <f:facet name="header">
-						        <p:commandButton id="toggler" type="button" value="Kolumny" style="float: right;width: 100px !important" icon="pi pi-align-justify" />
-						        <p:columnToggler datasource="users" trigger="toggler" />
-						        <div style="clear: both"></div>
-						    </f:facet>
-						    <p:column headerText="Id" sortBy="#{user.idUser}" style="width:50px;">
-						        <h:outputText value="#{user.idUser}" />
-						    </p:column>
-						    
-						    <p:column headerText="Username" sortBy="#{user.username}" >
-						        <h:outputText value="#{user.username}" />
-						    </p:column>
-						 
-						    <p:column headerText="Imie" sortBy="#{user.name}" >
-						        <h:outputText value="#{user.name}" />
-						    </p:column>
-						 
-						    <p:column headerText="Nazwisko" sortBy="#{user.surname}" >
-						        <h:outputText value="#{user.surname}" />
-						    </p:column>
-						    
-						    <p:column headerText="Email" visible="false" sortBy="#{user.email}" >
-						        <h:outputText value="#{user.email}" />
-						    </p:column>
-						   	<f:facet name="footer">
-					        	<p:commandButton process="users" update="users:userDetail users:userDetailEdit" oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
-								</p:commandButton>
-								<p:commandButton process="users" update="users:userDetailEdit" oncomplete="PF('userDetailEditDialog').show()" icon="pi pi-pencil" >
-								</p:commandButton>
-								<p:commandButton process="users" icon="pi pi-trash" styleClass="dangerButton" action="#{userDeleteBB.delete(usersBB.selectedUser)}"
-									update="users:userList lastRegisteredUsers userCounter users">
-									<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
-								</p:commandButton>
-					        </f:facet>
+	<ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-3 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Tworzenie nowego użytkownika</div>
+					<div class="module-content">
+						<h:form>
+							<p:growl id="userMessage" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<h:panelGrid columns="2" cellpadding="5"
+								styleClass="userCreateTable">
+								<h:outputText value="Login*: " />
+								<p:inputText placeholder="Login"
+									value="#{userCreateBB.user.username}" required="true"
+									requiredMessage="Login jest wymagany!" />
+
+								<h:outputText value="Imie:" />
+								<p:inputText placeholder="Imie"
+									value="#{userCreateBB.user.name}" />
+
+								<h:outputText value="Nazwisko: " />
+								<p:inputText placeholder="Nazwisko"
+									value="#{userCreateBB.user.surname}" />
+
+								<h:outputText value="Email*: " />
+								<p:inputText placeholder="Email"
+									value="#{userCreateBB.user.email}" required="true"
+									validatorMessage="Błędny adres email"
+									requiredMessage="Email jest wymagany!">
+									<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
+								</p:inputText>
+
+								<h:outputText value="Hasło*: " />
+								<p:password id="inlineFeedback"
+									value="#{userCreateBB.user.password}" feedback="true"
+									placeholder="Hasło" required="true"
+									requiredMessage="Hasło jest wymagane!" />
+
+								<h:outputText value="Rola*:" />
+								<p:selectOneMenu value="#{userCreateBB.roleOption}"
+									filter="true" filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Wybierz role" itemValue="user" />
+									<f:selectItems value="#{rolesBB.roleList}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							<p:commandButton action="#{userCreateBB.createUser()}"
+								value="Utwórz nowe konto" icon="pi pi-check"
+								update="userMessage lastRegisteredUsers userCounter users">
+								<p:confirm header="Potwierdzenie"
+									message="Na pewno chcesz utworzyć nowego uzytkownika?"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Ostatnio dodani użytkownicy</div>
+					<div class="module-content">
+						<p:dataTable id="lastRegisteredUsers" var="user"
+							value="#{usersBB.lastRegisteredUsers}">
+							<p:column headerText="Id" style="width:50px;">
+								<h:outputText value="#{user.idUser}" />
+							</p:column>
+
+							<p:column headerText="Imie">
+								<h:outputText value="#{user.name}" />
+							</p:column>
+
+							<p:column headerText="Nazwisko">
+								<h:outputText value="#{user.surname}" />
+							</p:column>
+
+							<p:column headerText="Email">
+								<h:outputText value="#{user.email}" />
+							</p:column>
+
+							<p:column headerText="Utworzony">
+								<h:outputText value="#{user.timestampCreated}" />
+							</p:column>
 						</p:dataTable>
-						<p:dialog header="Szczegóły uzytkownika" minimizable="true" maximizable="true" widgetVar="userDetailDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-							<p:outputPanel id="userDetail" style="text-align:center;">
-								<p:panelGrid  columns="2" rendered="#{not empty usersBB.selectedUser}" columnClasses="label,value">
-							    	<f:facet name="header">
-								        <h:graphicImage library="images" name="user-av.png" styleClass="avatarImg"/>
-								    </f:facet>
-								    <h:outputText value="ID" />
-								    <h:outputText value="#{usersBB.selectedUser.idUser}" />
-								     
-								    <h:outputText value="Login:" />
-								    <h:outputText value="#{usersBB.selectedUser.username}" />
-								     
-								    <h:outputText value="Imie: " />
-								    <h:outputText value="#{usersBB.selectedUser.name}" />
-								     
-								    <h:outputText value="Nazwisko: " />
-								    <h:outputText value="#{usersBB.selectedUser.surname}" />
-								     
-								    <h:outputText value="Email" />
-								    <h:outputText value="#{usersBB.selectedUser.email}" />
-								    
-								    <h:outputText value="Data utworzenia" />
-								    <h:outputText value="#{usersBB.selectedUser.timestampCreated}" />
-								    
-								    <h:outputText value="Rola" />
-								    <h:outputText value="#{usersBB.getRoleName(usersBB.selectedUser)}" />
-								    
-								    <f:facet name="footer">
-								        <p:column headerText="Akcje" styleClass="actionSection">
-											<p:commandButton value="Edytuj" update="users:userDetailEdit" oncomplete=" PF('userDetailEditDialog').show()" icon="pi pi-pencil" styleClass="tableButton">
-												<f:setPropertyActionListener value="#{usersBB.selectedUser}" target="#{usersBB.selectedUser}" />
-											</p:commandButton>
-											<p:commandButton value="Usuń" process="users" icon="pi pi-trash" styleClass="tableButton dangerButton" action="#{userDeleteBB.delete(usersBB.selectedUser)}"
-												update="users:userList lastRegisteredUsers userCounter users">
-												<p:confirm header="Potwierdzenie" message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!" icon="pi pi-exclamation-triangle" />
-											</p:commandButton>
-									   	</p:column>
-								    </f:facet>
-							   	</p:panelGrid>
-							</p:outputPanel>
-						</p:dialog>
-						
-						<p:dialog header="Edytuj uzytkownika" minimizable="true" maximizable="true" widgetVar="userDetailEditDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-							<p:outputPanel id="userDetailEdit" style="text-align:center;">
-								<p:panelGrid  columns="2" rendered="#{not empty usersBB.selectedUser}" columnClasses="label,value">
-							    	<f:facet name="header">
-								        <h:graphicImage library="images" name="user-av.png" styleClass="avatarImg"/>
-								    </f:facet>
-								    
-								    <h:outputText value="ID" />
-								    <h:outputText value="#{usersBB.selectedUser.idUser}" />
-								    
-								    <h:outputText value="Login" />
-		                        	<p:inputText placeholder="Login" value="#{usersBB.selectedUser.username}" 
-		                        	required="true" requiredMessage="Login jest wymagany!"/>
-		                        	
-		                        	<h:outputText value="Imie:" />
-		                        	<p:inputText placeholder="Imie" value="#{usersBB.selectedUser.name}"
-		                        	/>
-		                        	
-		                        	<h:outputText value="Nazwisko: " />
-		                        	<p:inputText placeholder="Nazwisko" value="#{usersBB.selectedUser.surname}"/>
-		                        	
-		                        	<h:outputText value="Email: " />
-		                        	<p:inputText placeholder="Email" value="#{usersBB.selectedUser.email}"
-		                        	required="true" validatorMessage="Błędny adres email" requiredMessage="Email jest wymagany!">
-		                        		<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
-		                        	</p:inputText>
-		                        	
-							        <h:outputText value="Hasło: " />
-							        <p:password id="inlineFeedback" value="#{usersBB.selectedUser.password}" 
-							        feedback="true" placeholder="Hasło" required="true" requiredMessage="Hasło jest wymagane!"/>
-							        
-							        <h:outputText value="Rola:" />
-							        <p:selectOneMenu value="#{usersBB.temp_role}" dynamic="true" filter="true" filterMatchMode="startsWith">
-							            <f:selectItem itemLabel="Wybierz role" itemValue="user" />
-							            <f:selectItems value="#{rolesBB.roleList}" />
-							        </p:selectOneMenu>
-								    <f:facet name="footer">
-								        <p:column headerText="Zapisz" styleClass="actionSection">
-											<p:commandButton value="Edytuj" icon="pi pi-pencil" styleClass="tableButton" action="#{userEditBB.editUser()}">
-												<f:setPropertyActionListener target="#{userEditBB.selectedUser}" value="#{usersBB.selectedUser}"  />
-												<p:confirm header="Potwierdzenie" message="Na pewno chcesz edytować tego uzytkownika?" icon="pi pi-exclamation-triangle" />
-											</p:commandButton>
-									   	</p:column>
-								    </f:facet>
-							   	</p:panelGrid>
-							</p:outputPanel>
-						</p:dialog>
-					</h:form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h:form>
-        	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-				<p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-3 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Ilość użytkowników w systemie</div>
+					<div class="module-content">
+						<div class="amountDiv">
+							<h:outputText id="userCounter" value="#{usersBB.amountOfUsers()}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Wszyscy użytkownicy</div>
+					<div class="module-content">
+						<h:form id="users">
+							<p:growl id="userList" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<p:dataTable id="users" var="user" value="#{usersBB.allUsers}"
+								paginator="true" rows="10" selectionMode="single"
+								selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">
+								<f:facet name="header">
+									<p:commandButton id="toggler" type="button" value="Kolumny"
+										style="float: right;width: 100px !important"
+										icon="pi pi-align-justify" />
+									<p:columnToggler datasource="users" trigger="toggler" />
+									<div style="clear: both"></div>
+								</f:facet>
+								<p:column headerText="Id" sortBy="#{user.idUser}"
+									style="width:50px;" filterBy="#{user.idUser}" filterMatchMode="exact" >
+									<h:outputText value="#{user.idUser}" />
+								</p:column>
+
+								<p:column headerText="Username" sortBy="#{user.username}"
+								filterBy="#{user.username}" filterMatchMode="contains">
+									<h:outputText value="#{user.username}" />
+								</p:column>
+
+								<p:column headerText="Imie" sortBy="#{user.name}"
+								filterBy="#{user.name}" filterMatchMode="contains">
+									<h:outputText value="#{user.name}" />
+								</p:column>
+
+								<p:column headerText="Nazwisko" sortBy="#{user.surname}"
+								filterBy="#{user.surname}" filterMatchMode="contains">
+									<h:outputText value="#{user.surname}" />
+								</p:column>
+
+								<p:column headerText="Email" visible="false"
+									sortBy="#{user.email}" filterBy="#{user.email}" filterMatchMode="contains">
+									<h:outputText value="#{user.email}" />
+								</p:column>
+								<f:facet name="footer">
+									<p:commandButton process="users" update="userDetail edit"
+										oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
+									</p:commandButton>
+									<p:commandButton process="users" update="userDetail edit"
+										oncomplete="PF('userDetailEditDialog').show()"
+										icon="pi pi-pencil">
+									</p:commandButton>
+									<p:commandButton process="users" icon="pi pi-trash"
+										styleClass="dangerButton"
+										action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+										update="users:userList lastRegisteredUsers userCounter users">
+										<p:confirm header="Potwierdzenie"
+											message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!"
+											icon="pi pi-exclamation-triangle" />
+									</p:commandButton>
+								</f:facet>
+							</p:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p:dialog header="Szczegóły uzytkownika" minimizable="true"
+			maximizable="true" widgetVar="userDetailDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="userDetail" style="text-align:center;">
+				<h:form id="details">
+					<p:panelGrid columns="2"
+						rendered="#{not empty usersBB.selectedUser}"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<h:graphicImage library="images" name="user-av.png"
+								styleClass="avatarImg" />
+						</f:facet>
+						<h:outputText value="ID" />
+						<h:outputText value="#{usersBB.selectedUser.idUser}" />
+
+						<h:outputText value="Login:" />
+						<h:outputText value="#{usersBB.selectedUser.username}" />
+
+						<h:outputText value="Imie: " />
+						<h:outputText value="#{usersBB.selectedUser.name}" />
+
+						<h:outputText value="Nazwisko: " />
+						<h:outputText value="#{usersBB.selectedUser.surname}" />
+
+						<h:outputText value="Email" />
+						<h:outputText value="#{usersBB.selectedUser.email}" />
+
+						<h:outputText value="Data utworzenia" />
+						<h:outputText value="#{usersBB.selectedUser.timestampCreated}" />
+
+						<h:outputText value="Rola" />
+						<h:outputText value="#{usersBB.getRoleName(usersBB.selectedUser)}" />
+
+						<f:facet name="footer">
+							<p:column headerText="Akcje" styleClass="actionSection">
+								<p:commandButton value="Edytuj"
+									update="edit edit:userDetailEdit"
+									oncomplete="PF('userDetailEditDialog').show()"
+									icon="pi pi-pencil" styleClass="tableButton">
+									<f:setPropertyActionListener value="#{usersBB.selectedUser}"
+										target="#{usersBB.selectedUser}" />
+								</p:commandButton>
+								<p:commandButton value="Usuń" process="users" icon="pi pi-trash"
+									styleClass="tableButton dangerButton"
+									action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+									update="users:userList lastRegisteredUsers userCounter users">
+									<p:confirm header="Potwierdzenie"
+										message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!"
+										icon="pi pi-exclamation-triangle" />
+								</p:commandButton>
+							</p:column>
+						</f:facet>
+					</p:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+		<h:form id="edit">
+			<p:dialog header="Edytuj uzytkownika" minimizable="true"
+				maximizable="true" widgetVar="userDetailEditDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false"
+				appendToBody="true">
+
+					<p:panelGrid id="userDetailEdit" columns="2"
+						rendered="#{not empty usersBB.selectedUser}"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<h:graphicImage library="images" name="user-av.png"
+								styleClass="avatarImg" />
+						</f:facet>
+
+						<h:outputText value="ID" />
+						<h:outputText value="#{usersBB.selectedUser.idUser}" />
+
+						<h:outputText value="Login" />
+						<p:inputText placeholder="Login"
+							value="#{usersBB.selectedUser.username}" required="true"
+							requiredMessage="Login jest wymagany!" />
+
+						<h:outputText value="Imie:" />
+						<p:inputText placeholder="Imie"
+							value="#{usersBB.selectedUser.name}" />
+
+						<h:outputText value="Nazwisko: " />
+						<p:inputText placeholder="Nazwisko"
+							value="#{usersBB.selectedUser.surname}" />
+
+						<h:outputText value="Email: " />
+						<p:inputText placeholder="Email"
+							value="#{usersBB.selectedUser.email}" required="true"
+							validatorMessage="Błędny adres email"
+							requiredMessage="Email jest wymagany!">
+							<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
+						</p:inputText>
+
+						<h:outputText value="Hasło: " />
+						<p:password id="inlineFeedback"
+							value="#{usersBB.selectedUser.password}" feedback="true"
+							placeholder="Hasło" required="true"
+							requiredMessage="Hasło jest wymagane!" />
+
+						<h:outputText value="Rola:" />
+						<p:selectOneMenu value="#{usersBB.temp_role}"
+							filter="true" filterMatchMode="startsWith">
+							<f:selectItem itemLabel="Wybierz role" itemValue="user" />
+							<f:selectItems value="#{rolesBB.roleList}" />
+						</p:selectOneMenu>
+						<f:facet name="footer">
+							<p:column headerText="Zapisz" styleClass="actionSection">
+								<p:commandButton value="Edytuj" icon="pi pi-pencil"
+									styleClass="tableButton" action="#{userEditBB.editUser}">
+									<f:setPropertyActionListener
+										target="#{userEditBB.selectedUser}"
+										value="#{usersBB.selectedUser}" />
+									<p:confirm header="Potwierdzenie"
+										message="Na pewno chcesz edytować tego uzytkownika?"
+										icon="pi pi-exclamation-triangle" />
+								</p:commandButton>
+							</p:column>
+						</f:facet>
+					</p:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Tak" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Nie" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 			</p:confirmDialog>
-        </h:form>
-        
-    </ui:define>
+		</h:form>
+
+	</ui:define>
 </ui:composition>
 </html>

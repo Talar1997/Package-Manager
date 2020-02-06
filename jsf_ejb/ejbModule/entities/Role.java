@@ -27,6 +27,10 @@ public class Role implements Serializable {
 
 	public Role() {
 	}
+	
+	public int getIdRole() {
+		return idRole;
+	}
 
 	public int getIdPermList() {
 		return this.idRole;

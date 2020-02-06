@@ -34,6 +34,7 @@ public class User implements Serializable {
 
 	private String username;
 	
+
 	@Column(name="timestamp_created")
 	private Timestamp timestampCreated;
 

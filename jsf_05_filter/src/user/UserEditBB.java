@@ -82,8 +82,6 @@ public class UserEditBB {
 			return null;
 		}
 		
-		//walidacja
-		//jesli haslo = puste, nie zmieniamy hasła
 		
 		return "";
 	}

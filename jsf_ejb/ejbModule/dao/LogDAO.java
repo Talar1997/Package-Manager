@@ -25,10 +25,22 @@ public class LogDAO {
 		return em.createNamedQuery("Log.findAll").getResultList();
 	}
 	
+	public List<Log> getLazyLogs(int first, int pageSize){
+		Query query = em.createNamedQuery("Log.findAll");
+		query.setFirstResult(first);
+		//query.setMaxResults(pageSize);
+		return query.getResultList();
+	}
+	
 	public List<Log> getSecurityBreachLogs(){
 		Query query = em.createNamedQuery("Log.findSecurityBreach");
 		query.setMaxResults(5);
 		return query.getResultList();
+	}
+	
+	public int countLogs() {
+		Query query = em.createNamedQuery("Log.findAll");
+		return query.getResultList().size();
 	}
 
 }

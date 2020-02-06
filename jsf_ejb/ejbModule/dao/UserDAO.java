@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.User;
+import entities.Permission;
 import entities.Role;
 
 @Stateless
@@ -43,7 +45,7 @@ public class UserDAO {
 	}
 	
 	public User getUserFromDB(String login, String pass) {
-		Query query = em.createQuery("SELECT u FROM User u WHERE u.username like :login AND u.password LIKE MD5(:pass)");
+		Query query = em.createQuery("SELECT u FROM User u WHERE u.username like :login AND u.password LIKE :pass");
 		query.setParameter("login", login);
 		query.setParameter("pass", pass);
 		
@@ -92,5 +94,46 @@ public class UserDAO {
 		query.setParameter("username", username);
 		query.setParameter("email", email);
 		return query.getResultList();
+	}
+	
+	public boolean isSysadmin(User user) {
+		return user.getIdPermission() == 1 ? true : false;
+	}
+	
+	public boolean hasPermission(User user, String permissionName) {
+		HashMap<String, Boolean> permissionSet = new HashMap<>();
+		Role role = roleDAO.find(user.getIdPermission());
+		Permission p = permissionDAO.find(role.getIdPermission());
+		if(p.getUploadFile() > 0) permissionSet.put("upload_file", true);
+		else { permissionSet.put("upload_file", false); } 
+		
+		if(p.getDownloadFile() > 0) permissionSet.put("download_file", true);
+		else { permissionSet.put("download_file", false); } 
+		
+		if(p.getDeleteFile() > 0) permissionSet.put("delete_file", true);
+		else { permissionSet.put("delete_file", false); } 
+		
+		if(p.getCreatePackage()> 0) permissionSet.put("create_package", true);
+		else { permissionSet.put("create_package", false); } 
+		
+		if(p.getDeletePackage() > 0) permissionSet.put("delete_package", true);
+		else { permissionSet.put("delete_package", false); } 
+		
+		if(p.getSetPermission() > 0) permissionSet.put("set_permission", true);
+		else { permissionSet.put("set_permission", false); } 
+		
+		if(p.getCreateUser() > 0) permissionSet.put("create_user", true);
+		else { permissionSet.put("create_user", false); } 
+		
+		if(p.getViewLogs() > 0) permissionSet.put("view_logs", true);
+		else { permissionSet.put("view_logs", false); } 
+		
+		if(p.getGetLicence() > 0) permissionSet.put("get_licence", true);
+		else { permissionSet.put("get_licence", false); } 
+		
+		if(p.getAddLicence() > 0) permissionSet.put("add_licence", true);
+		else { permissionSet.put("add_licence", false); } 
+		
+		return permissionSet.get(permissionName);
 	}
 }

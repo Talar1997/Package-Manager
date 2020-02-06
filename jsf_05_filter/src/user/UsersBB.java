@@ -20,6 +20,8 @@ public class UsersBB {
 
 	@Inject
 	UserDAO userDAO;
+	@Inject
+	RoleDAO roleDAO;
 	
 	@PostConstruct
     public void init() {
@@ -67,7 +69,7 @@ public class UsersBB {
 	}
 	
 	public String getRoleName(User user) {
-		return "chuj";
+		return roleDAO.getRoleById(user.getIdPermission()).getName();
 	}
 	
 }

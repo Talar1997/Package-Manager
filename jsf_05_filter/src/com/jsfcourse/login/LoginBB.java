@@ -49,6 +49,9 @@ public class LoginBB {
 	
 	@Inject
 	LogDAO logDAO;
+	
+	@Inject
+	ClientData clientData;
 
 	public String doLogin() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -86,6 +89,8 @@ public class LoginBB {
 			}
 		}
 		
+		//Store  in session scoped bean
+		clientData.setClient(user);
 		
 	
 		//store RemoteClient with request info in session (needed for SecurityFilter)

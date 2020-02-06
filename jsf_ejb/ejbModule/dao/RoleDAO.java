@@ -31,5 +31,11 @@ public class RoleDAO {
 		query.setParameter("name", roleName);
 		return (Role) query.getResultList().get(0);
 	}
+	
+	public Role getRoleById(int id) {
+		Query query = em.createQuery("SELECT r FROM Role r WHERE r.idRole = :id");
+		query.setParameter("id", id);
+		return (Role) query.getResultList().get(0);
+	}
 
 }
