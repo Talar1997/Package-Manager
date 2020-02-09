@@ -65,7 +65,7 @@ public class RolesBB {
 	
 	public void findPermissionSet(Role role) {
 		try {
-			Permission p = permissionDAO.find(role.getIdPermission());
+			Permission p = role.getPermission();
 			if(p.getUploadFile() > 0) permissionSet.put("upload_file", "Tak");
 			else { permissionSet.put("upload_file", "Nie"); } 
 			

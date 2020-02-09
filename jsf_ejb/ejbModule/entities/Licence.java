@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -22,24 +23,31 @@ public class Licence implements Serializable {
 	@Column(name="added_date")
 	private Date addedDate;
 
-	@Lob
 	private String description;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="expiration_date")
 	private Date expirationDate;
 
-	@Column(name="id_added_by")
-	private int idAddedBy;
-
-	@Column(name="id_file_list")
-	private int idFileList;
-
 	@Column(name="in_use")
 	private byte inUse;
 
 	@Column(name="licence_key")
 	private String licenceKey;
+
+	//bi-directional many-to-one association to FileList
+	@OneToMany(mappedBy="licence")
+	private List<FileList> fileLists;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="id_added_by")
+	private User user;
+
+	//bi-directional many-to-one association to FileList
+	@ManyToOne
+	@JoinColumn(name="id_file_list")
+	private FileList fileList;
 
 	public Licence() {
 	}
@@ -76,22 +84,6 @@ public class Licence implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
-	public int getIdAddedBy() {
-		return this.idAddedBy;
-	}
-
-	public void setIdAddedBy(int idAddedBy) {
-		this.idAddedBy = idAddedBy;
-	}
-
-	public int getIdFileList() {
-		return this.idFileList;
-	}
-
-	public void setIdFileList(int idFileList) {
-		this.idFileList = idFileList;
-	}
-
 	public byte getInUse() {
 		return this.inUse;
 	}
@@ -106,6 +98,44 @@ public class Licence implements Serializable {
 
 	public void setLicenceKey(String licenceKey) {
 		this.licenceKey = licenceKey;
+	}
+
+	public List<FileList> getFileLists() {
+		return this.fileLists;
+	}
+
+	public void setFileLists(List<FileList> fileLists) {
+		this.fileLists = fileLists;
+	}
+
+	public FileList addFileList(FileList fileList) {
+		getFileLists().add(fileList);
+		fileList.setLicence(this);
+
+		return fileList;
+	}
+
+	public FileList removeFileList(FileList fileList) {
+		getFileLists().remove(fileList);
+		fileList.setLicence(null);
+
+		return fileList;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public FileList getFileList() {
+		return this.fileList;
+	}
+
+	public void setFileList(FileList fileList) {
+		this.fileList = fileList;
 	}
 
 }

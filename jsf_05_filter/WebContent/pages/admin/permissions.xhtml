@@ -18,10 +18,54 @@
 		<div class="ui-g-12 content">
 			<div class="ui-g-4 ui-sm-12 content-item-box">
 				<div class="content-item">
+					<div class="titlebar">Tworzenie nowej roli</div>
+					<div class="module-content">
+						<h:form>
+							<p:growl id="userMessage" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<h:panelGrid columns="2" cellpadding="5"
+								styleClass="userCreateTable">
+								<h:outputText value="Nazwa*: " />
+								<p:inputText placeholder="Nazwa" value="#{roleCreateBB.role.name}" required="true"
+									requiredMessage="Nazwa jest wymagana" />
+
+								<h:outputText value="Opis*:" />
+								<p:inputTextarea rows="5" cols="30" placeholder="Opis" value="#{roleCreateBB.role.description}"
+									requiredMessage="Opis jest wymagany" />
+
+								<h:outputText value="Uprawnienia: " />
+								<p:selectManyCheckbox id="grid3" layout="grid"
+									columns="3">
+									<f:selectItem itemLabel="Upload plików" itemValue="#{roleCreateBB.permission.uploadFile}" />
+							        <f:selectItem itemLabel="Pobieranie plików" itemValue="#{roleCreateBB.permission.downloadFile}" />
+							        <f:selectItem itemLabel="Usuwanie plików" itemValue="#{roleCreateBB.permission.deleteFile}" />
+							        <f:selectItem itemLabel="Tworzenie paczek" itemValue="#{roleCreateBB.permission.createPackage}" />
+							        <f:selectItem itemLabel="Usuwanie paczek" itemValue="#{roleCreateBB.permission.deletePackage}" />
+							        <f:selectItem itemLabel="Nadawanie uprawnień" itemValue="#{roleCreateBB.permission.setPermission}" />
+							        <f:selectItem itemLabel="Tworzenie uzytkownikow" itemValue="#{roleCreateBB.permission.createUser}" />
+							        <f:selectItem itemLabel="Podgląd logów" itemValue="#{roleCreateBB.permission.viewLogs}" />
+							        <f:selectItem itemLabel="Dodaj licencje" itemValue="#{roleCreateBB.permission.getLicence}" />
+							        <f:selectItem itemLabel="Pobierz licencje" itemValue="#{roleCreateBB.permission.addLicence}" />
+								</p:selectManyCheckbox>
+							</h:panelGrid>
+							<p:commandButton value="Utwórz nową rolę" icon="pi pi-check"
+							action="#{roleCreateBB.createRole()}">
+								<p:confirm header="Potwierdzenie"
+									message="Na pewno chcesz utworzyć nową rolę?"
+									icon="pi pi-exclamation-triangle" 
+									update="userMessage allRoles"/>
+							</p:commandButton>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-8 ui-sm-12 content-item-box">
+				<div class="content-item">
 					<div class="titlebar">Role</div>
 					<div class="module-content">
 						<h:form id="allRoles">
-						<p:growl id="roleListMsg" showDetail="true" sticky="false"
+							<p:growl id="roleListMsg" showDetail="true" sticky="false"
 								skipDetailIfEqualsSummary="true" />
 							<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
 								paginator="true" rows="10" selectionMode="single"
@@ -37,7 +81,11 @@
 								</p:column>
 								<f:facet name="footer">
 									<p:commandButton process="allRoles" update="roleDetails"
-										oncomplete="PF('roleDetailsDialog').show()" icon="pi pi-search">
+										oncomplete="PF('roleDetailsDialog').show()"
+										icon="pi pi-search">
+									</p:commandButton>
+									<p:commandButton process="allRoles"
+										icon="pi pi-pencil">
 									</p:commandButton>
 									<p:commandButton process="allRoles" icon="pi pi-trash"
 										styleClass="dangerButton"
@@ -54,19 +102,6 @@
 				</div>
 			</div>
 
-			<div class="ui-g-4 ui-sm-12 content-item-box">
-				<div class="content-item">
-					<div class="titlebar">Dodaj nową rolę</div>
-					<div class="module-content">Treść</div>
-				</div>
-			</div>
-
-			<div class="ui-g-4 ui-sm-12 content-item-box">
-				<div class="content-item">
-					<div class="titlebar">???</div>
-					<div class="module-content">Treść</div>
-				</div>
-			</div>
 
 		</div>
 
@@ -88,42 +123,45 @@
 					<h:outputText value="#{rolesBB.selectedRole.idRole}" />
 					<h:outputText value="Nazwa" />
 					<h:outputText value="#{rolesBB.selectedRole.name}" />
-					
+
 					<h:outputText value="Upload plików" />
 					<h:outputText value="#{rolesBB.permissionSet.get('upload_file')}" />
-					
+
 					<h:outputText value="Pobieranie plików" />
 					<h:outputText value="#{rolesBB.permissionSet.get('download_file')}" />
-					
+
 					<h:outputText value="Usuwanie plików" />
 					<h:outputText value="#{rolesBB.permissionSet.get('delete_file')}" />
-					
+
 					<h:outputText value="Tworzenie paczek" />
-					<h:outputText value="#{rolesBB.permissionSet.get('create_package')}" />
-					
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('create_package')}" />
+
 					<h:outputText value="Usuwanie paczek" />
-					<h:outputText value="#{rolesBB.permissionSet.get('delete_package')}" />
-					
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('delete_package')}" />
+
 					<h:outputText value="Zmiana uprawnień" />
-					<h:outputText value="#{rolesBB.permissionSet.get('set_permission')}" />
-					
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('set_permission')}" />
+
 					<h:outputText value="Zarządzanie uzytkownikami" />
 					<h:outputText value="#{rolesBB.permissionSet.get('create_user')}" />
-					
+
 					<h:outputText value="Podgląd logów" />
 					<h:outputText value="#{rolesBB.permissionSet.get('view_logs')}" />
-					
+
 					<h:outputText value="Pobieranie licencji" />
 					<h:outputText value="#{rolesBB.permissionSet.get('get_licence')}" />
-					
+
 					<h:outputText value="Dodawanie nowych licencji" />
 					<h:outputText value="#{rolesBB.permissionSet.get('add_licence')}" />
-					
+
 
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>
-		
+
 		<h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 				<p:commandButton value="Tak" type="button"

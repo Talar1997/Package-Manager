@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Lut 2020, 22:01
+-- Czas generowania: 09 Lut 2020, 17:10
 -- Wersja serwera: 10.1.26-MariaDB
 -- Wersja PHP: 7.1.8
 
@@ -42,11 +42,6 @@ CREATE TABLE `download_list` (
 CREATE TABLE `file` (
   `id_file` int(11) NOT NULL,
   `filename` varchar(256) COLLATE utf8mb4_polish_ci NOT NULL,
-  `icon` varchar(1024) COLLATE utf8mb4_polish_ci NOT NULL,
-  `version` varchar(64) COLLATE utf8mb4_polish_ci NOT NULL,
-  `description` varchar(2048) COLLATE utf8mb4_polish_ci NOT NULL,
-  `added_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `download_couter` int(11) NOT NULL DEFAULT '0',
   `file_binary` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
@@ -58,8 +53,14 @@ CREATE TABLE `file` (
 
 CREATE TABLE `file_list` (
   `id_list_file` int(11) NOT NULL,
-  `id_package` int(11) NOT NULL,
-  `id_file` int(11) NOT NULL
+  `id_file` int(11) NOT NULL,
+  `id_licence` int(11) DEFAULT NULL,
+  `name` varchar(128) COLLATE utf8mb4_polish_ci NOT NULL,
+  `description` text COLLATE utf8mb4_polish_ci,
+  `version` varchar(64) COLLATE utf8mb4_polish_ci DEFAULT NULL,
+  `download_counter` int(11) DEFAULT '0',
+  `added_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_uploader` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 -- --------------------------------------------------------
@@ -234,22 +235,45 @@ INSERT INTO `log` (`id_log`, `timestamp`, `type`, `value`) VALUES
 (135, '2020-02-05 17:54:27', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
 (136, '2020-02-05 18:00:06', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
 (137, '2020-02-05 18:05:21', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
-(138, '2020-02-05 18:06:39', 'Login successfull', 'Logowanie do systemu: admin (id: 1)');
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `package`
---
-
-CREATE TABLE `package` (
-  `id_package` int(11) NOT NULL,
-  `name` varchar(256) COLLATE utf8mb4_polish_ci NOT NULL,
-  `description` varchar(2048) COLLATE utf8mb4_polish_ci NOT NULL,
-  `cretion_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_user` int(11) NOT NULL,
-  `id_file_list` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+(138, '2020-02-05 18:06:39', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(139, '2020-02-06 17:05:08', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(140, '2020-02-06 17:09:20', 'Login error', 'Nieudana próba logowania do systemu: '),
+(141, '2020-02-06 17:11:07', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(142, '2020-02-06 17:25:13', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(143, '2020-02-06 17:36:24', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(144, '2020-02-06 17:40:10', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(145, '2020-02-06 17:40:53', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(146, '2020-02-06 17:41:52', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(147, '2020-02-06 17:43:18', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(148, '2020-02-06 17:46:28', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(149, '2020-02-06 17:47:06', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(150, '2020-02-06 17:49:03', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(151, '2020-02-06 17:56:41', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(152, '2020-02-06 17:58:22', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(153, '2020-02-06 18:09:55', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(154, '2020-02-06 18:44:12', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(155, '2020-02-06 18:51:50', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(156, '2020-02-06 19:30:16', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(157, '2020-02-06 19:38:35', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(158, '2020-02-06 19:41:10', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(159, '2020-02-06 19:41:48', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(160, '2020-02-06 19:45:43', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(161, '2020-02-06 19:46:57', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(162, '2020-02-06 19:50:23', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(163, '2020-02-06 19:57:53', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(164, '2020-02-06 19:59:59', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(165, '2020-02-06 20:11:45', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(166, '2020-02-06 20:12:23', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(167, '2020-02-08 13:25:33', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(168, '2020-02-08 14:31:06', 'User created', 'Utworzono nowego uzytkownika: kmielczarek'),
+(169, '2020-02-08 15:08:27', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(170, '2020-02-08 15:40:37', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(171, '2020-02-08 15:41:07', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(172, '2020-02-08 15:41:12', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(173, '2020-02-08 16:07:12', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(174, '2020-02-09 12:42:48', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(175, '2020-02-09 16:00:58', 'Login successfull', 'Logowanie do systemu: admin (id: 1)'),
+(176, '2020-02-09 16:04:01', 'User created', 'Utworzono nowego uzytkownika: test');
 
 -- --------------------------------------------------------
 
@@ -307,6 +331,21 @@ INSERT INTO `role` (`id_role`, `name`, `description`, `id_permission`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `software_package`
+--
+
+CREATE TABLE `software_package` (
+  `id_package` int(11) NOT NULL,
+  `name` varchar(256) COLLATE utf8mb4_polish_ci NOT NULL,
+  `description` varchar(2048) COLLATE utf8mb4_polish_ci NOT NULL,
+  `cretion_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_user` int(11) NOT NULL,
+  `id_file_list` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `user`
 --
 
@@ -339,7 +378,9 @@ INSERT INTO `user` (`id_user`, `username`, `name`, `surname`, `email`, `password
 (11, 'user4', 'John', 'Paul', 'Adam.Talarczyk@ibemag.pl', 'a1e03cf022862126dabb2b06e3223521', 2, '2020-01-06 14:27:53'),
 (12, 'moderator4', 'Jonasz', 'Koran-Mekka', 'Adam.Talarczyk@ibemag.pl', 'a1e03cf022862126dabb2b06e3223521', 3, '2020-01-06 14:27:54'),
 (23, 'moderator4', 'Jonasz', 'Koran-Mekka', 'Adam.Talarczyk@ibemag.pl', 'a1e03cf022862126dabb2b06e3223521', 3, '2020-01-06 14:27:54'),
-(24, 'user4', 'John', 'Paul', 'Adam.Talarczyk@ibemag.pl', 'a1e03cf022862126dabb2b06e3223521', 2, '2020-01-06 14:27:53');
+(24, 'user4', 'John', 'Paul', 'Adam.Talarczyk@ibemag.pl', 'a1e03cf022862126dabb2b06e3223521', 2, '2020-01-06 14:27:53'),
+(25, 'kmielczarek', 'Konstancja', 'Mielczarek', 'kmielczi@hwdp.pl', 'eb65eb39cde1c19e0594f2ee51f5a6b1', 2, '2020-02-08 14:31:06'),
+(26, 'test', 'rasda', 'agadg', 'asdas@asd1q2.pl', 'a1e03cf022862126dabb2b06e3223521', 4, '2020-02-09 16:04:01');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -362,25 +403,22 @@ ALTER TABLE `file`
 --
 ALTER TABLE `file_list`
   ADD PRIMARY KEY (`id_list_file`),
-  ADD KEY `id_package` (`id_package`);
+  ADD KEY `id_file` (`id_file`,`id_licence`),
+  ADD KEY `id_licence` (`id_licence`);
 
 --
 -- Indexes for table `licence`
 --
 ALTER TABLE `licence`
-  ADD PRIMARY KEY (`id_licence`);
+  ADD PRIMARY KEY (`id_licence`),
+  ADD KEY `id_file_list` (`id_file_list`,`id_added_by`),
+  ADD KEY `id_added_by` (`id_added_by`);
 
 --
 -- Indexes for table `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`id_log`);
-
---
--- Indexes for table `package`
---
-ALTER TABLE `package`
-  ADD PRIMARY KEY (`id_package`);
 
 --
 -- Indexes for table `permission`
@@ -392,13 +430,23 @@ ALTER TABLE `permission`
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`id_role`);
+  ADD PRIMARY KEY (`id_role`),
+  ADD KEY `id_permission` (`id_permission`);
+
+--
+-- Indexes for table `software_package`
+--
+ALTER TABLE `software_package`
+  ADD PRIMARY KEY (`id_package`),
+  ADD KEY `id_user` (`id_user`,`id_file_list`),
+  ADD KEY `id_file_list` (`id_file_list`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `id_permission` (`id_permission`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -423,12 +471,7 @@ ALTER TABLE `licence`
 -- AUTO_INCREMENT dla tabeli `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
---
--- AUTO_INCREMENT dla tabeli `package`
---
-ALTER TABLE `package`
-  MODIFY `id_package` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 --
 -- AUTO_INCREMENT dla tabeli `permission`
 --
@@ -440,10 +483,52 @@ ALTER TABLE `permission`
 ALTER TABLE `role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT dla tabeli `software_package`
+--
+ALTER TABLE `software_package`
+  MODIFY `id_package` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;COMMIT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `file_list`
+--
+ALTER TABLE `file_list`
+  ADD CONSTRAINT `file_list_ibfk_1` FOREIGN KEY (`id_file`) REFERENCES `file` (`id_file`),
+  ADD CONSTRAINT `file_list_ibfk_3` FOREIGN KEY (`id_licence`) REFERENCES `licence` (`id_licence`);
+
+--
+-- Ograniczenia dla tabeli `licence`
+--
+ALTER TABLE `licence`
+  ADD CONSTRAINT `licence_ibfk_1` FOREIGN KEY (`id_added_by`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `licence_ibfk_2` FOREIGN KEY (`id_file_list`) REFERENCES `file_list` (`id_list_file`);
+
+--
+-- Ograniczenia dla tabeli `role`
+--
+ALTER TABLE `role`
+  ADD CONSTRAINT `role_ibfk_1` FOREIGN KEY (`id_permission`) REFERENCES `permission` (`id_permission`);
+
+--
+-- Ograniczenia dla tabeli `software_package`
+--
+ALTER TABLE `software_package`
+  ADD CONSTRAINT `software_package_ibfk_1` FOREIGN KEY (`id_file_list`) REFERENCES `file_list` (`id_list_file`),
+  ADD CONSTRAINT `software_package_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+
+--
+-- Ograniczenia dla tabeli `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_permission`) REFERENCES `role` (`id_role`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

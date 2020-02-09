@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -23,24 +24,33 @@ public class User implements Serializable {
 
 	private String email;
 
-	@Column(name="id_permission")
-	private int idPermission;
-
 	private String name;
 
 	private String password;
 
 	private String surname;
 
-	private String username;
-	
-
 	@Column(name="timestamp_created")
 	private Timestamp timestampCreated;
 
+	private String username;
+
+	//bi-directional many-to-one association to Licence
+	@OneToMany(mappedBy="user")
+	private List<Licence> licences;
+
+	//bi-directional many-to-one association to SoftwarePackage
+	@OneToMany(mappedBy="user")
+	private List<SoftwarePackage> softwarePackages;
+
+	//bi-directional many-to-one association to Role
+	@ManyToOne
+	@JoinColumn(name="id_permission")
+	private Role role;
+
 	public User() {
 	}
-	
+
 	public int getIdUser() {
 		return this.idUser;
 	}
@@ -55,14 +65,6 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public int getIdPermission() {
-		return this.idPermission;
-	}
-
-	public void setIdPermission(int idPermission) {
-		this.idPermission = idPermission;
 	}
 
 	public String getName() {
@@ -89,6 +91,14 @@ public class User implements Serializable {
 		this.surname = surname;
 	}
 
+	public Timestamp getTimestampCreated() {
+		return this.timestampCreated;
+	}
+
+	public void setTimestampCreated(Timestamp timestampCreated) {
+		this.timestampCreated = timestampCreated;
+	}
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -96,13 +106,57 @@ public class User implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	public Timestamp getTimestampCreated() {
-		return this.timestampCreated;
+
+	public List<Licence> getLicences() {
+		return this.licences;
 	}
 
-	public void setTimestampCreated(Timestamp timestampCreated) {
-		this.timestampCreated = timestampCreated;
+	public void setLicences(List<Licence> licences) {
+		this.licences = licences;
+	}
+
+	public Licence addLicence(Licence licence) {
+		getLicences().add(licence);
+		licence.setUser(this);
+
+		return licence;
+	}
+
+	public Licence removeLicence(Licence licence) {
+		getLicences().remove(licence);
+		licence.setUser(null);
+
+		return licence;
+	}
+
+	public List<SoftwarePackage> getSoftwarePackages() {
+		return this.softwarePackages;
+	}
+
+	public void setSoftwarePackages(List<SoftwarePackage> softwarePackages) {
+		this.softwarePackages = softwarePackages;
+	}
+
+	public SoftwarePackage addSoftwarePackage(SoftwarePackage softwarePackage) {
+		getSoftwarePackages().add(softwarePackage);
+		softwarePackage.setUser(this);
+
+		return softwarePackage;
+	}
+
+	public SoftwarePackage removeSoftwarePackage(SoftwarePackage softwarePackage) {
+		getSoftwarePackages().remove(softwarePackage);
+		softwarePackage.setUser(null);
+
+		return softwarePackage;
+	}
+
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }

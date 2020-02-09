@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -18,23 +19,14 @@ public class File implements Serializable {
 	@Column(name="id_file")
 	private int idFile;
 
-	@Column(name="added_time")
-	private Timestamp addedTime;
-
-	private String description;
-
-	@Column(name="download_couter")
-	private int downloadCouter;
-
-	@Lob
 	@Column(name="file_binary")
 	private byte[] fileBinary;
 
 	private String filename;
 
-	private String icon;
-
-	private String version;
+	//bi-directional many-to-one association to FileList
+	@OneToMany(mappedBy="file")
+	private List<FileList> fileLists;
 
 	public File() {
 	}
@@ -47,29 +39,6 @@ public class File implements Serializable {
 		this.idFile = idFile;
 	}
 
-	public Timestamp getAddedTime() {
-		return this.addedTime;
-	}
-
-	public void setAddedTime(Timestamp addedTime) {
-		this.addedTime = addedTime;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getDownloadCouter() {
-		return this.downloadCouter;
-	}
-
-	public void setDownloadCouter(int downloadCouter) {
-		this.downloadCouter = downloadCouter;
-	}
 
 	public byte[] getFileBinary() {
 		return this.fileBinary;
@@ -87,20 +56,26 @@ public class File implements Serializable {
 		this.filename = filename;
 	}
 
-	public String getIcon() {
-		return this.icon;
+	public List<FileList> getFileLists() {
+		return this.fileLists;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setFileLists(List<FileList> fileLists) {
+		this.fileLists = fileLists;
 	}
 
-	public String getVersion() {
-		return this.version;
+	public FileList addFileList(FileList fileList) {
+		getFileLists().add(fileList);
+		fileList.setFile(this);
+
+		return fileList;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public FileList removeFileList(FileList fileList) {
+		getFileLists().remove(fileList);
+		fileList.setFile(null);
+
+		return fileList;
 	}
 
 }

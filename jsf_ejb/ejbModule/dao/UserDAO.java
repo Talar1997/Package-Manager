@@ -65,10 +65,10 @@ public class UserDAO {
 			User u = (User) query.getResultList().get(0);
 			
 			if(u != null) {
-				int idPermission = u.getIdPermission();
+				int idPermission = user.getRole().getPermission().getIdPermission();
 				Role role = (Role) roleDAO.find(idPermission);
 
-				return permissionDAO.permissionList(role.getIdPermission());
+				return permissionDAO.permissionList(role.getPermission().getIdPermission());
 			}
 		} catch (Exception e) {	}
 	
@@ -97,13 +97,13 @@ public class UserDAO {
 	}
 	
 	public boolean isSysadmin(User user) {
-		return user.getIdPermission() == 1 ? true : false;
+		return user.getRole().getIdRole() == 1 ? true : false;
 	}
 	
 	public boolean hasPermission(User user, String permissionName) {
 		HashMap<String, Boolean> permissionSet = new HashMap<>();
-		Role role = roleDAO.find(user.getIdPermission());
-		Permission p = permissionDAO.find(role.getIdPermission());
+		Permission p = user.getRole().getPermission();
+		
 		if(p.getUploadFile() > 0) permissionSet.put("upload_file", true);
 		else { permissionSet.put("upload_file", false); } 
 		

@@ -64,8 +64,8 @@ public class UserEditBB {
 	
 	public void setUserRole() {
 		//Set Role ID
-		int roleId = roleDAO.getRoleByName(this.roleOption).getIdPermission();
-		this.user.setIdPermission(roleId);
+		//int roleId = roleDAO.getRoleByName(this.roleOption).getIdPermission();
+		//this.user.setIdPermission(roleId);
 	}
 	
 	public void setHashedPassword() {

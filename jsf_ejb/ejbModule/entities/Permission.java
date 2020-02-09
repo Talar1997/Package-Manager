@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -47,6 +48,10 @@ public class Permission implements Serializable {
 	@Column(name="view_logs")
 	private byte viewLogs;
 
+	//bi-directional many-to-one association to Role
+	@OneToMany(mappedBy="permission")
+	private List<Role> roles;
+
 	public Permission() {
 	}
 
@@ -54,7 +59,7 @@ public class Permission implements Serializable {
 		return this.idPermission;
 	}
 
-	public void setIdPermission(int idPermission) {
+	public void setIdPermission(byte idPermission) {
 		this.idPermission = idPermission;
 	}
 
@@ -136,6 +141,28 @@ public class Permission implements Serializable {
 
 	public void setViewLogs(byte viewLogs) {
 		this.viewLogs = viewLogs;
+	}
+
+	public List<Role> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Role addRole(Role role) {
+		getRoles().add(role);
+		role.setPermission(this);
+
+		return role;
+	}
+
+	public Role removeRole(Role role) {
+		getRoles().remove(role);
+		role.setPermission(null);
+
+		return role;
 	}
 
 }

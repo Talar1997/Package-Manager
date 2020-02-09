@@ -69,7 +69,7 @@ public class UsersBB {
 	}
 	
 	public String getRoleName(User user) {
-		return roleDAO.getRoleById(user.getIdPermission()).getName();
+		return user.getRole().getName();
 	}
 	
 }

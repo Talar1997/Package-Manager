@@ -16,6 +16,7 @@ import dao.UserDAO;
 import dao.RoleDAO;
 import dao.LogDAO;
 import entities.Log;
+import entities.Role;
 import entities.User;
 
 @Named
@@ -56,8 +57,8 @@ public class UserCreateBB {
 	
 	public void setUserRole() {
 		//Set Role ID
-		int roleId = roleDAO.getRoleByName(this.roleOption).getIdPermission();
-		this.user.setIdPermission(roleId);
+		Role role = roleDAO.getRoleByName(this.roleOption);
+		this.user.setRole(role);;
 	}
 	
 	public void setHashedPassword() {
