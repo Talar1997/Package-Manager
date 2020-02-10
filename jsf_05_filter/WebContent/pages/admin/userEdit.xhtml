@@ -18,8 +18,8 @@
 		<div class="ui-g-12 content">
 			<div class="ui-g-3 ui-sm-12 content-item-box">
 				<div class="content-item">
-					<div class="titlebar">Tworzenie nowego użytkownika</div>
-					<div class="module-content">
+					<div class="titlebar">Edycja #{userEditBB.selectedUser.username} (#{userEditBB.selectedUser.idUser})</div>
+					<div class="module-content" id="editForm">
 						<h:form>
 							<p:growl id="userMessage" showDetail="true" sticky="false"
 								skipDetailIfEqualsSummary="true" />
@@ -27,20 +27,20 @@
 								styleClass="userCreateTable">
 								<h:outputText value="Login*: " />
 								<p:inputText placeholder="Login"
-									value="#{userCreateBB.user.username}" required="true"
+									value="#{userEditBB.selectedUser.username}" required="true"
 									requiredMessage="Login jest wymagany!" />
 
 								<h:outputText value="Imie:" />
 								<p:inputText placeholder="Imie"
-									value="#{userCreateBB.user.name}" />
+									value="#{userEditBB.selectedUser.name}" />
 
 								<h:outputText value="Nazwisko: " />
 								<p:inputText placeholder="Nazwisko"
-									value="#{userCreateBB.user.surname}" />
+									value="#{userEditBB.selectedUser.surname}" />
 
 								<h:outputText value="Email*: " />
 								<p:inputText placeholder="Email"
-									value="#{userCreateBB.user.email}" required="true"
+									value="#{userEditBB.selectedUser.email}" required="true"
 									validatorMessage="Błędny adres email"
 									requiredMessage="Email jest wymagany!">
 									<f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$" />
@@ -48,24 +48,25 @@
 
 								<h:outputText value="Hasło*: " />
 								<p:password id="inlineFeedback"
-									value="#{userCreateBB.user.password}" feedback="true"
-									placeholder="Hasło" required="true"
-									requiredMessage="Hasło jest wymagane!" />
+									value="#{userEditBB.selectedUser.password}" feedback="true"
+									placeholder="Hasło" />
 
 								<h:outputText value="Rola*:" />
-								<p:selectOneMenu value="#{userCreateBB.roleOption}"
+								<p:selectOneMenu value="#{userEditBB.selectedUser.role.name}"
 									filter="true" filterMatchMode="startsWith">
 									<f:selectItem itemLabel="Wybierz role" itemValue="user" />
 									<f:selectItems value="#{rolesBB.roleList}" />
 								</p:selectOneMenu>
 							</h:panelGrid>
-							<p:commandButton action="#{userCreateBB.createUser()}"
-								value="Utwórz nowe konto" icon="pi pi-check"
-								update="userMessage lastRegisteredUsers userCounter users">
+							<p:commandButton action="#{userEditBB.editUser()}"
+								value="Edytuj" icon="pi pi-check"
+								update="userMessage lastRegisteredUsers userCounter users" style="width: 49%">
 								<p:confirm header="Potwierdzenie"
 									message="Na pewno chcesz utworzyć nowego uzytkownika?"
-									icon="pi pi-exclamation-triangle" />
+									icon="pi pi-exclamation-triangle"/>
 							</p:commandButton>
+							<p:commandButton action="#{userEditBB.backToUsersPage()}"
+								value="Anuluj" icon="pi pi-directions-alt" style="width: 49%" />
 						</h:form>
 					</div>
 				</div>
@@ -156,12 +157,11 @@
 									sortBy="#{user.role.name}" filterBy="#{user.role.name}" filterMatchMode="contains">
 									<h:outputText value="#{user.role.name}" />
 								</p:column>
-								
 								<f:facet name="footer">
 									<p:commandButton process="users" update="userDetail"
 										oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
 									</p:commandButton>
-									<p:commandButton action="#{userEditBB.goToEditPage(usersBB.selectedUser)}"
+									<p:commandButton process="users" action="#{userEditBB.goToEditPage(usersBB.selectedUser)}"
 										icon="pi pi-pencil">
 									</p:commandButton>
 									<p:commandButton process="users" icon="pi pi-trash"
@@ -212,12 +212,11 @@
 
 						<h:outputText value="Rola" />
 						<h:outputText value="#{usersBB.getRoleName(usersBB.selectedUser)}" />
+
 					</p:panelGrid>
 				</h:form>
 			</p:outputPanel>
 		</p:dialog>
-
-		
 
 		<h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

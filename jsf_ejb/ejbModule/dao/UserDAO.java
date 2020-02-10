@@ -96,6 +96,19 @@ public class UserDAO {
 		return query.getResultList();
 	}
 	
+	public List<User> searchForDuplicateByName(String username) {
+		Query query =  em.createQuery("SELECT u FROM User u WHERE u.username LIKE :username");
+		query.setParameter("username", username);
+		return query.getResultList();
+	}
+	
+	public List<User> searchForDuplicateByMail(String email) {
+		Query query =  em.createQuery("SELECT u FROM User u WHERE u.email LIKE :email");
+		query.setParameter("email", email);
+		return query.getResultList();
+	}
+	
+	
 	public boolean isSysadmin(User user) {
 		return user.getRole().getIdRole() == 1 ? true : false;
 	}

@@ -33,7 +33,20 @@ public class RoleDeleteBB {
 					"Nie mozna usunąć roli sysadmina!", null));
 			return null;
 		}
-
+		
+		try {
+			roleDAO.remove(role);
+			permissionDAO.remove(role.getPermission());
+		}catch(Exception e) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Nie mozna usunąć roli, ponieważ któryś z użytkowników do niej należy", null));
+			return null;
+		}finally {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Usunięto rolę", null));
+		}
+		
+		
 		return null;
 	}
 	

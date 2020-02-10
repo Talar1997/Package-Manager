@@ -10,6 +10,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+
+import com.jsfcourse.login.ClientData;
+
 import javax.faces.simplesecurity.PasswordHash;
 
 import dao.UserDAO;
@@ -34,6 +37,9 @@ public class UserCreateBB {
 	
 	@Inject
 	LogDAO logDAO;
+	
+	@Inject
+	ClientData clientData;
 	
 	
 	public User getUser() {
@@ -71,6 +77,12 @@ public class UserCreateBB {
 	
 	public void createUser() throws IOException {
 		FacesContext ctx = FacesContext.getCurrentInstance();
+		
+		if(clientData.getClient().getRole().getPermission().getCreateUser() != 1) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Nie posiadasz uprawnień do tworzenia użytkowników", null));
+		}
+		
 		
 		if(validateUser(user)) {
 			setUserRole();

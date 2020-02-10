@@ -11,14 +11,14 @@
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
 	<ui:define name="title">
-        Przegląd ról - Package Manager
+        Edycja roli - Package Manager
     </ui:define>
 
 	<ui:define name="content">
 		<div class="ui-g-12 content">
 			<div class="ui-g-4 ui-sm-12 content-item-box">
 				<div class="content-item">
-					<div class="titlebar">Tworzenie nowej roli</div>
+					<div class="titlebar">Edycja roli: #{roleEditBB.selectedRole.name}</div>
 					<div class="module-content">
 						<h:form>
 							<p:growl id="userMessage" showDetail="true" sticky="false"
@@ -26,17 +26,17 @@
 							<h:panelGrid columns="2" cellpadding="5"
 								styleClass="userCreateTable">
 								<h:outputText value="Nazwa*: " />
-								<p:inputText placeholder="Nazwa" value="#{roleCreateBB.role.name}" required="true"
+								<p:inputText placeholder="Nazwa" value="#{roleEditBB.selectedRole.name}" required="true"
 									requiredMessage="Nazwa jest wymagana" />
 
 								<h:outputText value="Opis*:" />
-								<p:inputTextarea rows="5" cols="30" placeholder="Opis" value="#{roleCreateBB.role.description}"
+								<p:inputTextarea rows="5" cols="30" placeholder="Opis" value="#{roleEditBB.selectedRole.description}"
 									requiredMessage="Opis jest wymagany" />
 
 								<h:outputText value="Uprawnienia: " />
 								<p:selectManyCheckbox id="grid3" layout="grid"
-									columns="3" value="#{roleCreateBB.permissionList}">
-									<f:selectItem itemLabel="Upload plików" itemValue="file_upload" />
+									columns="3" value="#{roleEditBB.permissionList}">
+									<f:selectItem itemLabel="Upload plików" itemValue="upload_file" />
 							        <f:selectItem itemLabel="Pobieranie plików" itemValue="download_file" />
 							        <f:selectItem itemLabel="Usuwanie plików" itemValue="delete_file" />
 							        <f:selectItem itemLabel="Tworzenie paczek" itemValue="create_package" />
@@ -48,13 +48,15 @@
 							        <f:selectItem itemLabel="Pobierz licencje" itemValue="get_licence" />
 								</p:selectManyCheckbox>
 							</h:panelGrid>
-							<p:commandButton value="Utwórz nową rolę" icon="pi pi-check"
-							action="#{roleCreateBB.createRole()}" update="userMessage allRoles">
+							<p:commandButton value="Edytuj rolę" icon="pi pi-check"
+							action="#{roleEditBB.editRole()}" update="userMessage allRoles" style="width: 49%">
 								<p:confirm header="Potwierdzenie"
-									message="Na pewno chcesz utworzyć nową rolę?"
+									message="Na pewno chcesz edytować rolę?"
 									icon="pi pi-exclamation-triangle" 
 									update="userMessage allRoles"/>
 							</p:commandButton>
+							<p:commandButton action="#{roleEditBB.backToRolesPage()}"
+								value="Anuluj" icon="pi pi-directions-alt" style="width: 49%" />
 						</h:form>
 					</div>
 				</div>

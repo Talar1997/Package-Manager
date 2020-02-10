@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.Permission;
 import entities.Role;
 import entities.User;
 
@@ -22,6 +23,18 @@ public class RoleDAO {
 		return em.find(Role.class, id);
 	}
 	
+	public void create(Role role) {
+		em.persist(role);
+	}
+	
+	public void remove(Role role) {
+		em.remove(em.merge(role));
+	}
+	
+	public Role merge(Role role) {
+		return em.merge(role);
+	}
+	
 	public List<Role> getAllRoles(){
 		return em.createNamedQuery("Role.findAll").getResultList();
 	}
@@ -29,7 +42,10 @@ public class RoleDAO {
 	public Role getRoleByName(String roleName) {
 		Query query = em.createQuery("SELECT r FROM Role r WHERE r.name LIKE :name");
 		query.setParameter("name", roleName);
-		return (Role) query.getResultList().get(0);
+		try {
+			return (Role) query.getResultList().get(0);
+		}catch(Exception e) {}
+		return null;
 	}
 	
 	public Role getRoleById(int id) {

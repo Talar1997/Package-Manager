@@ -7,48 +7,138 @@
       xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
     <ui:define name="title">
-        Kreator nowego użytkownika - Package Manager
+        Lista plików #{clientData.client.name} - Package Manager
     </ui:define>
 
-    <ui:define name="content">
-        <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Tworzenie nowego użytkownika
-                    </div>
-                    <div class="module-content">
-                        Formularz
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ilość użytkowników w systemie
-                    </div>
-                    <div class="module-content">
-                        Liczba wszystkich plików w bazie danych
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodani użytkownicy
-                    </div>
-                    <div class="module-content">
-                        1. nickname - data utworzenia - user logo<br />
-                        2. nickname - data utworzenia - user logo<br />
-                        3. nickname - data utworzenia - user logo<br />
-                        4. nickname - data utworzenia - user logo<br />
-                        5. nickname - data utworzenia - user logo<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ui:define>
+   <ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Wyszukiwarka</div>
+					<div class="module-content">
+						<h:form>
+							<p:growl id="userMessage" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<h:panelGrid columns="2" cellpadding="5"
+								styleClass="userCreateTable">
+								<h:outputText value="Nazwa pliku: " />
+								<p:inputText placeholder="Nazwa pliku" value="" />
+								
+								<h:outputText value="Opis " />
+								<p:inputText placeholder="Opis pliku" value="" />
+								
+								<h:outputText value="Wersja: " />
+								<p:inputText placeholder="Wersja pliku" value="" />						
+							</h:panelGrid>
+							<p:commandButton value="Wyszukaj" icon="pi pi-check"/>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-8 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Pliki</div>
+					<div class="module-content">
+						<h:form id="allFiles">
+							<p:growl id="roleListMsg" showDetail="true" sticky="false"
+								skipDetailIfEqualsSummary="true" />
+							<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
+								paginator="true" rows="10" selectionMode="single"
+								selection="#{rolesBB.selectedRole}" rowKey="#{role.idRole}">
+								<p:column headerText="Nazwa">
+									<h:outputText value="#{role.idRole}" />
+								</p:column>
+								<p:column headerText="Skrócony opis">
+									<h:outputText value="#{role.name}" />
+								</p:column>
+								<p:column headerText="Wersja">
+									<h:outputText value="#{role.description}" />
+								</p:column>
+								<p:column headerText="Ilość pobrań">
+									<h:outputText value="#{role.description}" />
+								</p:column>
+								<f:facet name="footer">
+									
+								</f:facet>
+							</p:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<h:form id="roleDetails">
+			<p:dialog header="Szczegóły roli" minimizable="true"
+				maximizable="true" widgetVar="roleDetailsDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false"
+				appendToBody="true">
+
+				<p:panelGrid id="roleDetails" columns="2"
+					rendered="#{not empty rolesBB.selectedRole}"
+					columnClasses="label,value">
+					<f:facet name="header">
+						<h:graphicImage library="images" name="role-av.png"
+							styleClass="avatarImg" />
+					</f:facet>
+
+					<h:outputText value="ID" />
+					<h:outputText value="#{rolesBB.selectedRole.idRole}" />
+					<h:outputText value="Nazwa" />
+					<h:outputText value="#{rolesBB.selectedRole.name}" />
+
+					<h:outputText value="Upload plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('upload_file')}" />
+
+					<h:outputText value="Pobieranie plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('download_file')}" />
+
+					<h:outputText value="Usuwanie plików" />
+					<h:outputText value="#{rolesBB.permissionSet.get('delete_file')}" />
+
+					<h:outputText value="Tworzenie paczek" />
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('create_package')}" />
+
+					<h:outputText value="Usuwanie paczek" />
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('delete_package')}" />
+
+					<h:outputText value="Zmiana uprawnień" />
+					<h:outputText
+						value="#{rolesBB.permissionSet.get('set_permission')}" />
+
+					<h:outputText value="Zarządzanie uzytkownikami" />
+					<h:outputText value="#{rolesBB.permissionSet.get('create_user')}" />
+
+					<h:outputText value="Podgląd logów" />
+					<h:outputText value="#{rolesBB.permissionSet.get('view_logs')}" />
+
+					<h:outputText value="Pobieranie licencji" />
+					<h:outputText value="#{rolesBB.permissionSet.get('get_licence')}" />
+
+					<h:outputText value="Dodawanie nowych licencji" />
+					<h:outputText value="#{rolesBB.permissionSet.get('add_licence')}" />
+
+
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Tak" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Nie" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
 </ui:composition>
 </html>

@@ -6,6 +6,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.jsfcourse.login.ClientData;
+
 import dao.UserDAO;
 import dao.LogDAO;
 import entities.Log;
@@ -16,13 +18,14 @@ import entities.User;
 public class UserDeleteBB {
 	private static final String PAGE_STAY_AT_THE_SAME = "/pages/admin/users.xhtml";
 	private User user = new User();
-	private String roleOption;
-	
 	@Inject
 	UserDAO userDAO;
 	
 	@Inject
 	LogDAO logDAO;
+	
+	@Inject
+	ClientData clientData;
 	
 	
 	public User getUser() {
@@ -48,7 +51,7 @@ public class UserDeleteBB {
 			userDAO.remove(user);
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Pomyślnie usunięto uzytkownika", null));
-			Log log = new Log("User deleted", "Usunięto uzytkownika: " + user.getUsername() + " przez: " + "[tu nazwa usuwajacego]");
+			Log log = new Log("User deleted", "Usunieto uzytkownika: " + user.getUsername() + " przez: " + clientData.getClient().getUsername() + " (" + clientData.getClient().getIdUser() + ")");
 			logDAO.create(log);
 		}
 		else {

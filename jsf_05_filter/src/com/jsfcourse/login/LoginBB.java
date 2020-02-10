@@ -21,8 +21,8 @@ import entities.Log;
 @Named
 @RequestScoped
 public class LoginBB {
-	private static final String PAGE_MAIN = "/public/page";
-	private static final String PAGE_LOGIN = "/pages/login";
+	private static final String PAGE_MAIN = "/public/page?faces-redirect=true";
+	private static final String PAGE_LOGIN = "/pages/login?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String login;
