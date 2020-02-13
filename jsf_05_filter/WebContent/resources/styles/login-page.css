@@ -8,11 +8,11 @@
     background: rgb(221,172,193);
     */
 
-    background: #43C6AC;
+    background: #405F6E;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(45deg, #191654, #43C6AC);
+    background: -webkit-linear-gradient(45deg, #405F6E, #5E8395);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(45deg, #191654, #43C6AC);
+    background: linear-gradient(45deg, #405F6E, #5E8395);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
@@ -46,4 +46,20 @@ input{
 
 button{
     padding: 6px !important;
+}
+
+.ui-button{
+	background-color: #0AC59D !important;
+	border-color: #0AC59D !important;
+}
+
+.ui-paginator-pages .ui-paginator-page{
+background: none;
+background-color:#cccccc;
+}
+.ui-paginator-pages .ui-state-active{
+background-color: white;
+}
+.ui-paginator-pages .ui-state-hover{
+background-color: red;
 }

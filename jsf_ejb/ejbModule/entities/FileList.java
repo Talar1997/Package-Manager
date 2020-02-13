@@ -2,6 +2,9 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import entities.User;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,6 +16,10 @@ import java.util.List;
 @Entity
 @Table(name="file_list")
 @NamedQuery(name="FileList.findAll", query="SELECT f FROM FileList f")
+@NamedQuery(name="FileList.countFileList", query="SELECT f FROM FileList f")
+@NamedQuery(name="FileList.getLastAdded", 
+	query="SELECT f FROM FileList f ORDER BY f.addedTime DESC")
+@NamedQuery(name="FileList.showMostPopular", query="SELECT f FROM FileList f ORDER BY f.downloadCounter DESC")
 public class FileList implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,8 +35,10 @@ public class FileList implements Serializable {
 	@Column(name="download_counter")
 	private int downloadCounter;
 
-	@Column(name="id_uploader")
-	private int idUploader;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="id_uploader")
+	private User user;
 
 	private String name;
 
@@ -88,12 +97,12 @@ public class FileList implements Serializable {
 		this.downloadCounter = downloadCounter;
 	}
 
-	public int getIdUploader() {
-		return this.idUploader;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setIdUploader(int idUploader) {
-		this.idUploader = idUploader;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getName() {

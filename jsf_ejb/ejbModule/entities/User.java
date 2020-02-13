@@ -2,6 +2,10 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import entities.FavPackage;
+import entities.FileList;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -47,6 +51,14 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_permission")
 	private Role role;
+	
+	//bi-directional many-to-one association to FavPackage
+	@OneToMany(mappedBy="user")
+	private List<FavPackage> favPackages;
+
+	//bi-directional many-to-one association to FileList
+	@OneToMany(mappedBy="user")
+	private List<FileList> fileLists;
 
 	public User() {
 	}
@@ -157,6 +169,28 @@ public class User implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public List<FavPackage> getFavPackages() {
+		return this.favPackages;
+	}
+
+	public void setFavPackages(List<FavPackage> favPackages) {
+		this.favPackages = favPackages;
+	}
+
+	public FavPackage addFavPackage(FavPackage favPackage) {
+		getFavPackages().add(favPackage);
+		favPackage.setUser(this);
+
+		return favPackage;
+	}
+
+	public FavPackage removeFavPackage(FavPackage favPackage) {
+		getFavPackages().remove(favPackage);
+		favPackage.setUser(null);
+
+		return favPackage;
 	}
 
 }

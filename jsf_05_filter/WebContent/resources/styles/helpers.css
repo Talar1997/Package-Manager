@@ -1,6 +1,7 @@
 body, html{
     padding: 0px !important;
     margin: 0px !important;
-    background: rgb(245,245,245) !important;
+    background: rgb(252,252,252) !important;
     font-family: 'Roboto', sans-serif !important;
+    font-size: 14px !important;
 }

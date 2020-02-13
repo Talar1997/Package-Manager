@@ -1,11 +1,12 @@
 .amountDiv{
-	font-size: 10em;
-	height: 220px;
+	font-size: 2em;
+	height: 100px;
 	text-align: center;
 }
 
 .userCreateTable{
 	width: 100%;
+	padding: 15px;
 }
 
 .actionSection{

@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Wszyscy użytkownicy</div>
+	<div class="module-content">
+		<h:form id="users">
+			<p:growl id="userList" showDetail="true" sticky="false"
+				skipDetailIfEqualsSummary="true" />
+			<p:dataTable id="users" var="user" value="#{usersBB.allUsers}"
+				paginator="true" rows="10" selectionMode="single"
+				selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">
+				<f:facet name="header">
+					<p:commandButton id="toggler" type="button" value="Kolumny"
+						style="float: right;width: 100px !important"
+						icon="pi pi-align-justify" />
+					<p:columnToggler datasource="users" trigger="toggler" />
+					<div style="clear: both"></div>
+				</f:facet>
+				<p:column headerText="Id" sortBy="#{user.idUser}"
+					style="width:50px;" filterBy="#{user.idUser}"
+					filterMatchMode="exact">
+					<h:outputText value="#{user.idUser}" />
+				</p:column>
+
+				<p:column headerText="Username" sortBy="#{user.username}"
+					filterBy="#{user.username}" filterMatchMode="contains">
+					<h:outputText value="#{user.username}" />
+				</p:column>
+
+				<p:column headerText="Imie" sortBy="#{user.name}"
+					filterBy="#{user.name}" filterMatchMode="contains">
+					<h:outputText value="#{user.name}" />
+				</p:column>
+
+				<p:column headerText="Nazwisko" sortBy="#{user.surname}"
+					filterBy="#{user.surname}" filterMatchMode="contains">
+					<h:outputText value="#{user.surname}" />
+				</p:column>
+
+				<p:column headerText="Email" visible="false" sortBy="#{user.email}"
+					filterBy="#{user.email}" filterMatchMode="contains">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+
+				<p:column headerText="Rola" visible="true"
+					sortBy="#{user.role.name}" filterBy="#{user.role.name}"
+					filterMatchMode="contains">
+					<h:outputText value="#{user.role.name}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton process="users" update="userDetail"
+						oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
+					</p:commandButton>
+					<p:commandButton
+						action="#{userEditBB.goToEditPage(usersBB.selectedUser)}"
+						icon="pi pi-pencil">
+					</p:commandButton>
+					<p:commandButton process="users" icon="pi pi-trash"
+						styleClass="dangerButton"
+						action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+						update="users:userList lastRegisteredUsers users">
+						<p:confirm header="Potwierdzenie"
+							message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</div>
+</ui:composition>

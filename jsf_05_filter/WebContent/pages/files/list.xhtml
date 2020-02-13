@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
-<ui:define name="additionalStyles">
+	<ui:define name="additionalStyles">
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
-    <ui:define name="title">
+	<ui:define name="title">
         Lista plików - Package Manager
     </ui:define>
 
-   <ui:define name="content">
+	<ui:define name="content">
 		<div class="ui-g-12 content">
 			<div class="ui-g-4 ui-sm-12 content-item-box">
 				<div class="content-item">
@@ -26,18 +26,21 @@
 							<h:panelGrid columns="2" cellpadding="5"
 								styleClass="userCreateTable">
 								<h:outputText value="Nazwa pliku: " />
-								<p:inputText placeholder="Nazwa pliku" value="" />
-								
+								<p:inputText placeholder="Nazwa pliku" value="#{fileListBB.fileName}" />
+
 								<h:outputText value="Opis " />
-								<p:inputText placeholder="Opis pliku" value="" />
-								
+								<p:inputText placeholder="Opis pliku" value="#{fileListBB.description}" />
+
 								<h:outputText value="Wersja: " />
-								<p:inputText placeholder="Wersja pliku" value="" />	
-								
+								<p:inputText placeholder="Wersja pliku" value="#{fileListBB.version}" />
+
 								<h:outputText value="Dodane przez: " />
-								<p:inputText placeholder="Dodane przez" value="" />							
+								<p:inputText placeholder="Dodane przez" value="#{fileListBB.addedBy}" />
 							</h:panelGrid>
-							<p:commandButton value="Wyszukaj" icon="pi pi-check"/>
+							<p:commandButton value="Wyszukaj" icon="pi pi-check" action="#{fileListBB.sortFiles()}"
+							update= "allFilesList" style="width: 49%"/>
+							<p:commandButton value="Wyczyść" action="#{fileListBB.clearSearch()}"
+							update= "allFilesList" style="width: 49%"/>
 						</h:form>
 					</div>
 				</div>
@@ -47,31 +50,29 @@
 				<div class="content-item">
 					<div class="titlebar">Pliki</div>
 					<div class="module-content">
-						<h:form id="allFiles">
+						<h:form id="allFilesList">
 							<p:growl id="roleListMsg" showDetail="true" sticky="false"
 								skipDetailIfEqualsSummary="true" />
-							<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
-								paginator="true" rows="10" selectionMode="single"
-								selection="#{rolesBB.selectedRole}" rowKey="#{role.idRole}">
-								<p:column headerText="Nazwa">
-									<h:outputText value="#{role.idRole}" />
-								</p:column>
-								<p:column headerText="Skrócony opis">
-									<h:outputText value="#{role.name}" />
-								</p:column>
-								<p:column headerText="Wersja">
-									<h:outputText value="#{role.description}" />
-								</p:column>
-								<p:column headerText="Dodane przez">
-									<h:outputText value="#{role.description}" />
-								</p:column>
-								<p:column headerText="Ilość pobrań">
-									<h:outputText value="#{role.description}" />
-								</p:column>
-								<f:facet name="footer">
+							<p:dataGrid var="file" value="#{fileListBB.allFiles}" columns="3"
+								layout="grid" rows="6" paginator="true" id="files" >
+								<p:panel header="#{file.name} (#{file.version})" style="text-align:center; margin: 5px;">
+									<h:panelGrid columns="1" style="width:100%">
+										<h:outputText value="#{file.description}" escape="false"/>
+										<p:menuButton value="Opcje">
+									        <p:menuitem value="Pobierz"  icon="pi pi-save" ajax="false" actionListener="#{fileListBB.download(file)}">
+									        	<p:fileDownload value="#{fileListBB.fileToDownload}" />
+									        </p:menuitem>
+									        <p:menuitem value="Usuń" action="#{fileDeleteBB.delete(file)}" update="allFilesList" ajax="false" icon="pi pi-times"/>
+									    </p:menuButton>
+									</h:panelGrid>
 									
-								</f:facet>
-							</p:dataTable>
+									<f:facet name="footer">
+										<h:outputText value="Dodane przez: #{file.user.username}"/><br />
+										<h:outputText value="Pobrane: #{file.downloadCounter} razy" />
+									</f:facet>
+								</p:panel>
+
+							</p:dataGrid>
 						</h:form>
 					</div>
 				</div>

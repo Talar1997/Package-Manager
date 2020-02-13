@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog header="Szczegóły uzytkownika" minimizable="true"
+		maximizable="true" widgetVar="userDetailDialog" modal="true"
+		showEffect="fade" hideEffect="fade" resizable="false">
+		<p:outputPanel id="userDetail" style="text-align:center;">
+			<h:form id="details">
+				<p:panelGrid columns="2"
+					rendered="#{not empty usersBB.selectedUser}"
+					columnClasses="label,value">
+					<f:facet name="header">
+						<h:graphicImage library="images" name="user-av.png"
+							styleClass="avatarImg" />
+					</f:facet>
+					<h:outputText value="ID" />
+					<h:outputText value="#{usersBB.selectedUser.idUser}" />
+
+					<h:outputText value="Login:" />
+					<h:outputText value="#{usersBB.selectedUser.username}" />
+
+					<h:outputText value="Imie: " />
+					<h:outputText value="#{usersBB.selectedUser.name}" />
+
+					<h:outputText value="Nazwisko: " />
+					<h:outputText value="#{usersBB.selectedUser.surname}" />
+
+					<h:outputText value="Email" />
+					<h:outputText value="#{usersBB.selectedUser.email}" />
+
+					<h:outputText value="Data utworzenia" />
+					<h:outputText value="#{usersBB.selectedUser.timestampCreated}" />
+
+					<h:outputText value="Rola" />
+					<h:outputText value="#{usersBB.getRoleName(usersBB.selectedUser)}" />
+
+				</p:panelGrid>
+			</h:form>
+		</p:outputPanel>
+	</p:dialog>
+</ui:composition>

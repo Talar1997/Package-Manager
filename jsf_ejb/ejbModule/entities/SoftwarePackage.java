@@ -2,7 +2,11 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import entities.FavPackage;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -12,6 +16,9 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="software_package")
 @NamedQuery(name="SoftwarePackage.findAll", query="SELECT s FROM SoftwarePackage s")
+@NamedQuery(name="SoftwarePackage.countSoftwarePackages", query="SELECT s FROM SoftwarePackage s")
+@NamedQuery(name="SoftwarePackage.getLastAdded", 
+	query="SELECT s FROM SoftwarePackage s ORDER BY s.creationTime DESC")
 public class SoftwarePackage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +27,7 @@ public class SoftwarePackage implements Serializable {
 	private int idPackage;
 
 	@Column(name="cretion_time")
-	private Timestamp cretionTime;
+	private Timestamp creationTime;
 
 	private String description;
 
@@ -30,6 +37,11 @@ public class SoftwarePackage implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_file_list")
 	private FileList fileList;
+	
+	//bi-directional many-to-one association to FavPackage
+	@OneToMany(mappedBy="softwarePackage")
+	private List<FavPackage> favPackages;
+
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -48,11 +60,11 @@ public class SoftwarePackage implements Serializable {
 	}
 
 	public Timestamp getCretionTime() {
-		return this.cretionTime;
+		return this.creationTime;
 	}
 
 	public void setCretionTime(Timestamp cretionTime) {
-		this.cretionTime = cretionTime;
+		this.creationTime = cretionTime;
 	}
 
 	public String getDescription() {
@@ -86,5 +98,29 @@ public class SoftwarePackage implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public List<FavPackage> getFavPackages() {
+		return this.favPackages;
+	}
+
+	public void setFavPackages(List<FavPackage> favPackages) {
+		this.favPackages = favPackages;
+	}
+
+	public FavPackage addFavPackage(FavPackage favPackage) {
+		getFavPackages().add(favPackage);
+		favPackage.setSoftwarePackage(this);
+
+		return favPackage;
+	}
+
+	public FavPackage removeFavPackage(FavPackage favPackage) {
+		getFavPackages().remove(favPackage);
+		favPackage.setSoftwarePackage(null);
+
+		return favPackage;
+	}
+	
+	
 
 }

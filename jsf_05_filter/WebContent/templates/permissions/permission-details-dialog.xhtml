@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="roleDetails">
+		<p:dialog header="Szczegóły roli" minimizable="true"
+			maximizable="true" widgetVar="roleDetailsDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			appendToBody="true">
+
+			<p:panelGrid id="roleDetails" columns="2"
+				rendered="#{not empty rolesBB.selectedRole}"
+				columnClasses="label,value">
+				<f:facet name="header">
+					<h:graphicImage library="images" name="role-av.png"
+						styleClass="avatarImg" />
+				</f:facet>
+
+				<h:outputText value="ID" />
+				<h:outputText value="#{rolesBB.selectedRole.idRole}" />
+				<h:outputText value="Nazwa" />
+				<h:outputText value="#{rolesBB.selectedRole.name}" />
+
+				<h:outputText value="Upload plików" />
+				<h:outputText value="#{rolesBB.permissionSet.get('upload_file')}" />
+
+				<h:outputText value="Pobieranie plików" />
+				<h:outputText value="#{rolesBB.permissionSet.get('download_file')}" />
+
+				<h:outputText value="Usuwanie plików" />
+				<h:outputText value="#{rolesBB.permissionSet.get('delete_file')}" />
+
+				<h:outputText value="Tworzenie paczek" />
+				<h:outputText value="#{rolesBB.permissionSet.get('create_package')}" />
+
+				<h:outputText value="Usuwanie paczek" />
+				<h:outputText value="#{rolesBB.permissionSet.get('delete_package')}" />
+
+				<h:outputText value="Zmiana uprawnień" />
+				<h:outputText value="#{rolesBB.permissionSet.get('set_permission')}" />
+
+				<h:outputText value="Zarządzanie uzytkownikami" />
+				<h:outputText value="#{rolesBB.permissionSet.get('create_user')}" />
+
+				<h:outputText value="Podgląd logów" />
+				<h:outputText value="#{rolesBB.permissionSet.get('view_logs')}" />
+
+				<h:outputText value="Pobieranie licencji" />
+				<h:outputText value="#{rolesBB.permissionSet.get('get_licence')}" />
+
+				<h:outputText value="Dodawanie nowych licencji" />
+				<h:outputText value="#{rolesBB.permissionSet.get('add_licence')}" />
+
+
+			</p:panelGrid>
+		</p:dialog>
+	</h:form>
+</ui:composition>

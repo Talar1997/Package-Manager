@@ -129,16 +129,28 @@ public class RoleEditBB implements Serializable{
 		}
 		
 		Permission permission = selectedRole.getPermission();
+		//Set all permission to 0
+		permission.setUploadFile((byte) 0);
+		permission.setDownloadFile((byte) 0);
+		permission.setDeleteFile((byte) 0);
+		permission.setCreatePackage((byte) 0);	
+		permission.setDeletePackage((byte) 0);
+		permission.setSetPermission((byte) 0);
+		permission.setCreateUser((byte) 0);
+		permission.setViewLogs((byte) 0);
+		permission.setAddLicence((byte) 0);
+		permission.setGetLicence((byte) 0);
+		
 		for(String perm : permissionList) {
-			if(perm.equals("file_upload")) permission.setUploadFile((byte) 1);
+			if(perm.equals("upload_file")) permission.setUploadFile((byte) 1);
 			if(perm.equals("download_file")) permission.setDownloadFile((byte) 1);
 			if(perm.equals("delete_file")) permission.setDeleteFile((byte) 1);
-			if(perm.equals("create_package")) permission.setCreatePackage((byte) 1);
-			if(perm.equals("delete_package")) permission.setDeletePackage((byte) 1);
-			if(perm.equals("set_permission")) permission.setSetPermission((byte) 1);
-			if(perm.equals("create_user")) permission.setCreateUser((byte) 1);
-			if(perm.equals("view_logs")) permission.setViewLogs((byte) 1);
-			if(perm.equals("add_licence")) permission.setAddLicence((byte) 1);
+			if(perm.equals("create_package")) permission.setCreatePackage((byte) 1);			
+			if(perm.equals("delete_package")) permission.setDeletePackage((byte) 1);			
+			if(perm.equals("set_permission")) permission.setSetPermission((byte) 1);			
+			if(perm.equals("create_user")) permission.setCreateUser((byte) 1);			
+			if(perm.equals("view_logs")) permission.setViewLogs((byte) 1);			
+			if(perm.equals("add_licence")) permission.setAddLicence((byte) 1);			
 			if(perm.equals("get_licence")) permission.setGetLicence((byte) 1);
 		}
 		

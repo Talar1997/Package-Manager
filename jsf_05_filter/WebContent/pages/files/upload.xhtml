@@ -28,19 +28,21 @@
 							<h:panelGrid columns="2" cellpadding="5"
 								styleClass="userCreateTable">
 								<h:outputText value="Wybierz plik/pliki" />
-								<p:fileUpload value="" label="Wybierz" mode="simple" skinSimple="true" multiple="true" />
+								<p:fileUpload value="#{fileListUploadBB.file}" label="Wybierz" mode="simple" skinSimple="true" />
 								
 								<h:outputText value="Nazwa " />
-								<p:inputText placeholder="Nazwa" value="" />
-								
+								<p:inputText placeholder="Nazwa" value="#{fileListUploadBB.fileList.name}" required="true"
+									requiredMessage="Nazwa jest wymagana!"/>
+									
 								<h:outputText value="Wersja: " />
-								<p:inputText placeholder="Wersja pliku" value="" />		
+								<p:inputText placeholder="Wersja pliku" value="#{fileListUploadBB.fileList.version}" required="true"
+									requiredMessage="Wersja jest wymagana!"/>		
 								
 								<h:outputText value="Opis " />
-								<p:textEditor widgetVar="editor1" value="#{editorView.text}" height="300" style="margin-bottom:10px"/>
+								<p:textEditor widgetVar="editor1" value="#{fileListUploadBB.fileList.description}"  height="300" style="margin-bottom:10px"/>
 	
 							</h:panelGrid>
-							<p:commandButton value="Dodaj" icon="pi pi-check"/>
+							<p:commandButton value="Dodaj" icon="pi pi-check" action="#{fileListUploadBB.upload()}" ajax="false" update="userMessage"/>
 						</h:form>
                     </div>
                 </div>

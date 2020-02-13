@@ -1,12 +1,12 @@
 #logoArea{
-    background-color: #319795;
-    height: 65px;
+    background-color: #5E8395;
+    height: 50px;
     width: 100%;
     padding: 10px;
 }
 
 #logoArea > a > img{
-    height: 45px;
+    height: 30px;
     width: auto;
 }
 
@@ -54,5 +54,9 @@
     max-width: 200px;
     height: auto;
     z-index: 100;
+}
+
+.ui-menu-list > .ui-menuitem:hover{
+	color: #0AC59D !important;
 }
 

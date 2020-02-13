@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 
 /**
@@ -19,7 +20,7 @@ public class DownloadList implements Serializable {
 	@Column(name="id_download")
 	private int idDownload;
 
-	private Timestamp timestamp;
+	private LocalDate timestamp;
 
 	public DownloadList() {
 	}
@@ -32,11 +33,11 @@ public class DownloadList implements Serializable {
 		this.idDownload = idDownload;
 	}
 
-	public Timestamp getTimestamp() {
+	public LocalDate getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(LocalDate timestamp) {
 		this.timestamp = timestamp;
 	}
 

@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Role</div>
+	<div class="module-content">
+		<h:form id="allRoles">
+			<p:growl id="roleListMsg" showDetail="true" sticky="false"
+				skipDetailIfEqualsSummary="true" />
+			<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
+				paginator="true" rows="10" selectionMode="single"
+				selection="#{rolesBB.selectedRole}" rowKey="#{role.idRole}">
+				<p:column headerText="ID" style="width:50px;">
+					<h:outputText value="#{role.idRole}" />
+				</p:column>
+				<p:column headerText="Nazwa">
+					<h:outputText value="#{role.name}" />
+				</p:column>
+				<p:column headerText="Opis">
+					<h:outputText value="#{role.description}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton process="allRoles" update="roleDetails"
+						oncomplete="PF('roleDetailsDialog').show()" icon="pi pi-search">
+					</p:commandButton>
+					<p:commandButton process="allRoles"
+						action="#{roleEditBB.goToEditPage(rolesBB.selectedRole)}"
+						icon="pi pi-pencil">
+					</p:commandButton>
+					<p:commandButton process="allRoles" icon="pi pi-trash"
+						styleClass="dangerButton"
+						action="#{roleDeleteBB.delete(rolesBB.selectedRole)}"
+						update="allRoles:roles allRoles:roleListMsg allRoles">
+						<p:confirm header="Potwierdzenie"
+							message="Na pewno chcesz usunąć z bazy danych zaznaczoną rolę? Ten proces jest nieodwracalny!"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</div>
+</ui:composition>

@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Ostatnio dodani użytkownicy</div>
+	<div class="module-content">
+		<p:dataTable id="lastRegisteredUsers" var="user"
+			value="#{usersBB.lastRegisteredUsers}">
+			<p:column headerText="Id" style="width:50px;">
+				<h:outputText value="#{user.idUser}" />
+			</p:column>
+
+			<p:column headerText="Imie">
+				<h:outputText value="#{user.name}" />
+			</p:column>
+
+			<p:column headerText="Nazwisko">
+				<h:outputText value="#{user.surname}" />
+			</p:column>
+
+			<p:column headerText="Email">
+				<h:outputText value="#{user.email}" />
+			</p:column>
+
+			<p:column headerText="Utworzony">
+				<h:outputText value="#{user.timestampCreated}" />
+			</p:column>
+		</p:dataTable>
+	</div>
+</ui:composition>

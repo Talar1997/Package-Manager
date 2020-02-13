@@ -1,151 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
-    <ui:define name="title">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+		<h:outputStylesheet name="content.css" library="styles" />
+	</ui:define>
+	
+	<ui:define name="title">
         Dashboard - Package Manager
     </ui:define>
 
-    <ui:define name="content">
-        <div class="ui-g-12 content">
-           <div class="ui-g-6 ui-sm-12 content-item-box">
-               <div class="content-item">
-                   <div class="titlebar">
-                       Ilość pobrań
-                   </div>
-                   <div class="module-content">
-                        Tutaj wykres
-                   </div>
-               </div>
-           </div>
-           <div class="ui-g-3 ui-sm-12 content-item-box">
-               <div class="content-item">
-                   <div class="titlebar">
-                       Ilość plików
-                   </div>
-                   <div class="module-content">
-                       Liczba wszystkich plików w bazie danych
-                   </div>
-               </div>
-           </div>
-           <div class="ui-g-3 ui-sm-12 content-item-box">
-               <div class="content-item">
-                   <div class="titlebar">
-                       Ilość paczek
-                   </div>
-                   <div class="module-content">
-                       Liczba wszystkich paczek w bazie danych
-                   </div>
-               </div>
-           </div>
-        </div>
-        <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Twoje ulubione paczki
-                    </div>
-                    <div class="module-content">
-                        1. nazwa - autor - data - rozwinięcie (opcjonalne)<br />
-                        --1. plik z paczki<br/>
-                        --2. plik z paczki<br/>
-                        --3. plik z paczki<br/>
-                        2. nazwa - autor - data - rozwinięcie (opcjonalne)<br />
-                        --1. plik z paczki<br/>
-                        --2. plik z paczki<br/>
-                        --3. plik z paczki<br/>
-                        ...
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodane paczki
-                    </div>
-                    <div class="module-content">
-                        1. nazwa - autor - data - rozwinięcie (opcjonalne)<br />
-                            --1. plik z paczki<br/>
-                            --2. plik z paczki<br/>
-                            --3. plik z paczki<br/>
-                        2. nazwa - autor - data - rozwinięcie (opcjonalne)<br />
-                            --1. plik z paczki<br/>
-                            --2. plik z paczki<br/>
-                            --3. plik z paczki<br/>
-                        ...
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Najczęściej pobierane zasoby
-                    </div>
-                    <div class="module-content">
-                       1. nazwa - typ (paczka/plik) - ilość pobrań - wersja<br />
-                       2. nazwa - typ (paczka/plik) - ilość pobrań - wersja<br />
-                       3. nazwa - typ (paczka/plik) - ilość pobrań - wersja<br />
-                       4. nazwa - typ (paczka/plik) - ilość pobrań - wersja<br />
-                       5. nazwa - typ (paczka/plik) - ilość pobrań - wersja<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodane pliki
-                    </div>
-                    <div class="module-content">
-                        1. nazwa - autor - wersja - data<br />
-                        2. nazwa - autor - wersja - data<br />
-                        3. nazwa - autor - wersja - data<br />
-                        4. nazwa - autor - wersja - data<br />
-                        5. nazwa - autor - wersja - data<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Najaktywniejsi użytkownicy
-                    </div>
-                    <div class="module-content">
-                        1. nickname - ilość utworzonych paczek/wgranych plików - user logo<br />
-                        2. nickname - ilość utworzonych paczek/wgranych plików - user logo<br />
-                        3. nickname - ilość utworzonych paczek/wgranych plików - user logo<br />
-                        4. nickname - ilość utworzonych paczek/wgranych plików - user logo<br />
-                        5. nickname - ilość utworzonych paczek/wgranych plików - user logo<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Najnowsi uzytkownicy
-                    </div>
-                    <div class="module-content">
-                        1. nickname - data utworzenia - user logo<br />
-                        2. nickname - data utworzenia - user logo<br />
-                        3. nickname - data utworzenia - user logo<br />
-                        4. nickname - data utworzenia - user logo<br />
-                        5. nickname - data utworzenia - user logo<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ui:define>
+	<ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<ui:insert name="userList">
+						<ui:include src="/templates/users/users-amount.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="no-titlebar"></div>
+					<div class="module-content">
+						<div class="amountDiv">#{softwarePackageBB.countPackages()}</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="no-titlebar"></div>
+					<div class="module-content">
+						<div class="amountDiv">#{fileListBB.countFileLists()}</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Ilość pobrań</div>
+					<div class="module-content">
+						<p:lineChart model="#{chartBB.model}" style="width: 100%; height: 350px;"/>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<div class="ui-g-12 content">
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<ui:insert name="lastRegistered">
+						<ui:include src="/templates/users/last-registered.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Ostatnio dodane paczki</div>
+					<div class="module-content">
+						1. nazwa - autor - data - rozwinięcie (opcjonalne)<br /> --1.
+						plik z paczki<br /> --2. plik z paczki<br /> --3. plik z paczki<br />
+						2. nazwa - autor - data - rozwinięcie (opcjonalne)<br /> --1.
+						plik z paczki<br /> --2. plik z paczki<br /> --3. plik z paczki<br />
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ui-g-12 content">
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Najczęściej pobierane zasoby</div>
+					<div class="module-content">
+						<p:dataList value="#{fileListBB.mostPopular}" var="file"
+							type="ordered">
+				        	#{file.name} (wersja: #{file.version}). Dodane przez: #{file.user.username}, pobrane #{file.downloadCounter} razy
+				    	</p:dataList>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Ostatnio dodane pliki</div>
+					<div class="module-content">
+						<p:dataList value="#{fileListBB.lastAdded}" var="file"
+							type="ordered">
+				        	#{file.name} (wersja: #{file.version}). Dodane przez: #{file.user.username}
+				    	</p:dataList>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>
 </html>

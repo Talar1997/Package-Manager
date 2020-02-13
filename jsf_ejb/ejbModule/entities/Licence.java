@@ -39,15 +39,15 @@ public class Licence implements Serializable {
 	@OneToMany(mappedBy="licence")
 	private List<FileList> fileLists;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="id_added_by")
-	private User user;
-
 	//bi-directional many-to-one association to FileList
 	@ManyToOne
 	@JoinColumn(name="id_file_list")
 	private FileList fileList;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="id_added_by")
+	private User user;
 
 	public Licence() {
 	}
@@ -122,20 +122,20 @@ public class Licence implements Serializable {
 		return fileList;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public FileList getFileList() {
 		return this.fileList;
 	}
 
 	public void setFileList(FileList fileList) {
 		this.fileList = fileList;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
