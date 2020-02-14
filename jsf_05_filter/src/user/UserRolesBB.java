@@ -15,7 +15,7 @@ import entities.Role;
 
 @Named
 @RequestScoped
-public class RolesBB {
+public class UserRolesBB {
 	private List<String> roleList = new ArrayList<String>();
 	
 	@Inject
