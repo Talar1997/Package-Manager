@@ -103,7 +103,6 @@ public class UserEditBB implements Serializable{
 		}
 		
 		if(selectedUser.getPassword().length() != 0) {
-			System.out.println(selectedUser.getPassword() + " / " + getHashedPassword(selectedUser.getPassword()));
 			oldUser.setPassword(getHashedPassword(selectedUser.getPassword()));
 		}
 		

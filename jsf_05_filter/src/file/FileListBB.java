@@ -2,6 +2,7 @@ package file;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,8 @@ import javax.inject.Named;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+
+import com.jsfcourse.login.ClientData;
 
 import dao.DownloadListDAO;
 import dao.FileListDAO;
@@ -26,6 +29,7 @@ public class FileListBB {
 	private List<FileList> allFiles;
 	private List<FileList> lastAdded;
 	private List<FileList> mostPopular;
+	private List<FileList> addedByClient = new ArrayList<FileList>();
 	private static final String PAGE_STAY_AT_THE_SAME = "/pages/files/list.xhtml";
 	private StreamedContent fileToDownload;
 	String fileName;
@@ -37,6 +41,9 @@ public class FileListBB {
 	FileListDAO fListDAO;
 	
 	@Inject
+	ClientData clientData;
+	
+	@Inject
 	DownloadListDAO dListDAO;
 	
 	@PostConstruct
@@ -44,6 +51,12 @@ public class FileListBB {
 		mostPopular = fListDAO.getMostPopular();
 		lastAdded = fListDAO.getLastAdded();
         allFiles = fListDAO.findAll();
+        for(FileList f : allFiles) {
+			if(f.getUser().getIdUser() == clientData.getClient().getIdUser()) {
+				addedByClient.add(f);
+			}
+		}
+		
     }
 	
 	public int countFileLists() {
@@ -146,4 +159,15 @@ public class FileListBB {
 	public void setAddedBy(String addedBy) {
 		this.addedBy = addedBy;
 	}
+
+	public List<FileList> getAddedByClient() {
+		
+		return addedByClient;
+	}
+
+	public void setAddedByClient(List<FileList> addedByClient) {
+		this.addedByClient = addedByClient;
+	}
+	
+	
 }

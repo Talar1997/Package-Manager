@@ -29,7 +29,7 @@
 				<div class="content-item">
 					<div class="no-titlebar"></div>
 					<div class="module-content">
-						<div class="amountDiv">#{softwarePackageBB.countPackages()}</div>
+						<div class="amountDiv">#{softwarePackageListBB.countPackages()}</div>
 					</div>
 				</div>
 			</div>
@@ -64,11 +64,10 @@
 				<div class="content-item">
 					<div class="titlebar">Ostatnio dodane paczki</div>
 					<div class="module-content">
-						1. nazwa - autor - data - rozwinięcie (opcjonalne)<br /> --1.
-						plik z paczki<br /> --2. plik z paczki<br /> --3. plik z paczki<br />
-						2. nazwa - autor - data - rozwinięcie (opcjonalne)<br /> --1.
-						plik z paczki<br /> --2. plik z paczki<br /> --3. plik z paczki<br />
-						...
+						<p:dataList value="#{softwarePackageListBB.lastAdded}" var="package"
+							type="ordered">
+				        	#{package.name} : #{package.description}). Dodane przez: #{package.user.username}
+				    	</p:dataList>
 					</div>
 				</div>
 			</div>

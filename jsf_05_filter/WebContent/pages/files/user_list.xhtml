@@ -18,28 +18,9 @@
 		<div class="ui-g-12 content">
 			<div class="ui-g-4 ui-sm-12 content-item-box">
 				<div class="content-item">
-					<div class="titlebar">Wyszukiwarka</div>
-					<div class="module-content">
-						<h:form>
-							<p:growl id="userMessage" showDetail="true" sticky="false"
-								skipDetailIfEqualsSummary="true" />
-							<h:panelGrid columns="2" cellpadding="5"
-								styleClass="userCreateTable">
-								<h:outputText value="Nazwa pliku: " />
-								<p:inputText placeholder="Nazwa pliku" value="" />
-
-								<h:outputText value="Opis " />
-								<p:inputText placeholder="Opis pliku" value="" />
-
-								<h:outputText value="Wersja: " />
-								<p:inputText placeholder="Wersja pliku" value="" />
-
-								<h:outputText value="Dodane przez: " />
-								<p:inputText placeholder="Dodane przez" value="" />
-							</h:panelGrid>
-							<p:commandButton value="Wyszukaj" icon="pi pi-check" />
-						</h:form>
-					</div>
+					<ui:insert name="lastRegistered">
+						<ui:include src="/templates/file_list/search-form.xhtml" />
+					</ui:insert>
 				</div>
 			</div>
 
@@ -50,7 +31,7 @@
 						<h:form id="allFilesList">
 							<p:growl id="roleListMsg" showDetail="true" sticky="false"
 								skipDetailIfEqualsSummary="true" />
-							<p:dataGrid var="file" value="#{fileListBB.allFiles}" columns="3"
+							<p:dataGrid var="file" value="#{fileListBB.addedByClient}" columns="3"
 								layout="grid" rows="6" paginator="true" id="files" >
 								<p:panel header="#{file.name} (#{file.version})" style="text-align:center; margin: 5px;">
 									<h:panelGrid columns="1" style="width:100%">

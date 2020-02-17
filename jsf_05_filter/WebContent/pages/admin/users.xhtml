@@ -56,7 +56,7 @@
 								<p:selectOneMenu value="#{userCreateBB.roleOption}"
 									filter="true" filterMatchMode="startsWith">
 									<f:selectItem itemLabel="Wybierz role" itemValue="user" />
-									<f:selectItems value="#{userRolesBB.roleList}" />
+									<f:selectItems value="#{rolesBB.roleList}" />
 								</p:selectOneMenu>
 							</h:panelGrid>
 							<p:commandButton action="#{userCreateBB.createUser()}"

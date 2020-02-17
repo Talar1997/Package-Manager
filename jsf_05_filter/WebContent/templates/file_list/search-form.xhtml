@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Wyszukiwarka</div>
+	<div class="module-content">
+		<h:form>
+			<p:growl id="userMessage" showDetail="true" sticky="false"
+				skipDetailIfEqualsSummary="true" />
+			<h:panelGrid columns="2" cellpadding="5" styleClass="userCreateTable">
+				<h:outputText value="Nazwa pliku: " />
+				<p:inputText placeholder="Nazwa pliku"
+					value="#{fileListBB.fileName}" />
+
+				<h:outputText value="Opis " />
+				<p:inputText placeholder="Opis pliku"
+					value="#{fileListBB.description}" />
+
+				<h:outputText value="Wersja: " />
+				<p:inputText placeholder="Wersja pliku"
+					value="#{fileListBB.version}" />
+
+				<h:outputText value="Dodane przez: " />
+				<p:inputText placeholder="Dodane przez"
+					value="#{fileListBB.addedBy}" />
+			</h:panelGrid>
+			<p:commandButton value="Wyszukaj" icon="pi pi-check"
+				action="#{fileListBB.sortFiles()}" update="allFilesList"
+				style="width: 49%" />
+			<p:commandButton value="Wyczyść" action="#{fileListBB.clearSearch()}"
+				update="allFilesList" style="width: 49%" />
+		</h:form>
+	</div>
+</ui:composition>

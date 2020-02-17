@@ -8,12 +8,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import dao.SoftwarePackageDAO;
+import entities.FileList;
 import entities.SoftwarePackage;
 
 @Named
 @RequestScoped
-public class SoftwarePackageBB {
+public class SoftwarePackageListBB {
 	private List<SoftwarePackage> softwarePackageList;
+	private List<SoftwarePackage> lastAdded;
 
 	@Inject
 	SoftwarePackageDAO softPackDAO;
@@ -21,10 +23,21 @@ public class SoftwarePackageBB {
 	
 	@PostConstruct
     public void init() {
+		lastAdded = softPackDAO.getLastAdded();
         
     }
 	
 	public int countPackages() {
 		return softPackDAO.countPackages();
 	}
+	
+	public List<SoftwarePackage> getLastAdded() {
+		return lastAdded;
+	}
+
+	public void setLastAdded(List<SoftwarePackage> lastAdded) {
+		this.lastAdded = lastAdded;
+	}
+	
+	
 }
