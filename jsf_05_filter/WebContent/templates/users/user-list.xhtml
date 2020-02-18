@@ -6,8 +6,7 @@
 	<div class="titlebar">Wszyscy użytkownicy</div>
 	<div class="module-content">
 		<h:form id="users">
-			<p:growl id="userList" showDetail="true" sticky="false"
-				skipDetailIfEqualsSummary="true" />
+			<p:growl id="userList" showDetail="false" sticky="false"/>
 			<p:dataTable id="users" var="user" value="#{usersBB.allUsers}"
 				paginator="true" rows="10" selectionMode="single"
 				selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">

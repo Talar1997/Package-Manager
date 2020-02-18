@@ -21,8 +21,7 @@
 					<div class="titlebar">Tworzenie nowej roli</div>
 					<div class="module-content">
 						<h:form>
-							<p:growl id="userMessage" showDetail="true" sticky="false"
-								skipDetailIfEqualsSummary="true" />
+							<p:growl id="userMessage" showDetail="false" sticky="false"/>
 							<h:panelGrid columns="2" cellpadding="5"
 								styleClass="userCreateTable">
 								<h:outputText value="Nazwa*: " />
@@ -47,14 +46,14 @@
 										itemValue="create_package" />
 									<f:selectItem itemLabel="Usuwanie paczek"
 										itemValue="delete_package" />
-									<f:selectItem itemLabel="Nadawanie uprawnień"
+									<f:selectItem itemLabel="Nadawanie upr."
 										itemValue="set_permission" />
-									<f:selectItem itemLabel="Tworzenie uzytkownikow"
+									<f:selectItem itemLabel="Tworzenie uzytk."
 										itemValue="create_user" />
 									<f:selectItem itemLabel="Podgląd logów" itemValue="view_logs" />
-									<f:selectItem itemLabel="Dodaj licencje"
+									<f:selectItem itemLabel="Dodawanie licencji"
 										itemValue="add_licence" />
-									<f:selectItem itemLabel="Pobierz licencje"
+									<f:selectItem itemLabel="Pobieranie licencji"
 										itemValue="get_licence" />
 								</p:selectManyCheckbox>
 							</h:panelGrid>

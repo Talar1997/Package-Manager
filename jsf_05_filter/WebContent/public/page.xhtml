@@ -19,25 +19,25 @@
 	<ui:define name="content">
 		<div class="ui-g-12 content">
 			<div class="ui-g-4 ui-sm-12 content-item-box">
-				<div class="content-item">
+				<div class="content-item statistics">
 					<ui:insert name="userList">
 						<ui:include src="/templates/users/users-amount.xhtml" />
 					</ui:insert>
 				</div>
 			</div>
 			<div class="ui-g-4 ui-sm-12 content-item-box">
-				<div class="content-item">
+				<div class="content-item statistics">
 					<div class="no-titlebar"></div>
 					<div class="module-content">
-						<div class="amountDiv">#{softwarePackageListBB.countPackages()}</div>
+						<div class="amountDiv">#{softwarePackageListBB.countPackages()} paczek</div>
 					</div>
 				</div>
 			</div>
 			<div class="ui-g-4 ui-sm-12 content-item-box">
-				<div class="content-item">
+				<div class="content-item statistics">
 					<div class="no-titlebar"></div>
 					<div class="module-content">
-						<div class="amountDiv">#{fileListBB.countFileLists()}</div>
+						<div class="amountDiv">#{fileListBB.countFileLists()} plików</div>
 					</div>
 				</div>
 			</div>

@@ -6,8 +6,7 @@
 	<div class="titlebar">Role</div>
 	<div class="module-content">
 		<h:form id="allRoles">
-			<p:growl id="roleListMsg" showDetail="true" sticky="false"
-				skipDetailIfEqualsSummary="true" />
+			<p:growl id="roleListMsg" showDetail="false" sticky="false"/>
 			<p:dataTable id="roles" var="role" value="#{rolesBB.roleListAll}"
 				paginator="true" rows="10" selectionMode="single"
 				selection="#{rolesBB.selectedRole}" rowKey="#{role.idRole}">

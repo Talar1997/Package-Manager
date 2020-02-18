@@ -29,8 +29,7 @@
 					<div class="titlebar">Pliki</div>
 					<div class="module-content">
 						<h:form id="allFilesList">
-							<p:growl id="roleListMsg" showDetail="true" sticky="false"
-								skipDetailIfEqualsSummary="true" />
+							<p:growl id="roleListMsg" showDetail="false" sticky="false"/>
 							<p:dataGrid var="file" value="#{fileListBB.allFiles}" columns="3"
 								layout="grid" rows="6" paginator="true" id="files" >
 								<p:panel header="#{file.name} (#{file.version})" style="text-align:center; margin: 5px;">
