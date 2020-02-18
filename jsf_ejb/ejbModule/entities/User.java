@@ -15,6 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="user")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 @NamedQuery(name="User.countUsers", query="SELECT count(u) FROM User u")
 @NamedQuery(name="User.getLastRegistered", 

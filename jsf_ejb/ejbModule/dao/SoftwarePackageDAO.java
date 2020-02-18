@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entities.FileList;
 import entities.SoftwarePackage;
 
 @Stateless
@@ -32,6 +35,10 @@ public class SoftwarePackageDAO {
 
 	public SoftwarePackage find(Object id) {
 		return em.find(SoftwarePackage.class, id);
+	}
+	
+	public List<SoftwarePackage> getLastAdded(){
+		return em.createNamedQuery("SoftwarePackage.getLastAdded").getResultList();
 	}
 
 }

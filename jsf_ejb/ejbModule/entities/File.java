@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="file")
 @NamedQuery(name="File.findAll", query="SELECT f FROM File f")
 public class File implements Serializable {
 	private static final long serialVersionUID = 1L;

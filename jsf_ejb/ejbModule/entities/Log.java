@@ -10,6 +10,7 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
+@Table(name="log")
 @NamedQuery(name="Log.findAll", query="SELECT l FROM Log l ORDER BY l.idLog DESC")
 @NamedQuery(name="Log.findSecurityBreach", query="SELECT l FROM Log l WHERE l.type LIKE 'Login error' ORDER BY l.idLog DESC")
 public class Log implements Serializable {
