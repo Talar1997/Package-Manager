@@ -14,7 +14,7 @@
                     <p:menu toggleable="false" styleClass="menuStyle">
                         <p:submenu label="Cześć, #{clientData.client.name}!" styleClass="submenu">
                             <p:menuitem value="Dashboard" icon="pi pi-home" url="/jsf_05_filter/"/>
-                            <p:menuitem value="Twoje konto" icon="pi pi-window-maximize" url="/jsf_05_filter/"/>
+                            <p:menuitem value="Twoje konto" icon="pi pi-window-maximize" action="#{userProfileBB.show(clientData.client)}" ajax="false"/>
                             <p:menuitem value="Wyloguj" icon="pi pi-power-off" action="#{loginBB.doLogout()}"/>
                         </p:submenu>
                         <p:submenu label="Pliki">

@@ -11,27 +11,27 @@
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
 	<ui:define name="title">
-        Lista plików #{clientData.client.username} - Package Manager
+       Wyszukiwarka plików - Package Manager
     </ui:define>
 
 	<ui:define name="content">
 		<div class="ui-g-12 content">
-			<div class="ui-g-4 ui-sm-12 content-item-box">
+			<div class="ui-g-12 ui-sm-12 content-item-box">
 				<div class="content-item">
 					<ui:insert name="lastRegistered">
-						<ui:include src="/templates/file_list/search-form.xhtml" />
+						<ui:include src="/templates/users/user-search-list.xhtml" />
 					</ui:insert>
 				</div>
 			</div>
 
-			<div class="ui-g-8 ui-sm-12 content-item-box">
+			<div class="ui-g-12 ui-sm-12 content-item-box">
 				<div class="content-item">
-					<div class="titlebar">Pliki</div>
+					<div class="titlebar">Znalezione pliki</div>
 					<div class="module-content">
 						<h:form id="allFilesList">
-							<p:growl id="roleListMsg" showDetail="true" sticky="false"
+							<p:growl id="roleListMsg" showDetail="false" sticky="false"
 								skipDetailIfEqualsSummary="true" />
-							<p:dataGrid var="file" value="#{userFileListBB.addedByClient}"
+							<p:dataGrid var="file" value="#{searchGlobalBB.files}"
 								columns="4" layout="grid" rows="6" paginator="true" id="files">
 								<ui:insert name="lastRegistered">
 									<ui:include src="/templates/file_list/file-panel.xhtml" />
@@ -41,8 +41,23 @@
 					</div>
 				</div>
 			</div>
-
-
+			
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Znalezione licencje</div>
+					<div class="module-content">
+						<!--Do dodania -->
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Znalezione paczki</div>
+					<div class="module-content">
+						<!--Do dodania -->
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<h:form>
@@ -56,6 +71,10 @@
 		<ui:insert name="fileDetailsDialog">
 			<ui:include src="/templates/file_list/file-details-dialog.xhtml" />
 		</ui:insert>
+		<ui:insert name="userDetailDialog">
+			<ui:include src="/templates/users/user-details-dialog.xhtml" />
+		</ui:insert>
+
 	</ui:define>
 </ui:composition>
 </html>

@@ -11,7 +11,7 @@
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
 	<ui:define name="title">
-        Lista plików #{clientData.client.username} - Package Manager
+       Wyszukiwarka plików - Package Manager
     </ui:define>
 
 	<ui:define name="content">
@@ -29,9 +29,9 @@
 					<div class="titlebar">Pliki</div>
 					<div class="module-content">
 						<h:form id="allFilesList">
-							<p:growl id="roleListMsg" showDetail="true" sticky="false"
+							<p:growl id="roleListMsg" showDetail="false" sticky="false"
 								skipDetailIfEqualsSummary="true" />
-							<p:dataGrid var="file" value="#{userFileListBB.addedByClient}"
+							<p:dataGrid var="file" value="#{searchFileListBB.allFiles}"
 								columns="4" layout="grid" rows="6" paginator="true" id="files">
 								<ui:insert name="lastRegistered">
 									<ui:include src="/templates/file_list/file-panel.xhtml" />
@@ -41,8 +41,6 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 		<h:form>

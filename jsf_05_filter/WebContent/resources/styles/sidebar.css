@@ -6,7 +6,9 @@
 }
 
 #logoArea > a > img{
-    height: 30px;
+	margin-left: 10px;
+	margin-top: 8px;
+    height: 20px;
     width: auto;
 }
 

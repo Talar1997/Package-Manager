@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="fileDetails">
+		<p:dialog header="Szczegóły pliku" minimizable="true"
+			maximizable="true" widgetVar="fileDetailsDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			appendToBody="true">
+
+			<p:panelGrid id="fileDetailsPanel" columns="2"
+				rendered="#{not empty fileListBB.selectedFile}"
+				columnClasses="label,value">
+				<f:facet name="header">
+					<h:graphicImage library="images" name="file-av.png"
+						styleClass="avatarImg" />
+				</f:facet>
+
+				<h:outputText value="ID" />
+				<h:outputText value="#{fileListBB.selectedFile.idListFile}" />
+				<h:outputText value="Nazwa" />
+				<h:outputText value="#{fileListBB.selectedFile.name}" />
+
+				<h:outputText value="Wersja" />
+				<h:outputText value="#{fileListBB.selectedFile.version}" />
+				
+				<h:outputText value="Dodane przez:" />
+				<h:outputText value="#{fileListBB.selectedFile.user.username}" />
+				
+				<h:outputText value="Pobrane:" />
+				<h:outputText value="#{fileListBB.selectedFile.downloadCounter} razy" />
+				<h:outputText value="Dodano:" />
+				<h:outputText value="#{fileListBB.selectedFile.addedTime}" />
+				
+				<h:outputText value="Nazwa pliku" />
+				<h:outputText value="#{fileListBB.selectedFile.file.filename}" />
+				
+				<h:outputText value="Opis" />
+				<h:outputText value="#{fileListBB.selectedFile.description}" escape="false"/>
+			
+			</p:panelGrid>
+		</p:dialog>
+	</h:form>
+</ui:composition>

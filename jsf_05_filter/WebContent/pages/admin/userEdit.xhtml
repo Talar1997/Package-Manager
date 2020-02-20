@@ -48,8 +48,9 @@
 								<h:outputText value="Hasło*: " />
 								<p:password id="inlineFeedback"
 									value="#{userEditBB.selectedUser.password}" feedback="true"
-									placeholder="Hasło" />
-
+									placeholder="Hasło">
+									<f:validateLength minimum="8" maximum="128" />
+								</p:password>
 								<h:outputText value="Rola*:" />
 								<p:selectOneMenu value="#{userEditBB.selectedUser.role.name}"
 									filter="true" filterMatchMode="startsWith">

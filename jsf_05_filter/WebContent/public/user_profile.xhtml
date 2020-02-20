@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
+	<ui:define name="title">
+       Profil użytkownika #{userProfileBB.profile.username}
+    </ui:define>
+
+	<ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Szczegóły</div>
+					<div class="module-content">
+						<p:outputPanel id="userDetail">
+							<h:form id="details">
+								<p:panelGrid columns="2" style="width: 100%"
+									rendered="#{not empty userProfileBB.profile}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<h:graphicImage library="images" name="user-av.png"
+											styleClass="avatarImg" />
+									</f:facet>
+									<h:outputText value="ID" />
+									<h:outputText value="#{userProfileBB.profile.idUser}" />
+
+									<h:outputText value="Login:" />
+									<h:outputText value="#{userProfileBB.profile.username}" />
+
+									<h:outputText value="Imie: " />
+									<h:outputText value="#{userProfileBB.profile.name}" />
+
+									<h:outputText value="Nazwisko: " />
+									<h:outputText value="#{userProfileBB.profile.surname}" />
+
+									<h:outputText value="Email" />
+									<h:outputText value="#{userProfileBB.profile.email}" />
+
+									<h:outputText value="Data utworzenia" />
+									<h:outputText value="#{userProfileBB.profile.timestampCreated}" />
+
+									<h:outputText value="Rola" />
+									<h:outputText
+										value="#{usersBB.getRoleName(userProfileBB.profile)}" />
+
+								</p:panelGrid>
+							</h:form>
+						</p:outputPanel>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-6 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Uprawnienia</div>
+					<div class="module-content">
+						<p:panelGrid id="roleDetails" columns="2" style="width: 100%"
+							rendered="#{not empty userProfileBB.profile.role}"
+							columnClasses="label,value">
+							<f:facet name="header">
+								<h:graphicImage library="images" name="role-av.png"
+									styleClass="avatarImg" />
+							</f:facet>
+
+							<h:outputText value="ID" />
+							<h:outputText value="#{userProfileBB.profile.role.idRole}" />
+							<h:outputText value="Nazwa" />
+							<h:outputText value="#{userProfileBB.profile.role.name}" />
+
+							<h:outputText value="Upload plików" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('upload_file')}" />
+
+							<h:outputText value="Pobieranie plików" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('download_file')}" />
+
+							<h:outputText value="Usuwanie plików" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('delete_file')}" />
+
+							<h:outputText value="Tworzenie paczek" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('create_package')}" />
+
+							<h:outputText value="Usuwanie paczek" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('delete_package')}" />
+
+							<h:outputText value="Zmiana uprawnień" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('set_permission')}" />
+
+							<h:outputText value="Zarządzanie uzytkownikami" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('create_user')}" />
+
+							<h:outputText value="Podgląd logów" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('view_logs')}" />
+
+							<h:outputText value="Pobieranie licencji" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('get_licence')}" />
+
+							<h:outputText value="Dodawanie nowych licencji" />
+							<h:outputText
+								value="#{userProfileBB.permissionSet.get('add_licence')}" />
+						</p:panelGrid>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Pliki użytkownika</div>
+					<div class="module-content">
+						<h:form id="allFilesList">
+							<p:growl id="userList" showDetail="false" sticky="false" />
+							<p:dataTable id="files" var="file"
+								value="#{userProfileBB.fileList}" paginator="true" rows="5">
+
+								<p:column headerText="Nazwa">
+									<h:outputText value="#{file.name}" />
+								</p:column>
+
+								<p:column headerText="Wersja">
+									<h:outputText value="#{file.version}" />
+								</p:column>
+
+								<p:column headerText="Data dodania">
+									<h:outputText value="#{file.addedTime}" />
+								</p:column>
+
+								<p:column headerText="Ilość pobrań" style="width: 50px">
+									<h:outputText value="#{file.downloadCounter}" />
+								</p:column>
+
+
+								<p:column headerText="Opcja" style="width: 100px">
+									<p:menuButton value="Opcje">
+										<p:menuitem value="Pobierz" icon="pi pi-download" ajax="false"
+											actionListener="#{fileDownloadBB.download(file)}">
+											<p:fileDownload value="#{fileDownloadBB.fileToDownload}" />
+										</p:menuitem>
+										<p:menuitem value="Szczegóły" icon="pi pi-info"
+											process="allFilesList" update="allFilesList fileDetails"
+											oncomplete="PF('fileDetailsDialog').show()">
+											<f:setPropertyActionListener value="#{file}"
+												target="#{fileListBB.selectedFile}" />
+										</p:menuitem>
+									</p:menuButton>
+								</p:column>
+
+							</p:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Paczki użytkownika</div>
+					<div class="module-content">
+						<!--Do dodania -->
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Licencje użytkownika</div>
+					<div class="module-content">
+						<!--Do dodania -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Tak" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Nie" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		<ui:insert name="fileDetailsDialog">
+			<ui:include src="/templates/file_list/file-details-dialog.xhtml" />
+		</ui:insert>
+	</ui:define>
+</ui:composition>
+</html>

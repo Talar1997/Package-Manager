@@ -29,91 +29,18 @@
 					<div class="titlebar">Pliki</div>
 					<div class="module-content">
 						<h:form id="allFilesList">
-							<p:growl id="roleListMsg" showDetail="false" sticky="false"/>
-							<p:dataGrid var="file" value="#{fileListBB.allFiles}" columns="3"
-								layout="grid" rows="6" paginator="true" id="files" >
-								<p:panel header="#{file.name} (#{file.version})" style="text-align:center; margin: 5px;">
-									<h:panelGrid columns="1" style="width:100%">
-										<h:outputText value="#{file.description}" escape="false"/>
-										<p:menuButton value="Opcje">
-									        <p:menuitem value="Pobierz"  icon="pi pi-save" ajax="false" actionListener="#{fileListBB.download(file)}">
-									        	<p:fileDownload value="#{fileListBB.fileToDownload}" />
-									        </p:menuitem>
-									        <p:menuitem value="Usuń" action="#{fileDeleteBB.delete(file)}" update="allFilesList" ajax="false" icon="pi pi-times"/>
-									    </p:menuButton>
-									</h:panelGrid>
-									
-									<f:facet name="footer">
-										<h:outputText value="Dodane przez: #{file.user.username}"/><br />
-										<h:outputText value="Pobrane: #{file.downloadCounter} razy" />
-									</f:facet>
-								</p:panel>
-
+							<p:growl id="roleListMsg" showDetail="false" sticky="false" />
+							<p:dataGrid var="file" value="#{fileListBB.allFiles}" columns="4"
+								layout="grid" rows="6" paginator="true" id="files">
+								<ui:insert name="lastRegistered">
+									<ui:include src="/templates/file_list/file-panel.xhtml" />
+								</ui:insert>
 							</p:dataGrid>
 						</h:form>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
-
-		<h:form id="roleDetails">
-			<p:dialog header="Szczegóły roli" minimizable="true"
-				maximizable="true" widgetVar="roleDetailsDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false"
-				appendToBody="true">
-
-				<p:panelGrid id="roleDetails" columns="2"
-					rendered="#{not empty rolesBB.selectedRole}"
-					columnClasses="label,value">
-					<f:facet name="header">
-						<h:graphicImage library="images" name="role-av.png"
-							styleClass="avatarImg" />
-					</f:facet>
-
-					<h:outputText value="ID" />
-					<h:outputText value="#{rolesBB.selectedRole.idRole}" />
-					<h:outputText value="Nazwa" />
-					<h:outputText value="#{rolesBB.selectedRole.name}" />
-
-					<h:outputText value="Upload plików" />
-					<h:outputText value="#{rolesBB.permissionSet.get('upload_file')}" />
-
-					<h:outputText value="Pobieranie plików" />
-					<h:outputText value="#{rolesBB.permissionSet.get('download_file')}" />
-
-					<h:outputText value="Usuwanie plików" />
-					<h:outputText value="#{rolesBB.permissionSet.get('delete_file')}" />
-
-					<h:outputText value="Tworzenie paczek" />
-					<h:outputText
-						value="#{rolesBB.permissionSet.get('create_package')}" />
-
-					<h:outputText value="Usuwanie paczek" />
-					<h:outputText
-						value="#{rolesBB.permissionSet.get('delete_package')}" />
-
-					<h:outputText value="Zmiana uprawnień" />
-					<h:outputText
-						value="#{rolesBB.permissionSet.get('set_permission')}" />
-
-					<h:outputText value="Zarządzanie uzytkownikami" />
-					<h:outputText value="#{rolesBB.permissionSet.get('create_user')}" />
-
-					<h:outputText value="Podgląd logów" />
-					<h:outputText value="#{rolesBB.permissionSet.get('view_logs')}" />
-
-					<h:outputText value="Pobieranie licencji" />
-					<h:outputText value="#{rolesBB.permissionSet.get('get_licence')}" />
-
-					<h:outputText value="Dodawanie nowych licencji" />
-					<h:outputText value="#{rolesBB.permissionSet.get('add_licence')}" />
-
-
-				</p:panelGrid>
-			</p:dialog>
-		</h:form>
 
 		<h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -123,6 +50,9 @@
 					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 			</p:confirmDialog>
 		</h:form>
+		<ui:insert name="fileDetailsDialog">
+			<ui:include src="/templates/file_list/file-details-dialog.xhtml" />
+		</ui:insert>
 	</ui:define>
 </ui:composition>
 </html>

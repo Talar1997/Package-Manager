@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<p:panel header="#{file.name}" style="text-align:center; margin: 5px;">
+		<h:panelGrid columns="1"
+			style="text-align: left !important; width:100%">
+			<h:outputText value="Wersja: #{file.version}" />
+			<p:commandLink action="#{userProfileBB.show(file.user)}" 
+				value="Dodane przez: #{file.user.username}" ajax="false"/>
+			<h:outputText value="Pobrane: #{file.downloadCounter} razy" />
+		</h:panelGrid>
+
+		<f:facet name="footer">
+			<p:menuButton value="Opcje">
+				<p:menuitem value="Pobierz" icon="pi pi-download" ajax="false"
+					actionListener="#{fileDownloadBB.download(file)}">
+					<p:fileDownload value="#{fileDownloadBB.fileToDownload}" />
+				</p:menuitem>
+				<p:menuitem value="Szczegóły" icon="pi pi-info" ajax="true"
+					process="@form" update="@form fileDetails"
+					oncomplete="PF('fileDetailsDialog').show()">
+					<f:setPropertyActionListener value="#{file}" target="#{fileListBB.selectedFile}" />
+				</p:menuitem>
+				<p:menuitem value="Usuń" action="#{fileDeleteBB.delete(file)}"
+					update="@form" ajax="false" icon="pi pi-times" />
+			</p:menuButton>
+		</f:facet>
+	</p:panel>
+</ui:composition>

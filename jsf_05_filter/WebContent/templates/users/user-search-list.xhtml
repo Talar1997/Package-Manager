@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Znalezieni użytkownicy</div>
+	<div class="module-content">
+		<h:form id="users">
+			<p:growl id="userList" showDetail="false" sticky="false"/>
+			<p:dataTable id="users" var="user" value="#{searchGlobalBB.users}"
+				paginator="true" rows="10" selectionMode="single"
+				selection="#{usersBB.selectedUser}" rowKey="#{user.idUser}">
+				<p:column headerText="Username">
+					<h:outputText value="#{user.username}" />
+				</p:column>
+
+				<p:column headerText="Imie">
+					<h:outputText value="#{user.name}" />
+				</p:column>
+
+				<p:column headerText="Nazwisko">
+					<h:outputText value="#{user.surname}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton process="users" update="userDetail"
+						oncomplete="PF('userDetailDialog').show()" icon="pi pi-search">
+					</p:commandButton>
+					<p:commandButton
+						action="#{userEditBB.goToEditPage(usersBB.selectedUser)}"
+						icon="pi pi-pencil">
+					</p:commandButton>
+					<p:commandButton process="users" icon="pi pi-trash"
+						styleClass="dangerButton"
+						action="#{userDeleteBB.delete(usersBB.selectedUser)}"
+						update="users:userList users">
+						<p:confirm header="Potwierdzenie"
+							message="Na pewno chcesz usunąć z bazy danych zaznaczonego uzytkownika? Ten proces jest nieodwracalny!"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</div>
+</ui:composition>

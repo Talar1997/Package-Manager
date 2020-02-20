@@ -11,8 +11,9 @@
                 <p:menubar styleClass="navbar sticky">
                     <f:facet name="options">
                         <p:inputText style="width: 350px; margin:1px 0px 1px 1px;" 
-                        placeholder="Wyszukaj uzytkownikow, programy, paczki, licencje"/>
-                        <p:commandButton type="button" icon="pi pi-search" />
+                        placeholder="Wyszukaj uzytkownikow, programy, paczki, licencje"
+                        value="#{searchGlobalBB.searchField}"/>
+                        <p:commandButton icon="pi pi-search" action="#{searchGlobalBB.search()}" ajax="false"/>
                     </f:facet>
                 </p:menubar>
             </h:form>

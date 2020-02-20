@@ -16,7 +16,14 @@
 
     <ui:define name="content">
         <div class="ui-g-12 content">
-            <div class="ui-g-12 ui-sm-12 content-item-box">
+        <div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<ui:insert name="lastRegistered">
+						<ui:include src="/templates/file_list/search-form.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+            <div class="ui-g-8 ui-sm-12 content-item-box">
                 <div class="content-item">
                     <div class="titlebar">
                         Wgraj nowe oprogramowanie
