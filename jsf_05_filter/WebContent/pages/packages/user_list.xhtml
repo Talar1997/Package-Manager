@@ -7,44 +7,50 @@
       xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+	</ui:define>
     <ui:define name="title">
-        Kreator nowego użytkownika - Package Manager
+        Lista paczek użytkownika #{clientData.client.username} - Package Manager
     </ui:define>
 
     <ui:define name="content">
         <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
+        <div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<ui:insert name="lastRegistered">
+						<ui:include src="/templates/packages/search-form.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+            <div class="ui-g-8 ui-sm-12 content-item-box">
                 <div class="content-item">
                     <div class="titlebar">
-                        Tworzenie nowego użytkownika
+                       	Utwórz nową paczkę
                     </div>
                     <div class="module-content">
-                        Formularz
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ilość użytkowników w systemie
-                    </div>
-                    <div class="module-content">
-                        Liczba wszystkich plików w bazie danych
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodani użytkownicy
-                    </div>
-                    <div class="module-content">
-                        1. nickname - data utworzenia - user logo<br />
-                        2. nickname - data utworzenia - user logo<br />
-                        3. nickname - data utworzenia - user logo<br />
-                        4. nickname - data utworzenia - user logo<br />
-                        5. nickname - data utworzenia - user logo<br />
-                        ...
+                       <h:form enctype="multipart/form-data">
+							<p:growl id="userMessage" showDetail="false" sticky="false"/>
+							<h:panelGrid columns="2" cellpadding="5"
+								styleClass="userCreateTable">
+								<h:outputText value="Wybierz plik/pliki" />
+								<p:fileUpload value="#{fileListUploadBB.file}" label="Wybierz" mode="simple" skinSimple="true" 
+								required="true" requiredMessage="Nie wybrałeś pliku!" />
+								
+								<h:outputText value="Nazwa " />
+								<p:inputText placeholder="Nazwa" value="#{fileListUploadBB.fileList.name}" required="true"
+									requiredMessage="Nazwa jest wymagana!"/>
+									
+								<h:outputText value="Wersja: " />
+								<p:inputText placeholder="Wersja pliku" value="#{fileListUploadBB.fileList.version}" required="true"
+									requiredMessage="Wersja jest wymagana!"/>		
+								
+								<h:outputText value="Opis " />
+								<p:textEditor widgetVar="editor1" value="#{fileListUploadBB.fileList.description}"  height="300" style="margin-bottom:10px"/>
+	
+							</h:panelGrid>
+							<p:commandButton value="Dodaj" icon="pi pi-check" action="#{fileListUploadBB.upload()}" ajax="false" update="userMessage"/>
+						</h:form>
                     </div>
                 </div>
             </div>

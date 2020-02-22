@@ -29,6 +29,8 @@ public class FileDownloadBB {
 	DownloadListDAO dListDAO;
 	
 	public void download(FileList fileList) {
+		fileList = fListDAO.find(fileList.getIdListFile());
+		
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		
 		InputStream stream = new ByteArrayInputStream(fileList.getFile().getFileBinary());

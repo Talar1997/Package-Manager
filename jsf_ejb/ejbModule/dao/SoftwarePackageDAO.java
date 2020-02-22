@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entities.FileList;
 import entities.SoftwarePackage;
 
 @Stateless

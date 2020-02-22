@@ -1,13 +1,17 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import entities.FavPackage;
-import entities.FileList;
-
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -194,4 +198,12 @@ public class User implements Serializable {
 		return favPackage;
 	}
 
+	public List<FileList> getFileLists() {
+		return fileLists;
+	}
+
+	public void setFileLists(List<FileList> fileLists) {
+		this.fileLists = fileLists;
+	}
+	
 }

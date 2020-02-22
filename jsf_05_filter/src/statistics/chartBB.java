@@ -19,7 +19,7 @@ import dao.DownloadListDAO;
 
 @Named
 @RequestScoped
-public class chartBB {
+public class ChartBB {
 	private LineChartModel model = new LineChartModel();
 
 	@Inject

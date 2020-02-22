@@ -1,12 +1,18 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import entities.User;
-
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -15,13 +21,40 @@ import java.util.List;
  */
 @Entity
 @Table(name="file_list")
-@NamedQuery(name="FileList.findAll", query="SELECT f FROM FileList f")
-@NamedQuery(name="FileList.countFileList", query="SELECT f FROM FileList f")
+@NamedQuery(name="FileList.findAll", query="SELECT new FileList(f.idListFile, f.addedTime, f.description, f.downloadCounter, f.user, f.name, f.version"
+		+ ") FROM FileList f")
+@NamedQuery(name="FileList.countFileList", query="SELECT COUNT(f.idListFile) FROM FileList f")
 @NamedQuery(name="FileList.getLastAdded", 
-	query="SELECT f FROM FileList f ORDER BY f.addedTime DESC")
-@NamedQuery(name="FileList.showMostPopular", query="SELECT f FROM FileList f ORDER BY f.downloadCounter DESC")
+	query="SELECT new FileList(f.idListFile, f.addedTime, f.description, f.downloadCounter, f.user, f.name, f.version"
+			+ ") FROM FileList f ORDER BY f.addedTime DESC")
+@NamedQuery(name="FileList.showMostPopular", query="SELECT new FileList(f.idListFile, f.addedTime, f.description, f.downloadCounter, f.user, f.name, f.version"
+		+ ") FROM FileList f ORDER BY f.downloadCounter DESC")
 public class FileList implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public FileList() {
+	}
+	
+	public FileList(int idListFile, Date addedTime, String description, int downloadCounter, User user,
+			String name, String version) {
+		this.idListFile = idListFile;
+		this.addedTime =  new Timestamp(addedTime.getTime());
+		this.description = description;
+		this.downloadCounter = downloadCounter;
+		
+		if(user != null || user.getUsername() != null) {
+			this.user = user;
+		}
+		else {
+			User newUser = new User();
+			newUser.setName("N/A");
+			this.user = newUser;
+		}
+		
+		this.name = name;
+		this.version = version;
+	}
+
 
 	@Id
 	@Column(name="id_list_file")
@@ -53,17 +86,6 @@ public class FileList implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_licence")
 	private Licence licence;
-
-	//bi-directional many-to-one association to Licence
-	@OneToMany(mappedBy="fileList")
-	private List<Licence> licences;
-
-	//bi-directional many-to-one association to SoftwarePackage
-	@OneToMany(mappedBy="fileList")
-	private List<SoftwarePackage> softwarePackages;
-
-	public FileList() {
-	}
 
 	public int getIdListFile() {
 		return this.idListFile;
@@ -137,48 +159,5 @@ public class FileList implements Serializable {
 		this.licence = licence;
 	}
 
-	public List<Licence> getLicences() {
-		return this.licences;
-	}
-
-	public void setLicences(List<Licence> licences) {
-		this.licences = licences;
-	}
-
-	public Licence addLicence(Licence licence) {
-		getLicences().add(licence);
-		licence.setFileList(this);
-
-		return licence;
-	}
-
-	public Licence removeLicence(Licence licence) {
-		getLicences().remove(licence);
-		licence.setFileList(null);
-
-		return licence;
-	}
-
-	public List<SoftwarePackage> getSoftwarePackages() {
-		return this.softwarePackages;
-	}
-
-	public void setSoftwarePackages(List<SoftwarePackage> softwarePackages) {
-		this.softwarePackages = softwarePackages;
-	}
-
-	public SoftwarePackage addSoftwarePackage(SoftwarePackage softwarePackage) {
-		getSoftwarePackages().add(softwarePackage);
-		softwarePackage.setFileList(this);
-
-		return softwarePackage;
-	}
-
-	public SoftwarePackage removeSoftwarePackage(SoftwarePackage softwarePackage) {
-		getSoftwarePackages().remove(softwarePackage);
-		softwarePackage.setFileList(null);
-
-		return softwarePackage;
-	}
 
 }

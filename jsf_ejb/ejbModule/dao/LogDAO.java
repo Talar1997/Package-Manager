@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Log;
-import entities.Role;
 
 @Stateless
 public class LogDAO {

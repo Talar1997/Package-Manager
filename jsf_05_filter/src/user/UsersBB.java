@@ -14,7 +14,6 @@ import entities.User;
 @RequestScoped
 public class UsersBB {
 	private List<User> allUsers;
-	private List<User> lastRegisteredUsers;
 	private User selectedUser;
 	private User editedUser;
 
@@ -26,17 +25,8 @@ public class UsersBB {
 	@PostConstruct
     public void init() {
         this.allUsers = userDAO.getAllUsers();
-        this.lastRegisteredUsers = userDAO.getLastRegisteredUsers();
     }
 
-	public int amountOfUsers() {
-		return userDAO.countUsers();
-	}
-	
-	public List<User> getLastRegisteredUsers(){
-		return this.lastRegisteredUsers;
-	}
-	
 	public List<User> getAllUsers(){
 		return this.allUsers;
 	}

@@ -7,7 +7,7 @@
 		<p:dialog header="Szczegóły pliku" minimizable="true"
 			maximizable="true" widgetVar="fileDetailsDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false"
-			appendToBody="true">
+			appendToBody="true" style="max-width: 500px;">
 
 			<p:panelGrid id="fileDetailsPanel" columns="2"
 				rendered="#{not empty fileListBB.selectedFile}"
@@ -32,9 +32,6 @@
 				<h:outputText value="#{fileListBB.selectedFile.downloadCounter} razy" />
 				<h:outputText value="Dodano:" />
 				<h:outputText value="#{fileListBB.selectedFile.addedTime}" />
-				
-				<h:outputText value="Nazwa pliku" />
-				<h:outputText value="#{fileListBB.selectedFile.file.filename}" />
 				
 				<h:outputText value="Opis" />
 				<h:outputText value="#{fileListBB.selectedFile.description}" escape="false"/>

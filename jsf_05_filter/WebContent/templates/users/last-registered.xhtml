@@ -6,7 +6,7 @@
 	<div class="titlebar">Ostatnio dodani użytkownicy</div>
 	<div class="module-content">
 		<p:dataTable id="lastRegisteredUsers" var="user"
-			value="#{usersBB.lastRegisteredUsers}">
+			value="#{usersStatisticsBB.lastRegisteredUsers}">
 			<p:column headerText="Id" style="width:50px;">
 				<h:outputText value="#{user.idUser}" />
 			</p:column>

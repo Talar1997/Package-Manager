@@ -18,8 +18,6 @@ import entities.User;
 @RequestScoped
 public class FileListBB {
 	private List<FileList> allFiles;
-	private List<FileList> lastAdded;
-	private List<FileList> mostPopular;
 	private FileList selectedFile;
 	private static final String PAGE_STAY_AT_THE_SAME = "/pages/files/list.xhtml";
 
@@ -37,34 +35,12 @@ public class FileListBB {
         allFiles = fListDAO.findAll();
     }
 	
-	public int countFileLists() {
-		return fListDAO.countFileLists();
-	}
-	
 	public List<FileList> getAllFiles() {
 		return allFiles;
 	}
 
 	public void setAllFiles(List<FileList> allFiles) {
 		this.allFiles = allFiles;
-	}
-	
-	public List<FileList> getLastAdded() {
-		lastAdded = fListDAO.getLastAdded();
-		return lastAdded;
-	}
-
-	public void setLastAdded(List<FileList> lastAdded) {
-		this.lastAdded = lastAdded;
-	}
-
-	public List<FileList> getMostPopular() {
-		mostPopular = fListDAO.getMostPopular();
-		return mostPopular;
-	}
-
-	public void setMostPopular(List<FileList> mostPopular) {
-		this.mostPopular = mostPopular;
 	}
 
 	public FileList getSelectedFile() {

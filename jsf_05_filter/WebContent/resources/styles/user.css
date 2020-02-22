@@ -32,3 +32,8 @@
 	width: 75px;
 	height: 75px;
 }
+
+body .ui-datatable thead th.ui-state-active{
+	border-color: #0AC59D !important;
+    background-color: #0AC59D !important;
+}

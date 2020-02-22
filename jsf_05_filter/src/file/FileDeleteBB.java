@@ -40,6 +40,7 @@ public class FileDeleteBB {
     }
 	
 	public void delete(FileList fileList) {
+		fileList = fListDAO.find(fileList.getIdListFile());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		if(clientData.getClient().getRole().getPermission().getDeleteFile() >= 1) {
 			File fileToRemove = fileList.getFile();

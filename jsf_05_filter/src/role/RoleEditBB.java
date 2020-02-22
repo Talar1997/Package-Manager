@@ -21,6 +21,7 @@ import dao.PermissionDAO;
 @Named
 @SessionScoped
 public class RoleEditBB implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private static final String PAGE_STAY_AT_THE_SAME = "/pages/admin/permissionEdit.xhtml";
 	private static final String PAGE_ROLE_EDIT = "/pages/admin/permissionEdit.xhtml?faces-redirect=true";
 	private static final String PAGE_ROLES = "/pages/admin/permissions.xhtml?faces-redirect=true";

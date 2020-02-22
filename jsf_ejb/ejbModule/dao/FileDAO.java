@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.File;
-import entities.Permission;
 
 @Stateless
 public class FileDAO {

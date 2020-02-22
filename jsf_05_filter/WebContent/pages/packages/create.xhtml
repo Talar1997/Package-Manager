@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/main-template.xhtml">
-    <ui:define name="title">
-        Kreator nowego użytkownika - Package Manager
+	<ui:define name="additionalStyles">
+		<h:outputStylesheet name="user.css" library="styles" />
+		<h:outputStylesheet name="content.css" library="styles" />
+	</ui:define>
+	<ui:define name="title">
+        Tworzenie paczki - Package Manager
     </ui:define>
 
-    <ui:define name="content">
-        <div class="ui-g-12 content">
-            <div class="ui-g-6 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Tworzenie nowego użytkownika
-                    </div>
-                    <div class="module-content">
-                        Formularz
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ilość użytkowników w systemie
-                    </div>
-                    <div class="module-content">
-                        Liczba wszystkich plików w bazie danych
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-3 ui-sm-12 content-item-box">
-                <div class="content-item">
-                    <div class="titlebar">
-                        Ostatnio dodani użytkownicy
-                    </div>
-                    <div class="module-content">
-                        1. nickname - data utworzenia - user logo<br />
-                        2. nickname - data utworzenia - user logo<br />
-                        3. nickname - data utworzenia - user logo<br />
-                        4. nickname - data utworzenia - user logo<br />
-                        5. nickname - data utworzenia - user logo<br />
-                        ...
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ui:define>
+	<ui:define name="content">
+		<div class="ui-g-12 content">
+			<div class="ui-g-4 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<ui:insert name="lastRegistered">
+						<ui:include src="/templates/packages/search-form.xhtml" />
+					</ui:insert>
+				</div>
+			</div>
+			<div class="ui-g-8 ui-sm-12 content-item-box">
+				<div class="content-item">
+					<div class="titlebar">Utwórz nową paczkę</div>
+					<div class="module-content">
+						<h:form>
+							<p:growl id="userMessage" showDetail="false" sticky="false" />
+							<p:wizard nextLabel="Dalej" backLabel="Powrót">
+								<p:tab id="info" title="Ogólne">
+									<h:panelGrid columns="2" cellpadding="5"
+										styleClass="userCreateTable">
+										<h:outputText value="Nazwa " />
+										<p:inputText placeholder="Nazwa"
+											value="#{fileListUploadBB.fileList.name}" required="true"
+											requiredMessage="Nazwa jest wymagana!" />
+
+										<h:outputText value="Opis " />
+										<p:textEditor widgetVar="editor1"
+											value="#{fileListUploadBB.fileList.description}" height="300"
+											style="margin-bottom:10px" />
+
+									</h:panelGrid>
+								</p:tab>
+								<p:tab id="files" title="Wybór plików">
+									<h:panelGrid columns="1" cellpadding="5"
+										styleClass="userCreateTable">
+
+										<p:pickList id="filesPickList" value="#{softwarePackageCreateBB.files}"
+											var="file" itemValue="#{file}"
+											itemLabel="#{file.name}" showSourceControls="true"
+											showTargetControls="true" showCheckbox="true"
+											showSourceFilter="true" showTargetFilter="true"
+											filterMatchMode="contains"
+											responsive="true">
+
+											<f:facet name="sourceCaption">Dostępne</f:facet>
+											<f:facet name="targetCaption">Wybrane</f:facet>
+
+											<p:column style="width: 100%">
+												<h:outputText value="#{file.name}" />
+											</p:column>
+										</p:pickList>
+
+										<p:commandButton styleClass="package-add" value="Dodaj"
+											icon="pi pi-check" action="#{softwarePackageCreateBB.create()}"
+											ajax="false" update="userMessage" />
+									</h:panelGrid>
+								</p:tab>
+							</p:wizard>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>
 </html>

@@ -11,7 +11,7 @@
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
     <ui:define name="title">
-        Kreator nowego użytkownika - Package Manager
+        Wgrywanie nowych plików - Package Manager
     </ui:define>
 
     <ui:define name="content">
@@ -34,7 +34,8 @@
 							<h:panelGrid columns="2" cellpadding="5"
 								styleClass="userCreateTable">
 								<h:outputText value="Wybierz plik/pliki" />
-								<p:fileUpload value="#{fileListUploadBB.file}" label="Wybierz" mode="simple" skinSimple="true" />
+								<p:fileUpload value="#{fileListUploadBB.file}" label="Wybierz" mode="simple" skinSimple="true" 
+								required="true" requiredMessage="Nie wybrałeś pliku!" />
 								
 								<h:outputText value="Nazwa " />
 								<p:inputText placeholder="Nazwa" value="#{fileListUploadBB.fileList.name}" required="true"

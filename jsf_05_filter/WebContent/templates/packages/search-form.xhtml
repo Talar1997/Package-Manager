@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="titlebar">Wyszukiwarka paczek</div>
+	<div class="module-content">
+		<h:form>
+			<p:growl id="userMessage" showDetail="false" sticky="false"/>
+			<h:panelGrid columns="2" cellpadding="5" styleClass="userCreateTable">
+				<h:outputText value="Nazwa pliku: " />
+				<p:inputText placeholder="Nazwa paczki"
+					value="#{searchFileListBB.fileName}" />
+
+				<h:outputText value="Opis " />
+				<p:inputText placeholder="Opis pliku"
+					value="#{searchFileListBB.description}" />
+
+				<h:outputText value="Dodane przez: " />
+				<p:inputText placeholder="Dodane przez"
+					value="#{searchFileListBB.addedBy}" />
+			</h:panelGrid>
+			<p:commandButton value="Wyszukaj" icon="pi pi-check"
+				action="#{searchFileListBB.sortFiles()}"
+				style="width: 49%" />
+			<p:commandButton value="Wyczyść" action="#{searchFileListBB.clearSearch()}"
+				 style="width: 49%" />
+		</h:form>
+	</div>
+</ui:composition>

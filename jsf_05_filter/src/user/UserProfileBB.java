@@ -17,6 +17,7 @@ import entities.User;
 @Named
 @SessionScoped
 public class UserProfileBB implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private static final String PAGE_USER_PROFILE = "/public/user_profile.xhtml?faces-redirect=true";
 	private HashMap<String, String> permissionSet = new HashMap<String, String>();
 	User profile;

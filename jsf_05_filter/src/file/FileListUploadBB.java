@@ -1,7 +1,6 @@
 package file;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -46,7 +45,7 @@ public class FileListUploadBB {
 	
 	public String upload() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		if(file == null) {
+		if(file == null || file.getFileName() == null) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Nie wybrałeś pliku", null));
 		}
@@ -65,6 +64,9 @@ public class FileListUploadBB {
 				
 				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Utworzono plik!", null));
+				
+				fileList = null;
+				file = null;
 				return PAGE_STAY_AT_THE_SAME;
 			}
 		}

@@ -38,7 +38,7 @@
 				<div class="content-item statistics">
 					<div class="no-titlebar"></div>
 					<div class="module-content">
-						<div class="amountDiv">#{fileListBB.countFileLists()} plików</div>
+						<div class="amountDiv">#{fileStatisticsBB.countFileLists()} plików</div>
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 					<div class="module-content">
 				    	<h:form id="mostPopularFiles">
 							<p:growl id="roleListMsg" showDetail="false" sticky="false" />
-							<p:dataGrid var="file" value="#{fileListBB.mostPopular}" columns="2"
+							<p:dataGrid var="file" value="#{fileStatisticsBB.mostPopular}" columns="2"
 								layout="grid" rows="6" paginator="false" id="files">
 								<ui:insert name="lastRegistered">
 									<ui:include src="/templates/file_list/file-panel.xhtml" />
@@ -76,7 +76,7 @@
 					<div class="module-content">
 				    	<h:form id="lastAddedFiles">
 							<p:growl id="roleListMsg" showDetail="false" sticky="false" />
-							<p:dataGrid var="file" value="#{fileListBB.lastAdded}" columns="2"
+							<p:dataGrid var="file" value="#{fileStatisticsBB.lastAdded}" columns="2"
 								layout="grid" rows="6" paginator="false" id="files">
 								<ui:insert name="lastRegistered">
 									<ui:include src="/templates/file_list/file-panel.xhtml" />
@@ -95,7 +95,7 @@
 					<div class="module-content">
 						<h:form>
 							<p:dataTable id="lastRegisteredUsers" var="user"
-								value="#{usersBB.lastRegisteredUsers}">
+								value="#{usersStatisticsBB.lastRegisteredUsers}">
 								<p:column headerText="Imie">
 									<h:outputText value="#{user.name}" />
 								</p:column>

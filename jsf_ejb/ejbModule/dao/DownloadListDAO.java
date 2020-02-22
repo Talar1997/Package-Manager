@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.DownloadList;
-import entities.Role;
 
 @Stateless
 public class DownloadListDAO {

@@ -102,6 +102,12 @@ public class UserDAO {
 		return query.getResultList();
 	}
 	
+	public List<User> searchByName(String username){
+		Query query = em.createQuery("SELECT u FROM User u WHERE u.username LIKE :username");
+		query.setParameter("username", username+"%");
+		return query.getResultList();
+	}
+	
 	public List<User> searchForDuplicateByMail(String email) {
 		Query query =  em.createQuery("SELECT u FROM User u WHERE u.email LIKE :email");
 		query.setParameter("email", email);

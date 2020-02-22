@@ -12,38 +12,38 @@ import javax.persistence.Table;
 
 
 /**
- * The persistent class for the fav_package database table.
+ * The persistent class for the package_file database table.
  * 
  */
 @Entity
-@Table(name="fav_package")
-@NamedQuery(name="FavPackage.findAll", query="SELECT f FROM FavPackage f")
-public class FavPackage implements Serializable {
+@Table(name="package_file")
+@NamedQuery(name="PackageFile.findAll", query="SELECT p FROM PackageFile p")
+public class PackageFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_fav")
-	private int idFav;
+	@Column(name="id_package_file")
+	private int idPackageFile;
 
 	//bi-directional many-to-one association to SoftwarePackage
 	@ManyToOne
 	@JoinColumn(name="id_package")
 	private SoftwarePackage softwarePackage;
 
-	//bi-directional many-to-one association to User
+	//bi-directional many-to-one association to FileList
 	@ManyToOne
-	@JoinColumn(name="id_user")
-	private User user;
+	@JoinColumn(name="id_file_list")
+	private FileList fileList;
 
-	public FavPackage() {
+	public PackageFile() {
 	}
 
-	public int getIdFav() {
-		return this.idFav;
+	public int getIdPackageFile() {
+		return this.idPackageFile;
 	}
 
-	public void setIdFav(int idFav) {
-		this.idFav = idFav;
+	public void setIdPackageFile(int idPackageFile) {
+		this.idPackageFile = idPackageFile;
 	}
 
 	public SoftwarePackage getSoftwarePackage() {
@@ -54,12 +54,12 @@ public class FavPackage implements Serializable {
 		this.softwarePackage = softwarePackage;
 	}
 
-	public User getUser() {
-		return this.user;
+	public FileList getFileList() {
+		return this.fileList;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setFileList(FileList fileList) {
+		this.fileList = fileList;
 	}
 
 }
