@@ -8,13 +8,17 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.jsfcourse.login.ClientData;
+
 import dao.FileListDAO;
+import dao.SoftwarePackageDAO;
 import entities.FileList;
 import entities.Permission;
 import entities.Role;
+import entities.SoftwarePackage;
 import entities.User;
 
-@Named
+@Named("userProfileBB")
 @SessionScoped
 public class UserProfileBB implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,9 +26,16 @@ public class UserProfileBB implements Serializable{
 	private HashMap<String, String> permissionSet = new HashMap<String, String>();
 	User profile;
 	List<FileList> fileList;
+	List<SoftwarePackage> packageList;
 	
 	@Inject
 	FileListDAO fListDAO;
+	
+	@Inject
+	SoftwarePackageDAO softPackDAO;
+	
+	@Inject
+	ClientData clientData;
 	
 	public String show(User user) {
 		if(user==null) {
@@ -34,6 +45,7 @@ public class UserProfileBB implements Serializable{
 		profile = user;
 		findPermissionSet(user.getRole());
 		fileList = fListDAO.getAddedByClient(user.getIdUser());
+		packageList = softPackDAO.getAddedBy(user);
 		
 		return PAGE_USER_PROFILE;
 	}
@@ -97,8 +109,13 @@ public class UserProfileBB implements Serializable{
 	public void setFileList(List<FileList> fileList) {
 		this.fileList = fileList;
 	}
-	
-	
-	
+
+	public List<SoftwarePackage> getPackageList() {
+		return packageList;
+	}
+
+	public void setPackageList(List<SoftwarePackage> packageList) {
+		this.packageList = packageList;
+	}
 	
 }

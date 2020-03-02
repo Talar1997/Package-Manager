@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<p:panel header="#{softPackage.name}" >
+	<h:panelGrid columns="1">
+	<h:outputText value="Data utworzenia:" />
+		<h:outputText value="#{softPackage.cretionTime}" />
+		
+		<p:commandLink action="#{userProfileBB.show(softPackage.user)}" 
+				value="Dodane przez: #{softPackage.user.username}" ajax="false"/>
+	</h:panelGrid>
+		
+		<f:facet name="footer">
+			<p:menuButton value="Opcje">
+				<p:menuitem value="Pobierz wszystko" icon="pi pi-download"
+					ajax="false">
+
+				</p:menuitem>
+				<p:menuitem value="Szczegóły" icon="pi pi-info" ajax="false"
+					action="#{softwarePackageDetailsBB.show(softPackage)}" />
+				<p:menuitem value="Edytuj" update="" ajax="false" icon="pi pi-pencil" />
+				<p:menuitem value="Usuń" update="" ajax="false" icon="pi pi-times" 
+				action="#{softwarePackageDeleteBB.delete(softPackage)}"/>
+			</p:menuButton>
+		</f:facet>
+	</p:panel>
+</ui:composition>

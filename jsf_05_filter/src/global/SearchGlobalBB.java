@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import dao.FileListDAO;
+import dao.SoftwarePackageDAO;
 import dao.UserDAO;
 import entities.FileList;
 import entities.Licence;
@@ -20,7 +21,6 @@ public class SearchGlobalBB implements Serializable {
 	private static final String PAGE_SEARCH = "/public/global_search.xhtml?faces-redirect=true";
 	private List<FileList> files;
 	private List<User> users;
-	private List<Licence> licences; //need to be added
 	private List<SoftwarePackage> packages; //need to be added
 	private String searchField;
 	
@@ -30,12 +30,14 @@ public class SearchGlobalBB implements Serializable {
 	@Inject
 	UserDAO userDAO;
 	
-	//Inject licenceDAO
-	//Inject SoftPackageDAO;
+	@Inject
+	SoftwarePackageDAO softPackDAO;
+	
 	
 	public String search() {
 		searchFiles();
 		searchUsers();
+		searchPackages();
 		return PAGE_SEARCH;
 	}
 	
@@ -47,12 +49,9 @@ public class SearchGlobalBB implements Serializable {
 		this.users = userDAO.searchByName(searchField);
 	}
 	
-	public void searchLicences() {
-		//need to be added
-	}
 	
 	public void searchPackages() {
-		//need to be added
+		this.packages = softPackDAO.search(searchField, null, null);
 	}
 	
 	
@@ -70,14 +69,6 @@ public class SearchGlobalBB implements Serializable {
 	
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}
-	
-	public List<Licence> getLicences() {
-		return licences;
-	}
-	
-	public void setLicences(List<Licence> licences) {
-		this.licences = licences;
 	}
 	
 	public List<SoftwarePackage> getPackages() {

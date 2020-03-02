@@ -35,6 +35,25 @@ public class FileList implements Serializable {
 	public FileList() {
 	}
 	
+	public FileList(int idListFile, Timestamp addedTime, String description, int downloadCounter, User user,
+			String name, String version, File file) {
+		this.idListFile = idListFile;
+		this.addedTime =  new Timestamp(addedTime.getTime());
+		this.description = description;
+		this.downloadCounter = downloadCounter;
+		if(user != null || user.getUsername() != null) {
+			this.user = user;
+		}
+		else {
+			User newUser = new User();
+			newUser.setName("N/A");
+			this.user = newUser;
+		}
+		this.name = name;
+		this.version = version;
+		this.file = file;
+	}
+
 	public FileList(int idListFile, Date addedTime, String description, int downloadCounter, User user,
 			String name, String version) {
 		this.idListFile = idListFile;
@@ -81,11 +100,6 @@ public class FileList implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_file")
 	private File file;
-
-	//bi-directional many-to-one association to Licence
-	@ManyToOne
-	@JoinColumn(name="id_licence")
-	private Licence licence;
 
 	public int getIdListFile() {
 		return this.idListFile;
@@ -150,14 +164,5 @@ public class FileList implements Serializable {
 	public void setFile(File file) {
 		this.file = file;
 	}
-
-	public Licence getLicence() {
-		return this.licence;
-	}
-
-	public void setLicence(Licence licence) {
-		this.licence = licence;
-	}
-
 
 }

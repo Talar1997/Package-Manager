@@ -47,10 +47,6 @@ public class Licence implements Serializable {
 	private String licenceKey;
 
 	//bi-directional many-to-one association to FileList
-	@OneToMany(mappedBy="licence")
-	private List<FileList> fileLists;
-
-	//bi-directional many-to-one association to FileList
 	@ManyToOne
 	@JoinColumn(name="id_file_list")
 	private FileList fileList;
@@ -111,27 +107,6 @@ public class Licence implements Serializable {
 		this.licenceKey = licenceKey;
 	}
 
-	public List<FileList> getFileLists() {
-		return this.fileLists;
-	}
-
-	public void setFileLists(List<FileList> fileLists) {
-		this.fileLists = fileLists;
-	}
-
-	public FileList addFileList(FileList fileList) {
-		getFileLists().add(fileList);
-		fileList.setLicence(this);
-
-		return fileList;
-	}
-
-	public FileList removeFileList(FileList fileList) {
-		getFileLists().remove(fileList);
-		fileList.setLicence(null);
-
-		return fileList;
-	}
 
 	public FileList getFileList() {
 		return this.fileList;

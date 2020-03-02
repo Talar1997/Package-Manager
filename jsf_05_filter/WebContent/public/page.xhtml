@@ -116,10 +116,24 @@
 				<div class="content-item">
 					<div class="titlebar">Ostatnio dodane paczki</div>
 					<div class="module-content">
-						<p:dataList value="#{softwarePackageListBB.lastAdded}"
-							var="package" type="ordered">
-				        	#{package.name} : #{package.description}). Dodane przez: #{package.user.username}
-				    	</p:dataList>
+					<h:form>
+							<p:dataTable id="lastAddedPackages" var="package"
+								value="#{softwarePackageLastAddedBB.lastAdded}">
+								<p:column headerText="Nazwa paczki">
+									<h:outputText value="#{package.name}" />
+								</p:column>
+	
+								<p:column headerText="Dodane przez">
+									<p:commandLink action="#{userProfileBB.show(package.user)}" 
+									value="#{package.user.username}" ajax="false"/>
+									<h:outputText value="" />
+								</p:column>
+								
+								<p:column headerText="Szczegóły" style="width: 75px; text-align: center;">
+									<p:commandButton icon="pi pi-arrow-right" action="#{softwarePackageDetailsBB.show(package)}" ajax="false" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
 					</div>
 				</div>
 			</div>

@@ -151,5 +151,4 @@ public class UserEditBB implements Serializable{
 		logDAO.create(log);
 		return PAGE_STAY_AT_THE_SAME;
 	}
-	
 }

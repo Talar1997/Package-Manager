@@ -36,12 +36,12 @@
 										styleClass="userCreateTable">
 										<h:outputText value="Nazwa " />
 										<p:inputText placeholder="Nazwa"
-											value="#{fileListUploadBB.fileList.name}" required="true"
+											value="#{softwarePackageCreateBB.softPackage.name}" required="true"
 											requiredMessage="Nazwa jest wymagana!" />
 
 										<h:outputText value="Opis " />
 										<p:textEditor widgetVar="editor1"
-											value="#{fileListUploadBB.fileList.description}" height="300"
+											value="#{softwarePackageCreateBB.softPackage.description}" height="300"
 											style="margin-bottom:10px" />
 
 									</h:panelGrid>
@@ -51,7 +51,7 @@
 										styleClass="userCreateTable">
 
 										<p:pickList id="filesPickList" value="#{softwarePackageCreateBB.files}"
-											var="file" itemValue="#{file}"
+											var="file" itemValue="#{file.idListFile}"
 											itemLabel="#{file.name}" showSourceControls="true"
 											showTargetControls="true" showCheckbox="true"
 											showSourceFilter="true" showTargetFilter="true"

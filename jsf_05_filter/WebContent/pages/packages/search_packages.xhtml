@@ -11,7 +11,7 @@
 		<h:outputStylesheet name="user.css" library="styles" />
 	</ui:define>
 	<ui:define name="title">
-        Lista wszystkich - Package Manager
+       Wyszukiwarka plików - Package Manager
     </ui:define>
 
 	<ui:define name="content">
@@ -23,13 +23,14 @@
 					</ui:insert>
 				</div>
 			</div>
+
 			<div class="ui-g-8 ui-sm-12 content-item-box">
 				<div class="content-item">
-					<div class="titlebar">Wszystkie paczki</div>
+					<div class="titlebar">Paczki</div>
 					<div class="module-content">
 						<h:form id="form">
 							<p:dataGrid var="softPackage"
-								value="#{softwarePackageListBB.softwarePackageList}" columns="4"
+								value="#{searchSoftwarePackagesBB.allFiles}" columns="4"
 								layout="grid" rows="6" paginator="true" id="packages">
 								<ui:insert name="userList">
 									<ui:include src="/templates/packages/package-panel.xhtml" />
@@ -40,6 +41,18 @@
 				</div>
 			</div>
 		</div>
+
+		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Tak" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Nie" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		<ui:insert name="fileDetailsDialog">
+			<ui:include src="/templates/file_list/file-details-dialog.xhtml" />
+		</ui:insert>
 	</ui:define>
 </ui:composition>
 </html>

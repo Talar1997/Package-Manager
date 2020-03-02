@@ -37,6 +37,13 @@ public class FileListDAO {
 		return em.find(FileList.class, id);
 	}
 	
+	public FileList findOne(int id) {
+		Query query = em.createQuery("SELECT new FileList(f.idListFile, f.addedTime, f.description, f.downloadCounter, f.user, f.name, f.version)"
+				+ " FROM FileList f WHERE f.idListFile = :id");
+		query.setParameter("id", id);
+		return (FileList) query.getResultList().get(0);
+	}
+	
 	public List<FileList> getAddedByClient(int id){
 		Query query = em.createQuery("SELECT new FileList(f.idListFile, f.addedTime, f.description, f.downloadCounter, f.user, f.name, f.version) FROM FileList f WHERE f.user.idUser = :id");
 		query.setParameter("id", id);
@@ -50,8 +57,7 @@ public class FileListDAO {
 	public List<FileList> getLastAdded(){
 		Query query = em.createNamedQuery("FileList.getLastAdded");
 		query.setMaxResults(4);
-		List<FileList> result = query.getResultList();
-		return result;
+		return query.getResultList();
 	}
 	
 	public List<FileList> getMostPopular(){

@@ -8,23 +8,23 @@
 		<h:form>
 			<p:growl id="userMessage" showDetail="false" sticky="false"/>
 			<h:panelGrid columns="2" cellpadding="5" styleClass="userCreateTable">
-				<h:outputText value="Nazwa pliku: " />
+				<h:outputText value="Nazwa paczki " />
 				<p:inputText placeholder="Nazwa paczki"
-					value="#{searchFileListBB.fileName}" />
+					value="#{searchSoftwarePackagesBB.name}" />
 
 				<h:outputText value="Opis " />
-				<p:inputText placeholder="Opis pliku"
-					value="#{searchFileListBB.description}" />
+				<p:inputText placeholder="Opis paczki"
+					value="#{searchSoftwarePackagesBB.description}" />
 
 				<h:outputText value="Dodane przez: " />
 				<p:inputText placeholder="Dodane przez"
-					value="#{searchFileListBB.addedBy}" />
+					value="#{searchSoftwarePackagesBB.addedBy}" />
 			</h:panelGrid>
 			<p:commandButton value="Wyszukaj" icon="pi pi-check"
-				action="#{searchFileListBB.sortFiles()}"
-				style="width: 49%" />
-			<p:commandButton value="Wyczyść" action="#{searchFileListBB.clearSearch()}"
-				 style="width: 49%" />
+				action="#{searchSoftwarePackagesBB.sortFiles()}"
+				style="width: 49%" ajax="false"/>
+			<p:commandButton value="Wyczyść" action="#{searchSoftwarePackagesBB.clearSearch()}"
+				 ajax="false" style="width: 49%" />
 		</h:form>
 	</div>
 </ui:composition>

@@ -27,7 +27,7 @@ public class LogDAO {
 	public List<Log> getLazyLogs(int first, int pageSize){
 		Query query = em.createNamedQuery("Log.findAll");
 		query.setFirstResult(first);
-		//query.setMaxResults(pageSize);
+		query.setMaxResults(pageSize);
 		return query.getResultList();
 	}
 	

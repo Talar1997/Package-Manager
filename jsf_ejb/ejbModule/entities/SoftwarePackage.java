@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -20,8 +22,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="software_package")
+@NamedQuery(name="SoftwarePackage.getLastAddedObject", query="SELECT s FROM SoftwarePackage s ORDER BY s.creationTime DESC ")
 @NamedQuery(name="SoftwarePackage.findAll", query="SELECT s FROM SoftwarePackage s")
-@NamedQuery(name="SoftwarePackage.countSoftwarePackages", query="SELECT COUNT(s) FROM SoftwarePackage s")
+@NamedQuery(name="SoftwarePackage.countSoftwarePackages", query="SELECT COUNT(s.idPackage) FROM SoftwarePackage s")
 @NamedQuery(name="SoftwarePackage.getLastAdded", 
 	query="SELECT s FROM SoftwarePackage s ORDER BY s.creationTime DESC")
 public class SoftwarePackage implements Serializable {
@@ -38,6 +41,17 @@ public class SoftwarePackage implements Serializable {
 
 	private String name;
 	
+	@Transient
+	private List<FileList> filesInPackage = new ArrayList<FileList>();
+	
+	public List<FileList> getFilesInPackage() {
+		return filesInPackage;
+	}
+
+	public void setFilesInPackage(List<FileList> filesInPackage) {
+		this.filesInPackage = filesInPackage;
+	}
+
 	//bi-directional many-to-one association to FavPackage
 	@OneToMany(mappedBy="softwarePackage")
 	private List<FavPackage> favPackages;

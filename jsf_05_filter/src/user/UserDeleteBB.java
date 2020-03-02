@@ -62,6 +62,4 @@ public class UserDeleteBB {
 		
 		return null;
 	}
-
-	
 }

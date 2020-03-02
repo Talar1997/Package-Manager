@@ -11,7 +11,7 @@ import javax.inject.Named;
 import dao.FileListDAO;
 import entities.FileList;
 
-@Named
+@Named("searchFileListBB")
 @SessionScoped
 public class SearchFileListBB implements Serializable {
 	private static final String PAGE_SEARCH = "/pages/files/search_file_list.xhtml?faces-redirect=true";

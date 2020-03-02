@@ -169,15 +169,24 @@
 				<div class="content-item">
 					<div class="titlebar">Paczki użytkownika</div>
 					<div class="module-content">
-						<!--Do dodania -->
-					</div>
-				</div>
-			</div>
-			<div class="ui-g-12 ui-sm-12 content-item-box">
-				<div class="content-item">
-					<div class="titlebar">Licencje użytkownika</div>
-					<div class="module-content">
-						<!--Do dodania -->
+						<h:form>
+							<p:dataTable id="lastAddedPackages" var="package"
+								value="#{userProfileBB.packageList}">
+								<p:column headerText="Nazwa paczki">
+									<h:outputText value="#{package.name}" />
+								</p:column>
+	
+								<p:column headerText="Dodane przez">
+									<p:commandLink action="#{userProfileBB.show(package.user)}" 
+									value="#{package.user.username}" ajax="false"/>
+									<h:outputText value="" />
+								</p:column>
+								
+								<p:column headerText="Szczegóły" style="width: 75px; text-align: center;">
+									<p:commandButton icon="pi pi-arrow-right" action="#{softwarePackageDetailsBB.show(package)}" ajax="false" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
 					</div>
 				</div>
 			</div>
