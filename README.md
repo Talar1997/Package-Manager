@@ -22,12 +22,13 @@ User with priviliges can create and manage users. Application provides to change
 Each action is recorded and saved in database. If someone will try broke someone password, admin will see it in logs as security breach. Actions like user account delete/file delete/role edit/delite will be shown on Logs subpage.
 
 ### File upload
+Application provides to upload files into database with name, description and version. User is able to show list of files, search into files and download single file. User with additional privileges can delete files from system.
 
 ### Package management
- 
-### License management
+We can group files into package. Users with privileges can download and manage their packages.
 
 ### Dashboard and statistics
+Simple dashboard with statistics: how many users, files, packages do we have in our system and also linear chart with download history grouped by month.
 
 
 
